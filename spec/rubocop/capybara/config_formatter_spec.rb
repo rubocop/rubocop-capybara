@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-require 'rubocop/rspec/config_formatter'
+require 'rubocop/capybara/config_formatter'
 
-RSpec.describe RuboCop::RSpec::ConfigFormatter do
+RSpec.describe RuboCop::Capybara::ConfigFormatter do
   let(:config) do
     {
       'AllCops' => {
         'Setting' => 'forty two'
       },
-      'RSpec/Foo' => {
+      'Capybara/Foo' => {
         'Config' => 2,
         'Enabled' => true
       },
-      'RSpec/Bar' => {
+      'Capybara/Bar' => {
         'Enabled' => true,
         'Nullable' => nil
       },
-      'RSpec/Baz' => {
+      'Capybara/Baz' => {
         'Enabled' => true,
         'StyleGuide' => '#buzz'
       }
@@ -25,13 +25,13 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
 
   let(:descriptions) do
     {
-      'RSpec/Foo' => {
+      'Capybara/Foo' => {
         'Description' => 'Blah'
       },
-      'RSpec/Bar' => {
+      'Capybara/Bar' => {
         'Description' => 'Wow'
       },
-      'RSpec/Baz' => {
+      'Capybara/Baz' => {
         'Description' => 'Woof'
       }
     }
@@ -45,23 +45,23 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
       |AllCops:
       |  Setting: forty two
       |
-      |RSpec/Foo:
+      |Capybara/Foo:
       |  Config: 2
       |  Enabled: true
       |  Description: Blah
-      |  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Foo
+      |  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/Foo
       |
-      |RSpec/Bar:
+      |Capybara/Bar:
       |  Enabled: true
       |  Nullable: ~
       |  Description: Wow
-      |  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Bar
+      |  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/Bar
       |
-      |RSpec/Baz:
+      |Capybara/Baz:
       |  Enabled: true
       |  StyleGuide: "#buzz"
       |  Description: Woof
-      |  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Baz
+      |  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/Baz
     YAML
   end
 end

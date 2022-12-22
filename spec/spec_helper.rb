@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 require 'rubocop'
-require 'rubocop/rspec/support'
+require 'rubocop/rspec/support' # `expect_offense` etc
 
 module SpecHelper
   ROOT = Pathname.new(__dir__).parent.freeze
 end
 
-spec_helper_glob = '{support,shared,../lib/rubocop/rspec/shared_contexts}/*.rb'
+spec_helper_glob =
+  '{support,shared,../lib/rubocop/capybara/shared_contexts}/*.rb'
 Dir
   .glob(File.expand_path(spec_helper_glob, __dir__))
   .sort
@@ -36,12 +37,9 @@ RSpec.configure do |config|
   # We should take their advice!
   config.raise_on_warning = true
 
-  config.include(ExpectOffense)
-
-  config.include_context 'with default RSpec/Language config', :config
-  config.include_context 'smoke test', type: :cop_spec
+  config.include RuboCop::RSpec::ExpectOffense
 end
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
-require 'rubocop-rspec'
+require 'rubocop-capybara'

@@ -1,6 +1,6 @@
-= RSpec/Capybara
+= Capybara
 
-== RSpec/Capybara/CurrentPathExpectation
+== Capybara/CurrentPathExpectation
 
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
@@ -43,76 +43,9 @@ expect(page).to have_current_path('/callback')
 
 === References
 
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/CurrentPathExpectation
 
-== RSpec/Capybara/FeatureMethods
-
-|===
-| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
-
-| Enabled
-| Yes
-| Yes
-| 1.17
-| 2.0
-|===
-
-Checks for consistent method usage in feature specs.
-
-By default, the cop disables all Capybara-specific methods that have
-the same native RSpec method (e.g. are just aliases). Some teams
-however may prefer using some of the Capybara methods (like `feature`)
-to make it obvious that the test uses Capybara, while still disable
-the rest of the methods, like `given` (alias for `let`), `background`
-(alias for `before`), etc. You can configure which of the methods to
-be enabled by using the EnabledMethods configuration option.
-
-=== Examples
-
-[source,ruby]
-----
-# bad
-feature 'User logs in' do
-  given(:user) { User.new }
-
-  background do
-    visit new_session_path
-  end
-
-  scenario 'with OAuth' do
-    # ...
-  end
-end
-
-# good
-describe 'User logs in' do
-  let(:user) { User.new }
-
-  before do
-    visit new_session_path
-  end
-
-  it 'with OAuth' do
-    # ...
-  end
-end
-----
-
-=== Configurable attributes
-
-|===
-| Name | Default value | Configurable values
-
-| EnabledMethods
-| `[]`
-| Array
-|===
-
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
-
-== RSpec/Capybara/MatchStyle
+== Capybara/MatchStyle
 
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
@@ -165,9 +98,9 @@ expect(page).to match_style(display: 'block')
 
 === References
 
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/MatchStyle
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/MatchStyle
 
-== RSpec/Capybara/NegationMatcher
+== Capybara/NegationMatcher
 
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
@@ -221,9 +154,9 @@ expect(page).to have_no_css('a')
 
 === References
 
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/NegationMatcher
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NegationMatcher
 
-== RSpec/Capybara/SpecificActions
+== Capybara/SpecificActions
 
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
@@ -256,9 +189,9 @@ find('div').click_button
 
 === References
 
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificActions
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificActions
 
-== RSpec/Capybara/SpecificFinders
+== Capybara/SpecificFinders
 
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
@@ -287,9 +220,9 @@ find_by_id('some-id', visible: true)
 
 === References
 
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificFinders
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificFinders
 
-== RSpec/Capybara/SpecificMatcher
+== Capybara/SpecificMatcher
 
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
@@ -328,9 +261,9 @@ expect(page).to have_field('foo')
 
 === References
 
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificMatcher
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificMatcher
 
-== RSpec/Capybara/VisibilityMatcher
+== Capybara/VisibilityMatcher
 
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
@@ -370,4 +303,4 @@ expect(page).to have_link('my link', visible: :hidden)
 
 === References
 
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/VisibilityMatcher
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/VisibilityMatcher

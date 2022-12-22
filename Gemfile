@@ -10,6 +10,7 @@ gem 'rake'
 gem 'rspec', '~> 3.11'
 gem 'rubocop-performance', '~> 1.7'
 gem 'rubocop-rake', '~> 0.6'
+gem 'rubocop-rspec', '~> 2.16.0'
 gem 'yard'
 
 local_gemfile = 'Gemfile.local'

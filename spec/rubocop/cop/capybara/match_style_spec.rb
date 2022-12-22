@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Capybara::MatchStyle, :config do
+RSpec.describe RuboCop::Cop::Capybara::MatchStyle, :config do
   it 'registers an offense when using `assert_style`' do
     expect_offense(<<~RUBY)
       page.find(:css, '#first').assert_style(display: 'block')

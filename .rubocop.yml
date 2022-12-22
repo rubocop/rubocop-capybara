@@ -14,7 +14,6 @@ AllCops:
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
     - 'tmp/**/*'
-    - 'spec/smoke_tests/**/*.rb'
 
 Layout/HashAlignment:
   EnforcedHashRocketStyle:
@@ -49,13 +48,12 @@ Lint/RedundantCopDisableDirective:
 
 Metrics/BlockLength:
   Exclude:
-    - rubocop-rspec.gemspec
     - Rakefile
     - '**/*.rake'
 
 Naming/FileName:
   Exclude:
-    - lib/rubocop-rspec.rb
+    - lib/rubocop-capybara.rb
 
 Naming/InclusiveLanguage:
   Enabled: true
@@ -112,7 +110,7 @@ Layout/LineEndStringConcatenationIndentation:
 Style/EmptyHeredoc:
   Enabled: true
 
-# Enable our own pending cops.
+# Enable pending rubocop-rspec cops.
 
 RSpec/BeEq:
   Enabled: true

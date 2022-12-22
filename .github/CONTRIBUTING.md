@@ -1,15 +1,15 @@
 # Contributing
 
-If you encounter problems or have ideas for improvements or new features, please report them to the [issue tracker](https://github.com/rubocop/rubocop-rspec/issues) or submit a pull request. Please, try to follow these guidelines when you do so.
+If you encounter problems or have ideas for improvements or new features, please report them to the [issue tracker](https://github.com/rubocop/rubocop-capybara/issues) or submit a pull request. Please, try to follow these guidelines when you do so.
 
 ## Issue reporting
 
 - Check that the issue has not already been reported.
 - Check that the issue has not already been fixed in the latest code (a.k.a. `master`).
-- Check if the issue is a non-goal of RuboCop RSpec.
+- Check if the issue is a non-goal of RuboCop Capybara.
 - Be clear, concise, and precise in your description of the problem.
 - Open an issue with a descriptive title and a summary in grammatically correct, complete sentences.
-- Report the versions of `rubocop-rspec`, as well as the output of `rubocop -V`.
+- Report the versions of `rubocop-capybara`, as well as the output of `rubocop -V`.
 - Include any relevant code to the issue summary.
 
 ## Pull requests
@@ -18,14 +18,14 @@ If you encounter problems or have ideas for improvements or new features, please
 2. Create a feature branch.
 3. Make sure to add tests.
 4. Make sure the test suite passes (run `rake`).
-5. Add a [changelog](https://github.com/rubocop/rubocop-rspec/blob/master/CHANGELOG.md) entry.
+5. Add a [changelog](https://github.com/rubocop/rubocop-capybara/blob/master/CHANGELOG.md) entry.
 6. Commit your changes.
 7. Push to the branch.
 8. Create new Pull Request.
 
 ### Spell Checking
 
-We are running [codespell](https://github.com/codespell-project/codespell) with [GitHub Actions](https://github.com/rubocop/rubocop-rspec/blob/master/.github/workflows/codespell.yml) to check spelling and
+We are running [codespell](https://github.com/codespell-project/codespell) with [GitHub Actions](https://github.com/rubocop/rubocop-capybara/blob/master/.github/workflows/codespell.yml) to check spelling and
 [codespell](https://pypi.org/project/codespell/).
 `codespell` is written in [Python](https://www.python.org/) and you can run it with:
 
@@ -35,7 +35,7 @@ $ codespell --ignore-words=.codespellignore
 
 ### Linting YAML files
 
-We are running [yamllint](https://github.com/adrienverge/yamllint) for linting YAML files. This is also run by [GitHub Actions](https://github.com/rubocop/rubocop-rspec/blob/master/.github/workflows/linting.yml).
+We are running [yamllint](https://github.com/adrienverge/yamllint) for linting YAML files. This is also run by [GitHub Actions](https://github.com/rubocop/rubocop-capybara/blob/master/.github/workflows/linting.yml).
 `yamllint` is written in [Python](https://www.python.org/) and you can run it with:
 
 ```console
@@ -44,7 +44,7 @@ $ yamllint .
 
 ### Formatting Markdown files
 
-We are running [mdformat](https://github.com/executablebooks/mdformat) for formatting Markdown files. This is also run by [GitHub Actions](https://github.com/rubocop/rubocop-rspec/blob/master/.github/workflows/linting.yml).
+We are running [mdformat](https://github.com/executablebooks/mdformat) for formatting Markdown files. This is also run by [GitHub Actions](https://github.com/rubocop/rubocop-capybara/blob/master/.github/workflows/linting.yml).
 `mdformat` is written in [Python](https://www.python.org/) and you can run it with:
 
 ```console

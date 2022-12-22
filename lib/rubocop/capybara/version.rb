@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module RuboCop
-  module RSpec
-    # Version information for the RSpec RuboCop plugin.
+  module Capybara
+    # Version information for the Capybara RuboCop plugin.
     module Version
-      STRING = '2.16.0'
+      STRING = '2.17.0'
     end
   end
 end

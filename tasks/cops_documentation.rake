@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rubocop'
-require 'rubocop-rspec'
+require 'rubocop-capybara'
 require 'rubocop/cops_documentation_generator'
 require 'yard'
 
@@ -13,7 +13,7 @@ end
 desc 'Generate docs of all cops departments'
 task generate_cops_documentation: :yard_for_generate_documentation do
   generator = CopsDocumentationGenerator.new(
-    departments: %w[RSpec/Capybara RSpec/FactoryBot RSpec/Rails RSpec]
+    departments: %w[Capybara]
   )
   generator.call
 end
