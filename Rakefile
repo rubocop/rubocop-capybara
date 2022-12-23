@@ -67,7 +67,7 @@ task confirm_config: :build_config do
     default.yml is out of sync:
 
     #{stdout.read}
-    Run bin/build_config
+    Run `rake build_config`
   ERROR
 end
 
