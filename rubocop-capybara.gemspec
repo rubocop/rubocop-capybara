@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
   spec.metadata = {
-    'changelog_uri' => 'https://github.com/rubocop/rubocop-capybara/blob/master/CHANGELOG.md',
+    'changelog_uri' => 'https://github.com/rubocop/rubocop-capybara/blob/main/CHANGELOG.md',
     'documentation_uri' => 'https://docs.rubocop.org/rubocop-capybara/',
     'rubygems_mfa_required' => 'true'
   }

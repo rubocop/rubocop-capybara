@@ -1,6 +1,6 @@
 # Changelog
 
-## Master (Unreleased)
+## Edge (Unreleased)
 
 ## 2.17.0 (TBD)
 

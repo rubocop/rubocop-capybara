@@ -4,7 +4,7 @@ ______________________________________________________________________
 
 Before submitting the PR make sure the following are checked:
 
-- [ ] Feature branch is up-to-date with `master` (if not - rebase it).
+- [ ] Feature branch is up-to-date with `main` (if not - rebase it).
 - [ ] Squashed related commits together.
 - [ ] Added tests.
 - [ ] Updated documentation.
