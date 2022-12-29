@@ -53,7 +53,7 @@ expect(page).to have_current_path('/callback')
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.17
 | -
 |===
 
