@@ -2,11 +2,11 @@
 
 ## Edge (Unreleased)
 
-## 2.17.0 (TBD)
+## 2.17.0 (2022-12-29)
 
 - Extracted from `rubocop-rspec` into a separate repository for easier use with Minitest/Cucumber. ([@pirj])
 
-## Previously (see rubocop-rspec's changelist for details)
+## Previously (see [rubocop-rspec's changelist](https://github.com/rubocop/rubocop-rspec/blob/9558719/CHANGELOG.md) for details)
 
 - Fix a false positive for `Capybara/SpecificMatcher` when `have_css("a")` without attribute. ([@ydah])
 - Add new `Capybara/NegationMatcher` cop. ([@ydah])
