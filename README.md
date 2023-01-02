@@ -4,7 +4,7 @@
 [![Gem Version](https://badge.fury.io/rb/rubocop-capybara.svg)](https://rubygems.org/gems/rubocop-capybara)
 ![CI](https://github.com/rubocop/rubocop-capybara/workflows/CI/badge.svg)
 
-Capybara-specific analysis for your projects, as an extension to
+[Capybara](https://teamcapybara.github.io/capybara)-specific analysis for your projects, as an extension to
 [RuboCop](https://github.com/rubocop/rubocop).
 
 ## Installation
