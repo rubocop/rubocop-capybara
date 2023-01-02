@@ -38,24 +38,35 @@ RuboCop::RakeTask.new do |task|
 end
 ----
 
-== Inspecting files that don't end with `_spec.rb`
+== File paths to be inspected
 
-By default, `rubocop-capybara` only inspects code within paths ending in `_spec.rb` or including `spec/`. You can override this setting in your config file by setting `Include`:
-
-[source,yaml]
-----
-# Inspect files in `test/` directory
-Capybara:
-  Include:
-    - '**/test/**/*'
-----
+By default, `rubocop-capybara` only inspects code in files whose paths match the following regular expression.
 
 [source,yaml]
 ----
-# Inspect only files ending with `_test.rb`
 Capybara:
   Include:
-    - '**/*_test.rb'
+    - ’**/*_spec.rb’
+    - ’**/spec/**/*’
+    - ’**/test/**/*’
+----
+
+You can override this setting in your config file by setting `Include`:
+
+[source,yaml]
+----
+# Inspect files in `inspection/` directory
+Capybara:
+  Include:
+    - '**/inspection/**/*'
+----
+
+[source,yaml]
+----
+# Inspect only files ending with `_inspection.rb`
+Capybara:
+  Include:
+    - '**/*_inspection.rb'
 ----
 
 NOTE: Please keep in mind that merge mode for `Include` is set to override the default settings, so if you intend to add a path while keeping the default paths, you should include the default `Include` paths in your configuration.
