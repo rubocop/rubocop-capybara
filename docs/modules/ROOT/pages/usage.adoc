@@ -46,9 +46,11 @@ By default, `rubocop-capybara` only inspects code in files whose paths match the
 ----
 Capybara:
   Include:
-    - ’**/*_spec.rb’
-    - ’**/spec/**/*’
-    - ’**/test/**/*’
+    - '**/*_spec.rb'
+    - '**/spec/**/*'
+    - '**/test/**/*'
+    - '**/*_steps.rb'
+    - '**/features/step_definitions/**/*'
 ----
 
 You can override this setting in your config file by setting `Include`:
