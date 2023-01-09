@@ -12,6 +12,31 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
     RUBY
   end
 
+  it 'flags violations for `expect(current_path)` with ' \
+     'a multi-line string argument' do
+    expect_offense(<<~'RUBY')
+      expect(current_path).to eq "/callback" \
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+                                  "/foo"
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      expect(page).to have_current_path "/callback" \
+                                  "/foo"
+    RUBY
+  end
+
+  it 'flags violations for `expect(current_path)` with a `command`' do
+    expect_offense(<<~'RUBY')
+      expect(current_path).to eq `pwd`
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      expect(page).to have_current_path `pwd`
+    RUBY
+  end
+
   it 'flags violations for `expect(page.current_path)`' do
     expect_offense(<<-RUBY)
       expect(page.current_path).to eq("/callback")
