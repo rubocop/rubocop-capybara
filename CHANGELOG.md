@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Fix an incorrect autocorrect for `Capybara/PathExpectation`. ([@ydah])
+
 ## 2.17.0 (2022-12-29)
 
 - Extracted from `rubocop-rspec` into a separate repository for easier use with Minitest/Cucumber. ([@pirj])

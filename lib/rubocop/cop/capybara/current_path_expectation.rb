@@ -110,7 +110,9 @@ module RuboCop
         def add_ignore_query_options(corrector, node)
           expectation_node = node.parent.last_argument
           expectation_last_child = expectation_node.children.last
-          return if %i[regexp str].include?(expectation_last_child.type)
+          return if %i[
+            regexp str dstr xstr
+          ].include?(expectation_last_child.type)
 
           corrector.insert_after(
             expectation_last_child,
