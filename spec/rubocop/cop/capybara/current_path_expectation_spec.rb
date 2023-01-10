@@ -27,12 +27,12 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
   end
 
   it 'flags violations for `expect(current_path)` with a `command`' do
-    expect_offense(<<~'RUBY')
+    expect_offense(<<~RUBY)
       expect(current_path).to eq `pwd`
       ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
     RUBY
 
-    expect_correction(<<~'RUBY')
+    expect_correction(<<~RUBY)
       expect(page).to have_current_path `pwd`
     RUBY
   end
