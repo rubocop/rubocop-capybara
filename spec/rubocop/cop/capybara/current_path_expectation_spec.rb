@@ -132,6 +132,29 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
     RUBY
   end
 
+  it 'registers an offense with `match` with a multi-line string argument' do
+    expect_offense(<<~'RUBY')
+      expect(page.current_path).to match("string/" \
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+                                        "foo/")
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      expect(page).to have_current_path(/string\/foo\//)
+    RUBY
+  end
+
+  it 'registers an offense with `match` with a `command`' do
+    expect_offense(<<~RUBY)
+      expect(page.current_path).to match(`pwd`)
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      expect(page).to have_current_path(/#{`pwd`}/)
+    RUBY
+  end
+
   it "doesn't flag a violation for other expectations" do
     expect_no_offenses(<<-RUBY)
       expect(current_user).to eq(user)
