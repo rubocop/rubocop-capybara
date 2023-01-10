@@ -2,7 +2,7 @@
 
 ## Edge (Unreleased)
 
-- Fix an incorrect autocorrect for `Capybara/PathExpectation`. ([@ydah])
+- Fix an incorrect autocorrect for `Capybara/CurrentPathExpectation`. ([@ydah])
 
 ## 2.17.0 (2022-12-29)
 
