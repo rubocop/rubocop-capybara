@@ -91,6 +91,10 @@ RSpec/DescribeClass:
   Exclude:
     - spec/project/**/*.rb
 
+RSpec/FilePath:
+  Exclude:
+    - spec/rubocop/cop/capybara/mixin/**/*.rb
+
 RSpec/MultipleExpectations:
   Max: 2
 
