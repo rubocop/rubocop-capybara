@@ -6,6 +6,8 @@ Capybara:
     - "**/*_spec.rb"
     - "**/spec/**/*"
     - "**/test/**/*"
+    - "**/*_steps.rb"
+    - "**/features/step_definitions/**/*"
 
 Capybara/CurrentPathExpectation:
   Description: Checks that no expectations are set on Capybara's `current_path`.
