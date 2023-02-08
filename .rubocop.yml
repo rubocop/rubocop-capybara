@@ -118,6 +118,8 @@ Style/EmptyHeredoc:
   Enabled: true
 Style/RedundantHeredocDelimiterQuotes:
   Enabled: true
+Style/RedundantStringEscape:
+  Enabled: true
 
 # Enable pending rubocop-rspec cops.
 
