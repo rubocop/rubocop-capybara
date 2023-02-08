@@ -116,6 +116,8 @@ Layout/LineEndStringConcatenationIndentation:
   Enabled: true
 Style/EmptyHeredoc:
   Enabled: true
+Style/RedundantHeredocDelimiterQuotes:
+  Enabled: true
 
 # Enable pending rubocop-rspec cops.
 
