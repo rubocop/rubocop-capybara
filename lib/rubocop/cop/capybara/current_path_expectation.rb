@@ -105,7 +105,7 @@ module RuboCop
 
         def regexp_node_to_regexp_expr(regexp_node)
           if regexp_node.xstr_type?
-            "\/\#{`#{regexp_node.value.value}`}\/"
+            "/\#{`#{regexp_node.value.value}`}/"
           else
             Regexp.new(regexp_node.value).inspect
           end
