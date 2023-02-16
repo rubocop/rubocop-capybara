@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+## 2.17.1 (2023-02-13)
+
 - Fix an incorrect autocorrect for `Capybara/CurrentPathExpectation`. ([@ydah])
 - Fix a false negative for `Capybara/CurrentPathExpectation` when using `match`. ([@ydah])
 - Fix a false positive and incorrect autocorrect for `Capybara/SpecificActions`, `Capybara/SpecificFinders` and `Capybara/SpecificMatcher`. ([@ydah])
