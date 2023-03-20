@@ -68,7 +68,7 @@ module RuboCop
         def register_offense(node, id, classes = [])
           add_offense(offense_range(node)) do |corrector|
             corrector.replace(node.loc.selector, 'find_by_id')
-            corrector.replace(node.first_argument.source_range,
+            corrector.replace(node.first_argument,
                               id.delete('\\'))
             unless classes.compact.empty?
               autocorrect_classes(corrector, node, classes)
