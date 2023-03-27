@@ -19,7 +19,7 @@ module RuboCop
 
         include RangeHelp
 
-        MSG = 'Prefer `find_by` over `find`.'
+        MSG = 'Prefer `find_by_id` over `find`.'
         RESTRICT_ON_SEND = %i[find].freeze
 
         # @!method find_argument(node)

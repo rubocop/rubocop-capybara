@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Fix an offense message for `Capybara/SpecificFinders`. ([@ydah])
+
 ## 2.17.1 (2023-02-13)
 
 - Fix an incorrect autocorrect for `Capybara/CurrentPathExpectation`. ([@ydah])

@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
   it 'registers an offense when using `find`' do
     expect_offense(<<~RUBY)
       find('#some-id')
-      ^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -15,7 +15,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
   it 'registers an offense when using `find` with no parentheses' do
     expect_offense(<<~RUBY)
       find "#some-id"
-      ^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
   it 'registers an offense when using `find` with id and class' do
     expect_offense(<<~RUBY)
       find('#some-id.some-cls')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -37,15 +37,15 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
   it 'registers an offense when using `find` with id include `\.`' do
     expect_offense(<<~RUBY)
       find('#some-id\\.some-cls')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
       find('#some-id\\>some-cls')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
       find('#some-id\\,some-cls')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
       find('#some-id\\+some-cls')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
       find('#some-id\\~some-cls')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -60,7 +60,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
   it 'registers an offense when using `find` with multiple classes' do
     expect_offense(<<~RUBY)
       find('#some-id.some-cls.other-cls')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -72,7 +72,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
      "and class: 'other-cls'" do
     expect_offense(<<~RUBY)
       find('#some-id.some-cls', class: 'other-cls')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -84,7 +84,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
      "and class: ['other-cls1', 'other-cls2']" do
     expect_offense(<<~RUBY)
       find('#some-id.some-cls', class: ['other-cls1', 'other-cls2'])
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -96,7 +96,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
      "and exact_text: 'foo', class: 'other-cls'" do
     expect_offense(<<~RUBY)
       find('#some-id.some-cls', exact_text: 'foo', class: 'other-cls')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -107,7 +107,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
   it 'registers an offense when using `find` and other args' do
     expect_offense(<<~RUBY)
       find('#some-id', exact_text: 'foo')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -119,7 +119,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
      'with no parentheses' do
     expect_offense(<<~RUBY)
       find '#some-id', exact_text: 'foo'
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -130,9 +130,9 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
   it 'registers an offense when using `find` with method chain' do
     expect_offense(<<~RUBY)
       find('#some-id').find('#other-id').find('#another-id')
-      ^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
-                       ^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
-                                         ^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+                       ^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+                                         ^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -144,7 +144,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
      'with argument is attribute specified id' do
     expect_offense(<<~RUBY)
       find('[id=some-id]')
-      ^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
@@ -156,9 +156,9 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
      'with argument is attribute specified id surrounded by quotation' do
     expect_offense(<<~RUBY)
       find('[id="foo"]')
-      ^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
       find('[id="foo[bar]"]')
-      ^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+      ^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
     RUBY
 
     expect_correction(<<~RUBY)
