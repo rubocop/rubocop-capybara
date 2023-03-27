@@ -1,6 +1,9 @@
-name: Linting
+name: Yamllint
 on:
-  - pull_request
+  pull_request:
+    paths:
+      - '**/*.yaml'
+      - '**/*.yml'
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
@@ -16,16 +19,5 @@ jobs:
           yamllint_strict: true
           yamllint_format: parsable
           yamllint_comment: true
-        env:
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  mdformat:
-    name: Mdformat
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Mdformat
-        uses: ydah/mdformat-action@main
-        with:
-          number: true
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
