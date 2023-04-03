@@ -6,6 +6,16 @@ module RuboCop
       # Help methods for capybara.
       # @api private
       module CapybaraHelp
+        CAPYBARA_MATCHERS = %w[
+          selector css xpath text title current_path link button
+          field checked_field unchecked_field select table
+          sibling ancestor content
+        ].freeze
+        POSITIVE_MATCHERS =
+          Set.new(CAPYBARA_MATCHERS) { |element| :"have_#{element}" }.freeze
+        NEGATIVE_MATCHERS =
+          Set.new(CAPYBARA_MATCHERS) { |element| :"have_no_#{element}" }
+            .freeze
         COMMON_OPTIONS = %w[
           id class style
         ].freeze

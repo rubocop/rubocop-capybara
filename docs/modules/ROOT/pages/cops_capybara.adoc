@@ -324,6 +324,52 @@ expect(page).not_to have_css('a')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NegationMatcher
 
+[#capybaranegationmatcheraftervisit]
+== Capybara/NegationMatcherAfterVisit
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Do not allow negative matchers to be used immediately after `visit`.
+
+[#examples-capybaranegationmatcheraftervisit]
+=== Examples
+
+[source,ruby]
+----
+# bad
+visit foo_path
+expect(page).to have_no_link('bar')
+expect(page).to have_css('a')
+
+# good
+visit foo_path
+expect(page).to have_css('a')
+expect(page).to have_no_link('bar')
+
+# bad
+visit foo_path
+expect(page).not_to have_link('bar')
+expect(page).to have_css('a')
+
+# good
+visit foo_path
+expect(page).to have_css('a')
+expect(page).not_to have_link('bar')
+----
+
+[#references-capybaranegationmatcheraftervisit]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NegationMatcherAfterVisit
+
 [#capybararedundantwithinfind]
 == Capybara/RedundantWithinFind
 
