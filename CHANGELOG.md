@@ -3,6 +3,7 @@
 ## Edge (Unreleased)
 
 - Fix an offense message for `Capybara/SpecificFinders`. ([@ydah])
+- Expand `Capybara/NegationMatcher` to support `have_content` ([@OskarsEzerins])
 
 ## 2.17.1 (2023-02-13)
 
@@ -49,6 +50,7 @@
 [@bquorning]: https://github.com/bquorning
 [@darhazer]: https://github.com/Darhazer
 [@onumis]: https://github.com/onumis
+[@oskarsezerins]: https://github.com/OskarsEzerins
 [@pirj]: https://github.com/pirj
 [@rspeicher]: https://github.com/rspeicher
 [@timrogers]: https://github.com/timrogers
