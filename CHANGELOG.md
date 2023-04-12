@@ -4,6 +4,7 @@
 
 - Fix an offense message for `Capybara/SpecificFinders`. ([@ydah])
 - Expand `Capybara/NegationMatcher` to support `have_content` ([@OskarsEzerins])
+- Fix an incorrect autocorrect for `Capybara/CurrentPathExpectation` when matcher's argument is a method with a argument and no parentheses. ([@ydah])
 
 ## 2.17.1 (2023-02-13)
 
