@@ -1,9 +1,6 @@
 name: Yamllint
 on:
   pull_request:
-    paths:
-      - '**/*.yaml'
-      - '**/*.yml'
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
@@ -13,8 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
       - name: Yamllint
         uses: karancode/yamllint-github-action@master
+        if: |
+          contains(steps.changed-files.outputs.all_changed_files, '.yml') ||
+          contains(steps.changed-files.outputs.all_changed_files, '.yaml')
         with:
           yamllint_strict: true
           yamllint_format: parsable
