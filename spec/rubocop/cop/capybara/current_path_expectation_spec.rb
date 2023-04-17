@@ -55,6 +55,54 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
     RUBY
   end
 
+  it "registers an offense when matcher's argument is a method " \
+     'with a argument and no parentheses' do
+    expect_offense(<<~RUBY)
+      expect(current_path).to eq(foo bar)
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(page).to have_current_path(foo( bar), ignore_query: true)
+    RUBY
+  end
+
+  it "registers an offense when matcher's argument is a method " \
+     'with arguments and no parentheses' do
+    expect_offense(<<~RUBY)
+      expect(current_path).to eq(foo bar, baz)
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(page).to have_current_path(foo( bar, baz), ignore_query: true)
+    RUBY
+  end
+
+  it "registers an offense when matcher's argument is a method " \
+     'with a argument and parentheses' do
+    expect_offense(<<~RUBY)
+      expect(current_path).to eq(foo(bar))
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(page).to have_current_path(foo(bar), ignore_query: true)
+    RUBY
+  end
+
+  it "registers an offense when matcher's argument is a method " \
+     'with arguments and parentheses' do
+    expect_offense(<<~RUBY)
+      expect(current_path).to eq(foo bar(baz))
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(page).to have_current_path(foo( bar(baz)), ignore_query: true)
+    RUBY
+  end
+
   it 'preserves parentheses' do
     expect_offense(<<~RUBY)
       expect(current_path).to eq(expected_path)
