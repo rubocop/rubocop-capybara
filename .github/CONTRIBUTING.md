@@ -35,7 +35,7 @@ $ codespell --ignore-words=.codespellignore
 
 ### Linting YAML files
 
-We are running [yamllint](https://github.com/adrienverge/yamllint) for linting YAML files. This is also run by [GitHub Actions](https://github.com/rubocop/rubocop-capybara/blob/main/.github/workflows/linting.yml).
+We are running [yamllint](https://github.com/adrienverge/yamllint) for linting YAML files. This is also run by [GitHub Actions](https://github.com/rubocop/rubocop-capybara/blob/main/.github/workflows/yamllint.yml).
 `yamllint` is written in [Python](https://www.python.org/) and you can run it with:
 
 ```console
@@ -44,7 +44,7 @@ $ yamllint .
 
 ### Formatting Markdown files
 
-We are running [mdformat](https://github.com/executablebooks/mdformat) for formatting Markdown files. This is also run by [GitHub Actions](https://github.com/rubocop/rubocop-capybara/blob/main/.github/workflows/linting.yml).
+We are running [mdformat](https://github.com/executablebooks/mdformat) for formatting Markdown files. This is also run by [GitHub Actions](https://github.com/rubocop/rubocop-capybara/blob/main/.github/workflows/mdformat.yml).
 `mdformat` is written in [Python](https://www.python.org/) and you can run it with:
 
 ```console
