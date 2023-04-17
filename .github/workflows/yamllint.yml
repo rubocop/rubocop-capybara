@@ -1,9 +1,6 @@
 name: Yamllint
 on:
   pull_request:
-    paths:
-      - '**/*.yaml'
-      - '**/*.yml'
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
