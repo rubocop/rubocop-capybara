@@ -2,7 +2,7 @@
 
 ## Edge (Unreleased)
 
-## 2.18.0 (2023-04-17)
+## 2.18.0 (2023-04-21)
 
 - Fix an offense message for `Capybara/SpecificFinders`. ([@ydah])
 - Expand `Capybara/NegationMatcher` to support `have_content` ([@OskarsEzerins])
