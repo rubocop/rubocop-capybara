@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Drop Ruby 2.6 support. ([@ydah])
+
 ## 2.18.0 (2023-04-21)
 
 - Fix an offense message for `Capybara/SpecificFinders`. ([@ydah])
