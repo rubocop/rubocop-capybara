@@ -123,6 +123,8 @@ Style/RedundantStringEscape:
 
 # Enable pending rubocop-rspec cops.
 
+RSpec/BeEmpty:
+  Enabled: true
 RSpec/BeEq:
   Enabled: true
 RSpec/BeNil:
@@ -131,15 +133,25 @@ RSpec/ChangeByZero:
   Enabled: true
 RSpec/ClassCheck:
   Enabled: true
+RSpec/ContainExactly:
+  Enabled: true
 RSpec/DuplicatedMetadata:
   Enabled: true
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 RSpec/IdenticalEqualityAssertion:
   Enabled: true
+RSpec/IndexedLet:
+  Enabled: true
+RSpec/MatchArray:
+  Enabled: true
 RSpec/NoExpectationExample:
   Enabled: true
 RSpec/PendingWithoutReason:
+  Enabled: true
+RSpec/RedundantAround:
+  Enabled: true
+RSpec/SkipBlockInsideExample:
   Enabled: true
 RSpec/SortMetadata:
   Enabled: true
