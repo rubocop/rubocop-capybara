@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Update dependency to rubocop 1.50
+
 ## 2.18.0 (2023-04-21)
 
 - Fix an offense message for `Capybara/SpecificFinders`. ([@ydah])
