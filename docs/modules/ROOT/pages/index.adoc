@@ -1,6 +1,6 @@
 = RuboCop Capybara
 
-Capybara-specific analysis for your projects, as an extension to
+https://teamcapybara.github.io/capybara[Capybara]-specific analysis for your projects, as an extension to
 https://github.com/rubocop/rubocop[RuboCop].
 
 RuboCop Capybara follows the https://docs.rubocop.org/rubocop/versioning.html[RuboCop versioning guide].
