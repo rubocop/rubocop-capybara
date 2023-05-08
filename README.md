@@ -17,7 +17,7 @@ gem install rubocop-capybara
 
 or if you use bundler put this in your `Gemfile`
 
-```
+```ruby
 gem 'rubocop-capybara', require: false
 ```
 
