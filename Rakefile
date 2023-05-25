@@ -33,7 +33,7 @@ task :build_config do
   require 'rubocop/capybara/config_formatter'
   require 'rubocop/capybara/description_extractor'
 
-  glob = File.join('lib', 'rubocop', 'cop', 'capybara', '*.rb')
+  glob = File.join('lib', 'rubocop', 'cop', 'capybara', '{,rspec}', '*.rb')
   YARD::Tags::Library.define_tag('Cop Safety Information', :safety)
   YARD.parse(Dir[glob], [])
 

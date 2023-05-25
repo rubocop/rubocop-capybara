@@ -3,6 +3,7 @@
 ## Edge (Unreleased)
 
 - Drop Ruby 2.6 support. ([@ydah])
+- Add new `Capybara/RSpec/PredicateMatcher` cop. ([@ydah])
 
 ## 2.18.0 (2023-04-21)
 

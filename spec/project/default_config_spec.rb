@@ -7,12 +7,14 @@ RSpec.describe 'config/default.yml' do
 
   let(:namespaces) do
     {
-      'capybara' => 'Capybara'
+      'capybara' => 'Capybara',
+      'rspec'    => 'Capybara/RSpec'
     }
   end
 
   let(:cop_names) do
-    glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'capybara', '*.rb')
+    glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'capybara',
+                                 '{,rspec}', '*.rb')
     Pathname.glob(glob).map do |file|
       file_name = file.basename('.rb').to_s
       cop_name  = file_name.gsub(/(^|_)(.)/) { Regexp.last_match(2).upcase }

@@ -7,7 +7,7 @@ module RuboCop
     # Builds a YAML config file from two config hashes
     class ConfigFormatter
       EXTENSION_ROOT_DEPARTMENT = %r{^(Capybara/)}.freeze
-      SUBDEPARTMENTS = [].freeze
+      SUBDEPARTMENTS = %(Capybara/RSpec)
       AMENDMENTS = [].freeze
       COP_DOC_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/'
 

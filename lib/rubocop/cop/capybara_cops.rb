@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'capybara/rspec/predicate_matcher'
+
 require_relative 'capybara/current_path_expectation'
 require_relative 'capybara/match_style'
 require_relative 'capybara/negation_matcher'
