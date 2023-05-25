@@ -10,4 +10,8 @@
 * xref:cops_capybara.adoc#capybaraspecificmatcher[Capybara/SpecificMatcher]
 * xref:cops_capybara.adoc#capybaravisibilitymatcher[Capybara/VisibilityMatcher]
 
+=== Department xref:cops_capybara_rspec.adoc[Capybara/RSpec]
+
+* xref:cops_capybara_rspec.adoc#capybararspec/predicatematcher[Capybara/RSpec/PredicateMatcher]
+
 // END_COP_LIST
