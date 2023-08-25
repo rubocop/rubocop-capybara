@@ -68,6 +68,9 @@ Naming/InclusiveLanguage:
     auto_correct:
       Suggestions:
         - autocorrect
+    ' a violation':
+      Suggestions:
+        - an offense
     behaviour:
       Suggestions:
         - behavior
@@ -77,6 +80,9 @@ Naming/InclusiveLanguage:
     'does not registers':
       Suggestions:
         - does not register
+    violation:
+      Suggestions:
+        - offense
 
 RSpec:
   Language:
