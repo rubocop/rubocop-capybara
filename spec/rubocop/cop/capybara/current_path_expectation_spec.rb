@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
-  it 'flags violations for `expect(current_path)`' do
+  it 'flags offenses for `expect(current_path)`' do
     expect_offense(<<~RUBY)
       expect(current_path).to eq "/callback"
       ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
     RUBY
   end
 
-  it 'flags violations for `expect(current_path)` with ' \
+  it 'flags offenses for `expect(current_path)` with ' \
      'a multi-line string argument' do
     expect_offense(<<~'RUBY')
       expect(current_path).to eq "/callback" \
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
     RUBY
   end
 
-  it 'flags violations for `expect(current_path)` with a `command`' do
+  it 'flags offenses for `expect(current_path)` with a `command`' do
     expect_offense(<<~RUBY)
       expect(current_path).to eq `pwd`
       ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
@@ -37,7 +37,7 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
     RUBY
   end
 
-  it 'flags violations for `expect(page.current_path)`' do
+  it 'flags offenses for `expect(page.current_path)`' do
     expect_offense(<<-RUBY)
       expect(page.current_path).to eq("/callback")
       ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
@@ -203,13 +203,13 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
     RUBY
   end
 
-  it "doesn't flag a violation for other expectations" do
+  it "doesn't flag an offense for other expectations" do
     expect_no_offenses(<<-RUBY)
       expect(current_user).to eq(user)
     RUBY
   end
 
-  it "doesn't flag a violation for other references to `current_path`" do
+  it "doesn't flag an offense for other references to `current_path`" do
     expect_no_offenses(<<-RUBY)
       current_path = WalkingRoute.last.path
     RUBY
