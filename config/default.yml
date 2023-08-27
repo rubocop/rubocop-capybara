@@ -61,6 +61,13 @@ Capybara/RSpec:
   Enabled: true
   Include: *1
 
+Capybara/RSpec/HaveSelector:
+  Description: Use `have_css` or `have_xpath` instead of `have_selector`.
+  Enabled: pending
+  DefaultSelector: css
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/HaveSelector
+
 Capybara/RSpec/PredicateMatcher:
   Description: Prefer using predicate matcher over using predicate method directly.
   Enabled: pending
