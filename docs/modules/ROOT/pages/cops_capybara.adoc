@@ -86,15 +86,13 @@ This cop does not support autocorrection in some cases.
 ----
 # bad
 expect(current_path).to eq('/callback')
+expect(page.current_path).to eq('/callback')
 
 # good
-expect(page).to have_current_path('/callback')
+expect(page).to have_current_path('/callback', ignore_query: true)
 
-# bad (does not support autocorrection)
-expect(page.current_path).to match(variable)
-
-# good
-expect(page).to have_current_path('/callback')
+# bad (does not support autocorrection when `match` with a variable)
+expect(page).to match(variable)
 ----
 
 === References

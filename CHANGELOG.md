@@ -7,6 +7,7 @@
 - Fix a false positive for `Capybara/SpecificFinders` when `find` with kind option. ([@ydah])
 - Add new `Capybara/RSpec/HaveSelector` cop. ([@ydah])
 - Add new `Capybara/ClickLinkOrButtonStyle` cop. ([@ydah])
+- Fix an incorrect autocorrect for `Capybara/CurrentPathExpectation`. ([@ydah])
 
 ## 2.18.0 (2023-04-21)
 
