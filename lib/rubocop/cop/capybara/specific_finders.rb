@@ -8,11 +8,10 @@ module RuboCop
       # @example
       #   # bad
       #   find('#some-id')
-      #   find('[visible][id=some-id]')
+      #   find('[id=some-id]')
       #
       #   # good
       #   find_by_id('some-id')
-      #   find_by_id('some-id', visible: true)
       #
       class SpecificFinders < ::RuboCop::Cop::Base
         extend AutoCorrector
