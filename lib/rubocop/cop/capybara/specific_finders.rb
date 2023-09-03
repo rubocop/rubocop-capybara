@@ -9,13 +9,13 @@ module RuboCop
       #   # bad
       #   find('#some-id')
       #   find('[id=some-id]')
+      #   find(:css, '#some-id')
       #
       #   # good
       #   find_by_id('some-id')
       #
       class SpecificFinders < ::RuboCop::Cop::Base
         extend AutoCorrector
-
         include RangeHelp
 
         MSG = 'Prefer `find_by_id` over `find`.'
@@ -23,7 +23,7 @@ module RuboCop
 
         # @!method find_argument(node)
         def_node_matcher :find_argument, <<~PATTERN
-          (send _ :find (str $_) ...)
+          (send _ :find $(sym :css)? (str $_) ...)
         PATTERN
 
         # @!method class_options(node)
@@ -32,30 +32,30 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          find_argument(node) do |arg|
+          find_argument(node) do |sym, arg|
             next if CssSelector.pseudo_classes(arg).any?
             next if CssSelector.multiple_selectors?(arg)
 
-            on_attr(node, arg) if attribute?(arg)
-            on_id(node, arg) if CssSelector.id?(arg)
+            on_attr(node, sym, arg) if attribute?(arg)
+            on_id(node, sym, arg) if CssSelector.id?(arg)
           end
         end
 
         private
 
-        def on_attr(node, arg)
+        def on_attr(node, sym, arg)
           attrs = CssSelector.attributes(arg)
           return unless (id = attrs['id'])
           return if attrs['class']
 
-          register_offense(node, replaced_arguments(arg, id))
+          register_offense(node, sym, replaced_arguments(arg, id))
         end
 
-        def on_id(node, arg)
+        def on_id(node, sym, arg)
           return if CssSelector.attributes(arg).any?
 
           id = CssSelector.id(arg)
-          register_offense(node, "'#{id}'",
+          register_offense(node, sym, "'#{id}'",
                            CssSelector.classes(arg.sub("##{id}", '')))
         end
 
@@ -64,15 +64,20 @@ module RuboCop
             CapybaraHelp.common_attributes?(arg)
         end
 
-        def register_offense(node, id, classes = [])
+        def register_offense(node, sym, id, classes = [])
           add_offense(offense_range(node)) do |corrector|
             corrector.replace(node.loc.selector, 'find_by_id')
-            corrector.replace(node.first_argument,
-                              id.delete('\\'))
+            corrector.replace(node.first_argument, id.delete('\\'))
             unless classes.compact.empty?
               autocorrect_classes(corrector, node, classes)
             end
+            corrector.remove(deletion_range(node)) unless sym.empty?
           end
+        end
+
+        def deletion_range(node)
+          range_between(node.arguments[0].source_range.end_pos,
+                        node.arguments[1].source_range.end_pos)
         end
 
         def autocorrect_classes(corrector, node, classes)

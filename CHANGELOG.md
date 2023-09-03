@@ -4,6 +4,7 @@
 
 - Drop Ruby 2.6 support. ([@ydah])
 - Add new `Capybara/RSpec/PredicateMatcher` cop. ([@ydah])
+- Fix a false positive for `Capybara/SpecificFinders` when `find` with kind option. ([@ydah])
 
 ## 2.18.0 (2023-04-21)
 
