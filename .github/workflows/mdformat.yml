@@ -9,7 +9,7 @@ jobs:
     name: Mdformat
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Mdformat
         uses: ydah/mdformat-action@main
         with:
