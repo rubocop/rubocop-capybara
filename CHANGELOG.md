@@ -2,12 +2,14 @@
 
 ## Edge (Unreleased)
 
-- Drop Ruby 2.6 support. ([@ydah])
+## 2.19.0 (2023-09-20)
+
 - Add new `Capybara/RSpec/PredicateMatcher` cop. ([@ydah])
-- Fix a false positive for `Capybara/SpecificFinders` when `find` with kind option. ([@ydah])
 - Add new `Capybara/RSpec/HaveSelector` cop. ([@ydah])
 - Add new `Capybara/ClickLinkOrButtonStyle` cop. ([@ydah])
+- Fix a false positive for `Capybara/SpecificFinders` when `find` with kind option. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/CurrentPathExpectation`. ([@ydah])
+- Drop Ruby 2.6 support. ([@ydah])
 
 ## 2.18.0 (2023-04-21)
 

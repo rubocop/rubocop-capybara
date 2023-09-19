@@ -12,7 +12,7 @@ Capybara:
 Capybara/ClickLinkOrButtonStyle:
   Description: Checks for click button or link style.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.19'
   EnforcedStyle: strict
   SupportedStyles:
     - strict
@@ -75,7 +75,7 @@ Capybara/RSpec/HaveSelector:
   Description: Use `have_css` or `have_xpath` instead of `have_selector`.
   Enabled: pending
   DefaultSelector: css
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/HaveSelector
 
 Capybara/RSpec/PredicateMatcher:
@@ -87,5 +87,5 @@ Capybara/RSpec/PredicateMatcher:
   SupportedStyles:
     - inflected
     - explicit
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/PredicateMatcher

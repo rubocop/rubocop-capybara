@@ -8,7 +8,7 @@
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.19
 | -
 |===
 
@@ -75,7 +75,7 @@ expect(foo).to have_xpath('bar')
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.19
 | -
 |===
 
