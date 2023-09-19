@@ -18,15 +18,13 @@ module RuboCop
       # @example
       #   # bad
       #   expect(current_path).to eq('/callback')
+      #   expect(page.current_path).to eq('/callback')
       #
       #   # good
-      #   expect(page).to have_current_path('/callback')
+      #   expect(page).to have_current_path('/callback', ignore_query: true)
       #
-      #   # bad (does not support autocorrection)
-      #   expect(page.current_path).to match(variable)
-      #
-      #   # good
-      #   expect(page).to have_current_path('/callback')
+      #   # bad (does not support autocorrection when `match` with a variable)
+      #   expect(page).to match(variable)
       #
       class CurrentPathExpectation < ::RuboCop::Cop::Base
         extend AutoCorrector
@@ -95,7 +93,7 @@ module RuboCop
                            end
           corrector.replace(matcher_node.loc.selector, matcher_method)
           add_argument_parentheses(corrector, matcher_node.first_argument)
-          add_ignore_query_options(corrector, node)
+          add_ignore_query_options(corrector, node, matcher_node)
         end
 
         def convert_regexp_node_to_literal(corrector, matcher_node, regexp_node)
@@ -129,18 +127,13 @@ module RuboCop
         # `have_current_path` with no options will include the querystring
         # while `page.current_path` does not.
         # This ensures the option `ignore_query: true` is added
-        # except when the expectation is a regexp or string
-        def add_ignore_query_options(corrector, node)
+        # except when `match` matcher.
+        def add_ignore_query_options(corrector, node, matcher_node)
+          return if matcher_node.method?(:match)
+
           expectation_node = node.parent.last_argument
           expectation_last_child = expectation_node.children.last
-          return if %i[
-            regexp str dstr xstr
-          ].include?(expectation_last_child.type)
-
-          corrector.insert_after(
-            expectation_last_child,
-            ', ignore_query: true'
-          )
+          corrector.insert_after(expectation_last_child, ', ignore_query: true')
         end
       end
     end

@@ -8,7 +8,7 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
     RUBY
 
     expect_correction(<<~RUBY)
-      expect(page).to have_current_path "/callback"
+      expect(page).to have_current_path "/callback", ignore_query: true
     RUBY
   end
 
@@ -22,7 +22,7 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
 
     expect_correction(<<~'RUBY')
       expect(page).to have_current_path "/callback" \
-                                  "/foo"
+                                  "/foo", ignore_query: true
     RUBY
   end
 
@@ -33,7 +33,7 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
     RUBY
 
     expect_correction(<<~RUBY)
-      expect(page).to have_current_path `pwd`
+      expect(page).to have_current_path `pwd`, ignore_query: true
     RUBY
   end
 
@@ -41,6 +41,10 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
     expect_offense(<<-RUBY)
       expect(page.current_path).to eq("/callback")
       ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+    RUBY
+
+    expect_correction(<<-RUBY)
+      expect(page).to have_current_path("/callback", ignore_query: true)
     RUBY
   end
 
