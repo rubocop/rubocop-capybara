@@ -1,5 +1,61 @@
 = Capybara
 
+== Capybara/ClickLinkOrButtonStyle
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for click button or link style.
+
+=== Examples
+
+==== EnforcedStyle: strict (default)
+
+[source,ruby]
+----
+# bad
+click_link_or_button('foo')
+click_on('foo')
+
+# good
+click_link('foo')
+click_button('foo')
+----
+
+==== EnforcedStyle: link_or_button
+
+[source,ruby]
+----
+# bad
+click_link('foo')
+click_button('foo')
+
+# good
+click_link_or_button('foo')
+click_on('foo')
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| EnforcedStyle
+| `strict`
+| `strict`, `link_or_button`
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ClickLinkOrButtonStyle
+
 == Capybara/CurrentPathExpectation
 
 |===

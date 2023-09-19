@@ -9,6 +9,16 @@ Capybara:
     - "**/*_steps.rb"
     - "**/features/step_definitions/**/*"
 
+Capybara/ClickLinkOrButtonStyle:
+  Description: Checks for click button or link style.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  EnforcedStyle: strict
+  SupportedStyles:
+    - strict
+    - link_or_button
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ClickLinkOrButtonStyle
+
 Capybara/CurrentPathExpectation:
   Description: Checks that no expectations are set on Capybara's `current_path`.
   Enabled: true
