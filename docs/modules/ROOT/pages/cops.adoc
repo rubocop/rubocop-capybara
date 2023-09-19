@@ -12,6 +12,7 @@
 
 === Department xref:cops_capybara_rspec.adoc[Capybara/RSpec]
 
+* xref:cops_capybara_rspec.adoc#capybararspec/haveselector[Capybara/RSpec/HaveSelector]
 * xref:cops_capybara_rspec.adoc#capybararspec/predicatematcher[Capybara/RSpec/PredicateMatcher]
 
 // END_COP_LIST

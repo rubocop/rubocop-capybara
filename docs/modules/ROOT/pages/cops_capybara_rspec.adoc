@@ -1,5 +1,72 @@
 = Capybara/RSpec
 
+== Capybara/RSpec/HaveSelector
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Use `have_css` or `have_xpath` instead of `have_selector`.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(foo).to have_selector(:css, 'bar')
+
+# good
+expect(foo).to have_css('bar')
+
+# bad
+expect(foo).to have_selector(:xpath, 'bar')
+
+# good
+expect(foo).to have_xpath('bar')
+----
+
+==== DefaultSelector: css (default)
+
+[source,ruby]
+----
+# bad
+expect(foo).to have_selector('bar')
+
+# good
+expect(foo).to have_css('bar')
+----
+
+==== DefaultSelector: xpath
+
+[source,ruby]
+----
+# bad
+expect(foo).to have_selector('bar')
+
+# good
+expect(foo).to have_xpath('bar')
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| DefaultSelector
+| `css`
+| String
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/HaveSelector
+
 == Capybara/RSpec/PredicateMatcher
 
 |===
