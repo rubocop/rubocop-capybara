@@ -5,3 +5,4 @@
 * xref:development.adoc[Development]
 * Cops Documentation
 ** xref:cops_capybara.adoc[Capybara]
+** xref:cops_capybara_rspec.adoc[RSpec]
