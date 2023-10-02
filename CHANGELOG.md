@@ -6,6 +6,7 @@
 - Fix a false negative for `RSpec/HaveSelector` when first argument is dstr node. ([@ydah])
 - Add new `Capybara/RedundantWithinFind` cop. ([@ydah])
 - Fix an invalid attributes parse when name with multiple `[]` for `Capybara/SpecificFinders` and `Capybara/SpecificActions` and `Capybara/SpecificMatcher`. ([@ydah])
+- Change to default `EnforcedStyle: have_no` for `Capybara/NegationMatcher` cop. ([@ydah])
 
 ## 2.19.0 (2023-09-20)
 
