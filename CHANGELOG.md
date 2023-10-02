@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Add a new `Capybara/NegationMatcherAfterVisit` cop. ([@ydah])
+
 ## 2.19.0 (2023-09-20)
 
 - Add new `Capybara/RSpec/PredicateMatcher` cop. ([@ydah])
