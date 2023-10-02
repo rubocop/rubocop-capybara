@@ -43,6 +43,12 @@ Capybara/NegationMatcher:
     - not_to
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NegationMatcher
 
+Capybara/RedundantWithinFind:
+  Description: Checks for redundant `within find(...)` calls.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RedundantWithinFind
+
 Capybara/SpecificActions:
   Description: Checks for there is a more specific actions offered by Capybara.
   Enabled: pending

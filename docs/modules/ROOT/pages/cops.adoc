@@ -6,6 +6,7 @@
 * xref:cops_capybara.adoc#capybaracurrentpathexpectation[Capybara/CurrentPathExpectation]
 * xref:cops_capybara.adoc#capybaramatchstyle[Capybara/MatchStyle]
 * xref:cops_capybara.adoc#capybaranegationmatcher[Capybara/NegationMatcher]
+* xref:cops_capybara.adoc#capybararedundantwithinfind[Capybara/RedundantWithinFind]
 * xref:cops_capybara.adoc#capybaraspecificactions[Capybara/SpecificActions]
 * xref:cops_capybara.adoc#capybaraspecificfinders[Capybara/SpecificFinders]
 * xref:cops_capybara.adoc#capybaraspecificmatcher[Capybara/SpecificMatcher]
