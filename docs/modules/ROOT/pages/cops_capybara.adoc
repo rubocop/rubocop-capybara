@@ -9,27 +9,21 @@
 | Yes
 | No
 | 2.19
-| -
+| <<next>>
 |===
 
-Checks for click button or link style.
+Checks for methods of button or link clicks.
+
+By default, prefer to use `click_link_or_button` or `click_on`.
+These methods offer a weaker coupling between the test and HTML,
+allowing for a more faithful reflection of how the user behaves.
+
+You can set `EnforcedStyle: strict` to prefer the use of
+`click_link` and `click_button`, but this is a deprecated setting.
 
 === Examples
 
-==== EnforcedStyle: strict (default)
-
-[source,ruby]
-----
-# bad
-click_link_or_button('foo')
-click_on('foo')
-
-# good
-click_link('foo')
-click_button('foo')
-----
-
-==== EnforcedStyle: link_or_button
+==== EnforcedStyle: link_or_button (default)
 
 [source,ruby]
 ----
@@ -40,6 +34,19 @@ click_button('foo')
 # good
 click_link_or_button('foo')
 click_on('foo')
+----
+
+==== EnforcedStyle: strict
+
+[source,ruby]
+----
+# bad
+click_link_or_button('foo')
+click_on('foo')
+
+# good
+click_link('foo')
+click_button('foo')
 ----
 
 === Configurable attributes
@@ -48,8 +55,8 @@ click_on('foo')
 | Name | Default value | Configurable values
 
 | EnforcedStyle
-| `strict`
-| `strict`, `link_or_button`
+| `link_or_button`
+| `link_or_button`, `strict`
 |===
 
 === References
