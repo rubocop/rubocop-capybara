@@ -3,18 +3,16 @@
 module RuboCop
   module Cop
     module Capybara
-      # Checks for click button or link style.
+      # Checks for methods of button or link clicks.
       #
-      # @example EnforcedStyle: strict (default)
-      #   # bad
-      #   click_link_or_button('foo')
-      #   click_on('foo')
+      # By default, prefer to use `click_link_or_button` or `click_on`.
+      # These methods offer a weaker coupling between the test and HTML,
+      # allowing for a more faithful reflection of how the user behaves.
       #
-      #   # good
-      #   click_link('foo')
-      #   click_button('foo')
+      # You can set `EnforcedStyle: strict` to prefer the use of
+      # `click_link` and `click_button`, but this is a deprecated setting.
       #
-      # @example EnforcedStyle: link_or_button
+      # @example EnforcedStyle: link_or_button (default)
       #   # bad
       #   click_link('foo')
       #   click_button('foo')
@@ -22,6 +20,15 @@ module RuboCop
       #   # good
       #   click_link_or_button('foo')
       #   click_on('foo')
+      #
+      # @example EnforcedStyle: strict
+      #   # bad
+      #   click_link_or_button('foo')
+      #   click_on('foo')
+      #
+      #   # good
+      #   click_link('foo')
+      #   click_button('foo')
       #
       class ClickLinkOrButtonStyle < ::RuboCop::Cop::Base
         include ConfigurableEnforcedStyle

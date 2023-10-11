@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Change to default `EnforcedStyle: link_or_button` for `Capybara/ClickLinkOrButtonStyle` cop. ([@ydah])
+
 ## 2.19.0 (2023-09-20)
 
 - Add new `Capybara/RSpec/PredicateMatcher` cop. ([@ydah])
