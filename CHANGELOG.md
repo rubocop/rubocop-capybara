@@ -3,6 +3,7 @@
 ## Edge (Unreleased)
 
 - Change to default `EnforcedStyle: link_or_button` for `Capybara/ClickLinkOrButtonStyle` cop. ([@ydah])
+- Fix a false negative for `RSpec/HaveSelector` when first argument is dstr node. ([@ydah])
 
 ## 2.19.0 (2023-09-20)
 

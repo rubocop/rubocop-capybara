@@ -44,7 +44,7 @@ module RuboCop
           def on_send(node)
             argument = node.first_argument
             on_select_with_type(node, argument) if argument.sym_type?
-            on_select_without_type(node) if argument.str_type?
+            on_select_without_type(node) if %i[str dstr].include?(argument.type)
           end
 
           private
