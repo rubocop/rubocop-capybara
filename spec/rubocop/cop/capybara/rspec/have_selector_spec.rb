@@ -51,6 +51,30 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
     RUBY
   end
 
+  it 'registers an offense when using `have_selector` with `:css` ' \
+     'and "#{bar}"' do
+    expect_offense(<<~'RUBY')
+      expect(foo).to have_selector(:css, "#{bar}")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `have_css` instead of `have_selector`.
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      expect(foo).to have_css("#{bar}")
+    RUBY
+  end
+
+  it 'registers an offense when using `have_selector` with ' \
+     '"input[name=\'#{title}\']"' do
+    expect_offense(<<~'RUBY')
+      expect(foo).to have_selector("input[name='#{title}']")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `have_css` instead of `have_selector`.
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      expect(foo).to have_css("input[name='#{title}']")
+    RUBY
+  end
+
   context 'when DefaultSelector is xpath' do
     let(:default_selector) { 'xpath' }
 
