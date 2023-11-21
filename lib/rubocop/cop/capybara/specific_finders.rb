@@ -76,7 +76,7 @@ module RuboCop
         end
 
         def deletion_range(node)
-          range_between(node.arguments[0].source_range.end_pos,
+          range_between(node.first_argument.source_range.end_pos,
                         node.arguments[1].source_range.end_pos)
         end
 
