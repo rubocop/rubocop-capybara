@@ -50,8 +50,8 @@ module RuboCop
         private
 
         def offense?(node)
-          style == :strict && !strict_method?(node) ||
-            style == :link_or_button && !link_or_button_method?(node)
+          (style == :strict && !strict_method?(node)) ||
+            (style == :link_or_button && !link_or_button_method?(node))
         end
 
         def offense_message(node)
