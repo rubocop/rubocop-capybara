@@ -55,15 +55,9 @@ module RuboCop
         #   attributes('a[foo-bar_baz]') # => {"foo-bar_baz=>nil}
         #   attributes('button[foo][bar=baz]') # => {"foo"=>nil, "bar"=>"'baz'"}
         #   attributes('table[foo=bar]') # => {"foo"=>"'bar'"}
+        #   attributes('[foo="bar[baz][qux]"]') # => {"foo"=>"'bar[baz][qux]'"}
         def attributes(selector)
-          # Extract the inner strings of attributes.
-          # For example, extract the following:
-          # 'button[foo][bar=baz]' => 'foo][bar=baz'
-          inside_attributes = selector.scan(/\[(.*)\]/).flatten.join
-          inside_attributes.split('][').to_h do |attr|
-            key, value = attr.split('=')
-            [key, normalize_value(value)]
-          end
+          CssAttributesParser.new(selector).parse
         end
 
         # @param selector [String]
@@ -88,22 +82,6 @@ module RuboCop
         def multiple_selectors?(selector)
           normalize = selector.gsub(/(\\[>,+~]|\(.*\))/, '')
           normalize.match?(/[ >,+~]/)
-        end
-
-        # @param value [String]
-        # @return [Boolean, String]
-        # @example
-        #   normalize_value('true') # => true
-        #   normalize_value('false') # => false
-        #   normalize_value(nil) # => nil
-        #   normalize_value("foo") # => "'foo'"
-        def normalize_value(value)
-          case value
-          when 'true' then true
-          when 'false' then false
-          when nil then nil
-          else "'#{value.gsub(/"|'/, '')}'"
-          end
         end
       end
     end

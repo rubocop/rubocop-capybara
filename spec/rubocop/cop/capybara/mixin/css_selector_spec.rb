@@ -90,6 +90,13 @@ RSpec.describe RuboCop::Cop::Capybara::CssSelector do
       )
     end
 
+    it 'returns attributes hash when specify nested and include ' \
+       'multiple bracket' do
+      expect(described_class.attributes('[foo="bar[baz][qux]"]')).to eq(
+        'foo' => "'bar[baz][qux]'"
+      )
+    end
+
     it 'returns empty hash when specify not include attributes' do
       expect(described_class.attributes('h1.cls#id')).to eq({})
     end
@@ -134,24 +141,6 @@ RSpec.describe RuboCop::Cop::Capybara::CssSelector do
     it 'returns false when single selector' do
       expect(described_class.multiple_selectors?('a.cls')).to be false
       expect(described_class.multiple_selectors?('a.cls\>b')).to be false
-    end
-  end
-
-  describe 'CssSelector.normalize_value' do
-    it 'returns true when "true"' do
-      expect(described_class.normalize_value('true')).to be true
-    end
-
-    it 'returns false when "false"' do
-      expect(described_class.normalize_value('false')).to be false
-    end
-
-    it 'returns nil when nil' do
-      expect(described_class.normalize_value(nil)).to be_nil
-    end
-
-    it "returns \"'string'\" when 'string'" do
-      expect(described_class.normalize_value('foo')).to eq "'foo'"
     end
   end
 end

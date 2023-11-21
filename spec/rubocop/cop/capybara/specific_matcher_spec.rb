@@ -171,6 +171,14 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificMatcher do
     RUBY
   end
 
+  it 'registers an offense when using abstract matcher with ' \
+     'first argument is element with multiple brackets' do
+    expect_offense(<<-RUBY)
+      expect(page).to have_css('button[name="bar[baz][qux]"]', exact_text: 'foo')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
+    RUBY
+  end
+
   it 'registers an offense when using abstract matcher with state' do
     expect_offense(<<-RUBY)
       expect(page).to have_css('button[disabled=true]', exact_text: 'foo')
