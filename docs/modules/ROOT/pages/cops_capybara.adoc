@@ -217,6 +217,49 @@ expect(page).to have_no_css('a')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NegationMatcher
 
+== Capybara/RedundantWithinFind
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Checks for redundant `within find(...)` calls.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+within find('foo.bar') do
+  # ...
+end
+
+# good
+within 'foo.bar' do
+  # ...
+end
+
+# bad
+within find_by_id('foo') do
+  # ...
+end
+
+# good
+within '#foo' do
+  # ...
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RedundantWithinFind
+
 == Capybara/SpecificActions
 
 |===
