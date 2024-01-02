@@ -42,6 +42,11 @@ module RuboCop
           (send nil? _ (str $_) ... )
         PATTERN
 
+        # @!method text_with_regexp?(node)
+        def_node_search :text_with_regexp?, <<-PATTERN
+          (pair (sym {:text :exact_text}) (regexp ...))
+        PATTERN
+
         def on_send(node)
           first_argument(node) do |arg|
             next unless (matcher = specific_matcher(arg))
@@ -61,6 +66,7 @@ module RuboCop
 
         def replaceable?(node, arg, matcher)
           replaceable_attributes?(arg) &&
+            !text_with_regexp?(node) &&
             CapybaraHelp.replaceable_option?(node, arg, matcher) &&
             CapybaraHelp.replaceable_pseudo_classes?(arg)
         end
