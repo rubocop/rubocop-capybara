@@ -13,7 +13,7 @@ Capybara/ClickLinkOrButtonStyle:
   Description: Checks for methods of button or link clicks.
   Enabled: pending
   VersionAdded: '2.19'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.20'
   EnforcedStyle: link_or_button
   SupportedStyles:
     - link_or_button
@@ -37,7 +37,7 @@ Capybara/NegationMatcher:
   Description: Enforces use of `have_no_*` or `not_to` for negated expectations.
   Enabled: pending
   VersionAdded: '2.14'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.20'
   EnforcedStyle: have_no
   SupportedStyles:
     - have_no
@@ -47,7 +47,7 @@ Capybara/NegationMatcher:
 Capybara/RedundantWithinFind:
   Description: Checks for redundant `within find(...)` calls.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.20'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RedundantWithinFind
 
 Capybara/SpecificActions:
