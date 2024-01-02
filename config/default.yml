@@ -37,7 +37,8 @@ Capybara/NegationMatcher:
   Description: Enforces use of `have_no_*` or `not_to` for negated expectations.
   Enabled: pending
   VersionAdded: '2.14'
-  EnforcedStyle: not_to
+  VersionChanged: "<<next>>"
+  EnforcedStyle: have_no
   SupportedStyles:
     - have_no
     - not_to

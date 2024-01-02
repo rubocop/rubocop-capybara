@@ -170,27 +170,14 @@ expect(page).to match_style(display: 'block')
 | Yes
 | Yes
 | 2.14
-| -
+| <<next>>
 |===
 
 Enforces use of `have_no_*` or `not_to` for negated expectations.
 
 === Examples
 
-==== EnforcedStyle: not_to (default)
-
-[source,ruby]
-----
-# bad
-expect(page).to have_no_selector
-expect(page).to have_no_css('a')
-
-# good
-expect(page).not_to have_selector
-expect(page).not_to have_css('a')
-----
-
-==== EnforcedStyle: have_no
+==== EnforcedStyle: have_no (default)
 
 [source,ruby]
 ----
@@ -201,6 +188,19 @@ expect(page).not_to have_css('a')
 # good
 expect(page).to have_no_selector
 expect(page).to have_no_css('a')
+----
+
+==== EnforcedStyle: not_to
+
+[source,ruby]
+----
+# bad
+expect(page).to have_no_selector
+expect(page).to have_no_css('a')
+
+# good
+expect(page).not_to have_selector
+expect(page).not_to have_css('a')
 ----
 
 === Configurable attributes
@@ -209,7 +209,7 @@ expect(page).to have_no_css('a')
 | Name | Default value | Configurable values
 
 | EnforcedStyle
-| `not_to`
+| `have_no`
 | `have_no`, `not_to`
 |===
 

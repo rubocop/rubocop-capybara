@@ -5,16 +5,7 @@ module RuboCop
     module Capybara
       # Enforces use of `have_no_*` or `not_to` for negated expectations.
       #
-      # @example EnforcedStyle: not_to (default)
-      #   # bad
-      #   expect(page).to have_no_selector
-      #   expect(page).to have_no_css('a')
-      #
-      #   # good
-      #   expect(page).not_to have_selector
-      #   expect(page).not_to have_css('a')
-      #
-      # @example EnforcedStyle: have_no
+      # @example EnforcedStyle: have_no (default)
       #   # bad
       #   expect(page).not_to have_selector
       #   expect(page).not_to have_css('a')
@@ -22,6 +13,15 @@ module RuboCop
       #   # good
       #   expect(page).to have_no_selector
       #   expect(page).to have_no_css('a')
+      #
+      # @example EnforcedStyle: not_to
+      #   # bad
+      #   expect(page).to have_no_selector
+      #   expect(page).to have_no_css('a')
+      #
+      #   # good
+      #   expect(page).not_to have_selector
+      #   expect(page).not_to have_css('a')
       #
       class NegationMatcher < ::RuboCop::Cop::Base
         extend AutoCorrector
