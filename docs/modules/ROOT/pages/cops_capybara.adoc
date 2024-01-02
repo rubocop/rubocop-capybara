@@ -9,7 +9,7 @@
 | Yes
 | No
 | 2.19
-| <<next>>
+| 2.20
 |===
 
 Checks for methods of button or link clicks.
@@ -170,7 +170,7 @@ expect(page).to match_style(display: 'block')
 | Yes
 | Yes
 | 2.14
-| <<next>>
+| 2.20
 |===
 
 Enforces use of `have_no_*` or `not_to` for negated expectations.
@@ -225,7 +225,7 @@ expect(page).not_to have_css('a')
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.20
 | -
 |===
 
