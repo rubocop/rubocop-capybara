@@ -7,6 +7,7 @@
 - Add new `Capybara/RedundantWithinFind` cop. ([@ydah])
 - Fix an invalid attributes parse when name with multiple `[]` for `Capybara/SpecificFinders` and `Capybara/SpecificActions` and `Capybara/SpecificMatcher`. ([@ydah])
 - Change to default `EnforcedStyle: have_no` for `Capybara/NegationMatcher` cop. ([@ydah])
+- Fix a false positive for `Capybara/SpecificMatcher` when `text:` or `exact_text:` with regexp. ([@ydah])
 
 ## 2.19.0 (2023-09-20)
 

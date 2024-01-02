@@ -264,4 +264,20 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificMatcher do
       expect(page).to have_css(%{a[href="#{foo}"]}, text: "bar")
     RUBY
   end
+
+  it 'does not register an offense for abstract matcher when ' \
+     'exact_text: /some regex/' do
+    expect_no_offenses(<<-RUBY)
+      expect(page).to have_css('a', class: 'cls', exact_text: /some regex/)
+      expect(page).to have_css('button', exact_text: /some regex/, class: 'cls')
+    RUBY
+  end
+
+  it 'does not register an offense for abstract matcher when ' \
+     'text: /some regex/' do
+    expect_no_offenses(<<-RUBY)
+      expect(page).to have_css('select', class: 'cls', text: /some regex/)
+      expect(page).to have_css('table', text: /some regex/, class: 'cls')
+    RUBY
+  end
 end
