@@ -38,12 +38,12 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
   end
 
   it 'flags offenses for `expect(page.current_path)`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       expect(page.current_path).to eq("/callback")
       ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       expect(page).to have_current_path("/callback", ignore_query: true)
     RUBY
   end
@@ -208,19 +208,19 @@ RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
   end
 
   it "doesn't flag an offense for other expectations" do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       expect(current_user).to eq(user)
     RUBY
   end
 
   it "doesn't flag an offense for other references to `current_path`" do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       current_path = WalkingRoute.last.path
     RUBY
   end
 
   it 'ignores `match` with a variable, but does not autocorrect' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       expect(page.current_path).to match(variable)
       ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
     RUBY

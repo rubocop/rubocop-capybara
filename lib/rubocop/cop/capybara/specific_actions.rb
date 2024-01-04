@@ -28,7 +28,7 @@ module RuboCop
         }.freeze
 
         # @!method click_on_selector(node)
-        def_node_matcher :click_on_selector, <<-PATTERN
+        def_node_matcher :click_on_selector, <<~PATTERN
           (send _ :find (str $_) ...)
         PATTERN
 

@@ -2,21 +2,21 @@
 
 RSpec.describe RuboCop::Cop::Capybara::VisibilityMatcher do
   it 'registers an offense when using `visible: true`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       expect(page).to have_selector('.my_element', visible: true)
                                                    ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
     RUBY
   end
 
   it 'registers an offense when using `visible: false`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       expect(page).to have_selector('.my_element', visible: false)
                                                    ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
     RUBY
   end
 
   it 'recognizes multiple matchers' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       expect(page).to have_css('.profile', visible: false)
                                            ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
       expect(page).to have_xpath('.//profile', visible: false)
@@ -39,7 +39,7 @@ RSpec.describe RuboCop::Cop::Capybara::VisibilityMatcher do
   end
 
   it 'recognizes multiple negative matchers' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       expect(page).to have_no_css('.profile', visible: false)
                                               ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
       expect(page).to have_no_xpath('.//profile', visible: false)
@@ -62,14 +62,14 @@ RSpec.describe RuboCop::Cop::Capybara::VisibilityMatcher do
   end
 
   it 'registers an offense when using a selector`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       expect(page).to have_selector(:css, '.my_element', visible: false)
                                                          ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
     RUBY
   end
 
   it 'registers an offense when using a using multiple options`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       expect(page).to have_selector('.my_element', count: 1, visible: false, normalize_ws: true)
                                                              ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
     RUBY
