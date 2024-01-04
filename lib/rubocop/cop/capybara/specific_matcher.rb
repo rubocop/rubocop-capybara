@@ -38,12 +38,12 @@ module RuboCop
         }.freeze
 
         # @!method first_argument(node)
-        def_node_matcher :first_argument, <<-PATTERN
+        def_node_matcher :first_argument, <<~PATTERN
           (send nil? _ (str $_) ... )
         PATTERN
 
         # @!method text_with_regexp?(node)
-        def_node_search :text_with_regexp?, <<-PATTERN
+        def_node_search :text_with_regexp?, <<~PATTERN
           (pair (sym {:text :exact_text}) (regexp ...))
         PATTERN
 

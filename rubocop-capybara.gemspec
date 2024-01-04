@@ -6,7 +6,7 @@ require 'rubocop/capybara/version'
 Gem::Specification.new do |spec|
   spec.name = 'rubocop-capybara'
   spec.summary = 'Code style checking for Capybara test files'
-  spec.description = <<-DESCRIPTION
+  spec.description = <<~DESCRIPTION
     Code style checking for Capybara test files (RSpec, Cucumber, Minitest).
     A plugin for the RuboCop code style enforcing & linting tool.
   DESCRIPTION

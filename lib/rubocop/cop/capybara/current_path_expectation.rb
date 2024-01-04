@@ -37,20 +37,20 @@ module RuboCop
         RESTRICT_ON_SEND = %i[expect].freeze
 
         # @!method expectation_set_on_current_path(node)
-        def_node_matcher :expectation_set_on_current_path, <<-PATTERN
+        def_node_matcher :expectation_set_on_current_path, <<~PATTERN
           (send nil? :expect (send {(send nil? :page) nil?} :current_path))
         PATTERN
 
         # Supported matchers: eq(...) / match(/regexp/) / match('regexp')
         # @!method as_is_matcher(node)
-        def_node_matcher :as_is_matcher, <<-PATTERN
+        def_node_matcher :as_is_matcher, <<~PATTERN
           (send
             #expectation_set_on_current_path ${:to :to_not :not_to}
             ${(send nil? :eq ...) (send nil? :match (regexp ...))})
         PATTERN
 
         # @!method regexp_node_matcher(node)
-        def_node_matcher :regexp_node_matcher, <<-PATTERN
+        def_node_matcher :regexp_node_matcher, <<~PATTERN
           (send
             #expectation_set_on_current_path ${:to :to_not :not_to}
             $(send nil? :match ${str dstr xstr}))
