@@ -10,7 +10,7 @@ RSpec.describe RuboCop::Cop::Capybara::NegationMatcher do
        field checked_field unchecked_field select table
        sibling ancestor content].each do |matcher|
       it 'registers an offense when using ' \
-         '`expect(...).not_to have_#{matcher}`' do
+         "`expect(...).not_to have_#{matcher}`" do
         expect_offense(<<~RUBY, matcher: matcher)
           expect(page).not_to have_#{matcher}
                        ^^^^^^^^^^^^^{matcher} Use `expect(...).to have_no_#{matcher}`.
@@ -25,7 +25,7 @@ RSpec.describe RuboCop::Cop::Capybara::NegationMatcher do
       end
 
       it 'does not register an offense when using ' \
-         '`expect(...).to have_no_#{matcher}`' do
+         "`expect(...).to have_no_#{matcher}`" do
         expect_no_offenses(<<~RUBY)
           expect(page).to have_no_#{matcher}
         RUBY
@@ -56,7 +56,7 @@ RSpec.describe RuboCop::Cop::Capybara::NegationMatcher do
        field checked_field unchecked_field select table
        sibling ancestor content].each do |matcher|
       it 'registers an offense when using ' \
-         '`expect(...).to have_no_#{matcher}`' do
+         "`expect(...).to have_no_#{matcher}`" do
         expect_offense(<<~RUBY, matcher: matcher)
           expect(page).to have_no_#{matcher}
                        ^^^^^^^^^^^^{matcher} Use `expect(...).not_to have_#{matcher}`.
@@ -71,7 +71,7 @@ RSpec.describe RuboCop::Cop::Capybara::NegationMatcher do
       end
 
       it 'does not register an offense when using ' \
-         '`expect(...).not_to have_#{matcher}`' do
+         "`expect(...).not_to have_#{matcher}`" do
         expect_no_offenses(<<~RUBY)
           expect(page).not_to have_#{matcher}
         RUBY
