@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Fix a false negative for `Capybara/NegationMatcher` when using `to_not`. ([@ydah])
+
 ## 2.20.0 (2024-01-03)
 
 - Change to default `EnforcedStyle: link_or_button` for `Capybara/ClickLinkOrButtonStyle` cop. ([@ydah])

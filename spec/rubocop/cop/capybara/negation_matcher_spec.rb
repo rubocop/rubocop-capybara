@@ -33,6 +33,21 @@ RSpec.describe RuboCop::Cop::Capybara::NegationMatcher do
     end
 
     it 'registers an offense when using ' \
+       '`expect(...).to_not have_matcher`' do
+      expect_offense(<<~RUBY)
+        expect(page).to_not have_selector
+                     ^^^^^^^^^^^^^^^^^^^^ Use `expect(...).to have_no_selector`.
+        expect(page).to_not have_css('a')
+                     ^^^^^^^^^^^^^^^ Use `expect(...).to have_no_css`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(page).to have_no_selector
+        expect(page).to have_no_css('a')
+      RUBY
+    end
+
+    it 'registers an offense when using ' \
        '`expect(...).not_to have_text` with heredoc' do
       expect_offense(<<~RUBY)
         expect(page).not_to have_text(exact_text: <<~TEXT)
