@@ -42,7 +42,7 @@ module RuboCop
 
         # @!method not_to?(node)
         def_node_matcher :not_to?, <<~PATTERN
-          (send ... :not_to
+          (send ... {:not_to :to_not}
             (send nil? %POSITIVE_MATCHERS ...))
         PATTERN
 
