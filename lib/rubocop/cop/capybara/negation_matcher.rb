@@ -7,20 +7,20 @@ module RuboCop
       #
       # @example EnforcedStyle: have_no (default)
       #   # bad
-      #   expect(page).not_to have_selector
+      #   expect(page).not_to have_selector 'a'
       #   expect(page).not_to have_css('a')
       #
       #   # good
-      #   expect(page).to have_no_selector
+      #   expect(page).to have_no_selector 'a'
       #   expect(page).to have_no_css('a')
       #
       # @example EnforcedStyle: not_to
       #   # bad
-      #   expect(page).to have_no_selector
+      #   expect(page).to have_no_selector 'a'
       #   expect(page).to have_no_css('a')
       #
       #   # good
-      #   expect(page).not_to have_selector
+      #   expect(page).not_to have_selector 'a'
       #   expect(page).not_to have_css('a')
       #
       class NegationMatcher < ::RuboCop::Cop::Base
@@ -53,7 +53,7 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          return unless offense?(node.parent)
+          return unless offense?(node)
 
           matcher = node.method_name.to_s
           add_offense(offense_range(node),
@@ -67,8 +67,9 @@ module RuboCop
         private
 
         def offense?(node)
-          (style == :have_no && not_to?(node)) ||
-            (style == :not_to && have_no?(node))
+          node.arguments? &&
+            ((style == :have_no && not_to?(node.parent)) ||
+            (style == :not_to && have_no?(node.parent)))
         end
 
         def offense_range(node)
