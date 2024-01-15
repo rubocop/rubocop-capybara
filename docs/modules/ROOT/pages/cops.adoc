@@ -2,6 +2,7 @@
 
 === Department xref:cops_capybara.adoc[Capybara]
 
+* xref:cops_capybara.adoc#capybaraambiguousclick[Capybara/AmbiguousClick]
 * xref:cops_capybara.adoc#capybaraclicklinkorbuttonstyle[Capybara/ClickLinkOrButtonStyle]
 * xref:cops_capybara.adoc#capybaracurrentpathexpectation[Capybara/CurrentPathExpectation]
 * xref:cops_capybara.adoc#capybaramatchstyle[Capybara/MatchStyle]
