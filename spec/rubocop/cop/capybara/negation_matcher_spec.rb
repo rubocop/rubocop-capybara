@@ -12,22 +12,26 @@ RSpec.describe RuboCop::Cop::Capybara::NegationMatcher do
       it 'registers an offense when using ' \
          "`expect(...).not_to have_#{matcher}`" do
         expect_offense(<<~RUBY, matcher: matcher)
-          expect(page).not_to have_#{matcher}
-                       ^^^^^^^^^^^^^{matcher} Use `expect(...).to have_no_#{matcher}`.
           expect(page).not_to have_#{matcher}('a')
                        ^^^^^^^^^^^^^{matcher} Use `expect(...).to have_no_#{matcher}`.
         RUBY
 
         expect_correction(<<~RUBY)
-          expect(page).to have_no_#{matcher}
           expect(page).to have_no_#{matcher}('a')
+        RUBY
+      end
+
+      it 'does not register an offense when using ' \
+         "`expect(...).not_to have_#{matcher}` without argument" do
+        expect_no_offenses(<<~RUBY)
+          expect(page).not_to have_#{matcher}
         RUBY
       end
 
       it 'does not register an offense when using ' \
          "`expect(...).to have_no_#{matcher}`" do
         expect_no_offenses(<<~RUBY)
-          expect(page).to have_no_#{matcher}
+          expect(page).to have_no_#{matcher} 'a'
         RUBY
       end
     end
@@ -35,14 +39,14 @@ RSpec.describe RuboCop::Cop::Capybara::NegationMatcher do
     it 'registers an offense when using ' \
        '`expect(...).to_not have_matcher`' do
       expect_offense(<<~RUBY)
-        expect(page).to_not have_selector
+        expect(page).to_not have_selector 'a'
                      ^^^^^^^^^^^^^^^^^^^^ Use `expect(...).to have_no_selector`.
         expect(page).to_not have_css('a')
                      ^^^^^^^^^^^^^^^ Use `expect(...).to have_no_css`.
       RUBY
 
       expect_correction(<<~RUBY)
-        expect(page).to have_no_selector
+        expect(page).to have_no_selector 'a'
         expect(page).to have_no_css('a')
       RUBY
     end
@@ -73,14 +77,11 @@ RSpec.describe RuboCop::Cop::Capybara::NegationMatcher do
       it 'registers an offense when using ' \
          "`expect(...).to have_no_#{matcher}`" do
         expect_offense(<<~RUBY, matcher: matcher)
-          expect(page).to have_no_#{matcher}
-                       ^^^^^^^^^^^^{matcher} Use `expect(...).not_to have_#{matcher}`.
           expect(page).to have_no_#{matcher}('a')
                        ^^^^^^^^^^^^{matcher} Use `expect(...).not_to have_#{matcher}`.
         RUBY
 
         expect_correction(<<~RUBY)
-          expect(page).not_to have_#{matcher}
           expect(page).not_to have_#{matcher}('a')
         RUBY
       end
@@ -88,7 +89,7 @@ RSpec.describe RuboCop::Cop::Capybara::NegationMatcher do
       it 'does not register an offense when using ' \
          "`expect(...).not_to have_#{matcher}`" do
         expect_no_offenses(<<~RUBY)
-          expect(page).not_to have_#{matcher}
+          expect(page).not_to have_#{matcher} 'a'
         RUBY
       end
 
