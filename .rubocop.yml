@@ -4,6 +4,7 @@ require:
   - rubocop-performance
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-rubycw
   - rubocop/cop/internal_affairs
 
 AllCops:

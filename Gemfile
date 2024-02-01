@@ -12,6 +12,7 @@ gem 'rspec', '~> 3.11'
 gem 'rubocop-performance', '~> 1.7'
 gem 'rubocop-rake', '~> 0.6'
 gem 'rubocop-rspec', '~> 2.26.0'
+gem 'rubocop-rubycw', '~> 0.1'
 gem 'simplecov', '>= 0.19'
 gem 'yard'
 
