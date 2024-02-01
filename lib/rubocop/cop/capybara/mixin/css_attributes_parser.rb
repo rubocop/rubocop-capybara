@@ -16,7 +16,7 @@ module RuboCop
 
         # @return [Array<String>]
         def parse # rubocop:disable Metrics/MethodLength
-          @selector.chars do |char|
+          @selector.each_char do |char|
             if char == '['
               on_bracket_start
             elsif char == ']'
