@@ -106,11 +106,11 @@ module RuboCop
         end
 
         def to_options(attrs)
-          attrs.each.map do |key, value|
+          attrs.each.filter_map do |key, value|
             next if key == 'id'
 
             "#{key}: #{value}"
-          end.compact.join(', ')
+          end.join(', ')
         end
 
         def offense_range(node)
