@@ -93,7 +93,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificMatcher do
     it 'does not register an offense for abstract matcher when ' \
        "first argument is element with replaceable attributes #{attr} " \
        'for `have_link` without `href`' do
-      expect_no_offenses(<<~RUBY, attr: attr)
+      expect_no_offenses(<<~RUBY)
         expect(page).to have_css("a")
         expect(page).to have_css("a[#{attr}=foo]")
         expect(page).to have_css("a[#{attr}]")
