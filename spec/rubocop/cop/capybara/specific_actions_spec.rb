@@ -105,7 +105,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificActions do
     it 'does not register an offense for abstract action when ' \
        "first argument is element with replaceable attributes #{attr} " \
        'for `click_link` without `href`' do
-      expect_no_offenses(<<~RUBY, attr: attr)
+      expect_no_offenses(<<~RUBY)
         find("a[#{attr}=foo]").click
         find("a[#{attr}]").click
       RUBY
