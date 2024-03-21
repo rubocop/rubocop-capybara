@@ -5,6 +5,14 @@ module RuboCop
     module Capybara
       # Checks for methods of button or link clicks.
       #
+      # This cop is deprecated.
+      # We plan to remove this in the next major version update to 3.0.
+      #
+      # The migration target is `Capybara/AmbiguousClick`.
+      # It is only migration target when `EnforcedStyle: strict`.
+      # If you are using this cop, please plan for migration.
+      # There is no migration target when `EnforcedStyle: link_or_button`.
+      #
       # By default, prefer to use `click_link_or_button` or `click_on`.
       # These methods offer a weaker coupling between the test and HTML,
       # allowing for a more faithful reflection of how the user behaves.
