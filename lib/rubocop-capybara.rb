@@ -5,6 +5,7 @@ require 'yaml'
 
 require 'rubocop'
 
+require_relative 'rubocop/capybara/'
 require_relative 'rubocop/cop/capybara/mixin/capybara_help'
 require_relative 'rubocop/cop/capybara/mixin/css_attributes_parser'
 require_relative 'rubocop/cop/capybara/mixin/css_selector'
