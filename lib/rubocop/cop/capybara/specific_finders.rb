@@ -10,6 +10,7 @@ module RuboCop
       #   find('#some-id')
       #   find('[id=some-id]')
       #   find(:css, '#some-id')
+      #   find(:id, 'some-id')
       #
       #   # good
       #   find_by_id('some-id')
@@ -23,7 +24,7 @@ module RuboCop
 
         # @!method find_argument(node)
         def_node_matcher :find_argument, <<~PATTERN
-          (send _ :find $(sym :css)? (str $_) ...)
+          (send _ :find $(sym {:css :id})? (str $_) ...)
         PATTERN
 
         # @!method class_options(node)
@@ -38,6 +39,7 @@ module RuboCop
 
             on_attr(node, sym, arg) if attribute?(arg)
             on_id(node, sym, arg) if CssSelector.id?(arg)
+            on_sym_id(node, sym, arg) if sym.first&.value == :id
           end
         end
 
@@ -57,6 +59,10 @@ module RuboCop
           id = CssSelector.id(arg)
           register_offense(node, sym, "'#{id}'",
                            CssSelector.classes(arg.sub("##{id}", '')))
+        end
+
+        def on_sym_id(node, sym, id)
+          register_offense(node, sym, "'#{id}'")
         end
 
         def attribute?(arg)

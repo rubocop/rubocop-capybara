@@ -3,6 +3,7 @@
 ## Edge (Unreleased)
 
 - Fix a false negative for `Capybara/NegationMatcher` when using `to_not`. ([@ydah])
+- Fix a false negative for `Capybara/SpecificFinders` when using `find(:id, 'some-id')`. ([@ydah])
 
 ## 2.20.0 (2024-01-03)
 
