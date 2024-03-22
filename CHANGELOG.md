@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- **breaking** Move the department associated with `Capybara::RSpecMatchers` to `Capybara/RSpec/*`. ([@ydah])
 - Fix a false negative for `Capybara/NegationMatcher` when using `to_not`. ([@ydah])
 
 ## 2.20.0 (2024-01-03)
