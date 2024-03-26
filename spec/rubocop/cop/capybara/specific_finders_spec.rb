@@ -35,6 +35,29 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'registers an offense when using `find` with `:id`' do
+    expect_offense(<<~RUBY)
+      find(:id, 'some-id')
+      ^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('some-id')
+    RUBY
+  end
+
+  it 'registers an offense when using `find` with `:id` ' \
+     'and option' do
+    expect_offense(<<~RUBY)
+      find(:id, 'some-id', class: 'some-cls')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('some-id', class: 'some-cls')
+    RUBY
+  end
+
   it 'registers an offense when using `find` with no parentheses' do
     expect_offense(<<~RUBY)
       find "#some-id"
