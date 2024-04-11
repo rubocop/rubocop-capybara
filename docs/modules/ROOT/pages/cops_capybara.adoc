@@ -154,6 +154,38 @@ expect(page).to match(variable)
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/CurrentPathExpectation
 
+== Capybara/FindAllFirst
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Enforces use of `first` instead of `all` with `first` or `[0]`.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+all('a').first
+all('a')[0]
+find('a', match: :first)
+all('a', match: :first)
+
+# good
+first('a')
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
+
 == Capybara/MatchStyle
 
 |===
