@@ -23,7 +23,7 @@ module RuboCop
       #   expect(page).to have_no_link('foo', class: 'cls', href: 'http://example.com')
       #   expect(page).to have_table(class: 'cls')
       #   expect(page).to have_select
-      #   expect(page).to have_field('foo')
+      #   expect(page).to have_field(with: 'foo')
       #
       class SpecificMatcher < ::RuboCop::Cop::Base
         MSG = 'Prefer `%<good_matcher>s` over `%<bad_matcher>s`.'
