@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Capybara::NegationMatcher do
+RSpec.describe RuboCop::Cop::Capybara::RSpec::NegationMatcher do
   let(:cop_config) { { 'EnforcedStyle' => enforced_style } }
 
   context 'with EnforcedStyle `have_no`' do
