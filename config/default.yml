@@ -9,11 +9,17 @@ Capybara:
     - "**/*_steps.rb"
     - "**/features/step_definitions/**/*"
 
+Capybara/AmbiguousClick:
+  Description: Specify the exact target to click on.
+  Enabled: false
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AmbiguousClick
+
 Capybara/ClickLinkOrButtonStyle:
   Description: Checks for methods of button or link clicks.
-  Enabled: pending
+  Enabled: false
   VersionAdded: '2.19'
-  VersionChanged: '2.20'
+  VersionChanged: "<<next>>"
   EnforcedStyle: link_or_button
   SupportedStyles:
     - link_or_button

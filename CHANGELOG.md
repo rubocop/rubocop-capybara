@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Add `Capybara/AmbiguousClick` cop and make soft-deprecated `Capybara/ClickLinkOrButtonStyle` cop. If you want to use `EnforcedStyle: strict`, use `Capybara/AmbiguousClick` cop instead. ([@ydah])
+
 ## 2.21.0 (2024-06-08)
 
 - Fix a false negative for `Capybara/NegationMatcher` when using `to_not`. ([@ydah])
