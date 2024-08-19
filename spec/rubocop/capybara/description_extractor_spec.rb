@@ -58,6 +58,7 @@ RSpec.describe RuboCop::Capybara::DescriptionExtractor do
   end
 
   before do
+    YARD::Registry.clear
     stub_cop_const('Foo')
     stub_cop_const('Undocumented')
   end
