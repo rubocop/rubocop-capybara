@@ -75,6 +75,12 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
     RUBY
   end
 
+  it 'registers no offense when no arguments are passed' do
+    expect_no_offenses(<<~RUBY)
+      expect(foo).to have_selector
+    RUBY
+  end
+
   context 'when DefaultSelector is xpath' do
     let(:default_selector) { 'xpath' }
 
