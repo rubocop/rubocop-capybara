@@ -4,6 +4,7 @@
 
 - Add `Capybara/AmbiguousClick` cop and make soft-deprecated `Capybara/ClickLinkOrButtonStyle` cop. If you want to use `EnforcedStyle: strict`, use `Capybara/AmbiguousClick` cop instead. ([@ydah])
 - Add new `Capybara/FindAllFirst` cop. ([@ydah])
+- Fix an error for `Capybara/RSpec/HaveSelector` when passing no arguments. ([@earlopain])
 
 ## 2.21.0 (2024-06-08)
 
@@ -78,6 +79,7 @@
 [@aried3r]: https://github.com/aried3r
 [@bquorning]: https://github.com/bquorning
 [@darhazer]: https://github.com/Darhazer
+[@earlopain]: https://github.com/earlopain
 [@onumis]: https://github.com/onumis
 [@oskarsezerins]: https://github.com/OskarsEzerins
 [@pirj]: https://github.com/pirj
