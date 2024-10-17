@@ -6,6 +6,7 @@
 
 = Capybara
 
+[#capybaraambiguousclick]
 == Capybara/AmbiguousClick
 
 |===
@@ -23,6 +24,7 @@ Specify the exact target to click on.
 In projects where accessibility needs to be considered,
 it is crucial to specify the click target precisely.
 
+[#examples-capybaraambiguousclick]
 === Examples
 
 [source,ruby]
@@ -36,10 +38,12 @@ click_link('foo')
 click_button('foo')
 ----
 
+[#references-capybaraambiguousclick]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AmbiguousClick
 
+[#capybaraclicklinkorbuttonstyle]
 == Capybara/ClickLinkOrButtonStyle
 
 |===
@@ -69,8 +73,10 @@ allowing for a more faithful reflection of how the user behaves.
 You can set `EnforcedStyle: strict` to prefer the use of
 `click_link` and `click_button`, but this is a deprecated setting.
 
+[#examples-capybaraclicklinkorbuttonstyle]
 === Examples
 
+[#enforcedstyle_-link_or_button-_default_-capybaraclicklinkorbuttonstyle]
 ==== EnforcedStyle: link_or_button (default)
 
 [source,ruby]
@@ -84,6 +90,7 @@ click_link_or_button('foo')
 click_on('foo')
 ----
 
+[#enforcedstyle_-strict-capybaraclicklinkorbuttonstyle]
 ==== EnforcedStyle: strict
 
 [source,ruby]
@@ -97,6 +104,7 @@ click_link('foo')
 click_button('foo')
 ----
 
+[#configurable-attributes-capybaraclicklinkorbuttonstyle]
 === Configurable attributes
 
 |===
@@ -107,10 +115,12 @@ click_button('foo')
 | `link_or_button`, `strict`
 |===
 
+[#references-capybaraclicklinkorbuttonstyle]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ClickLinkOrButtonStyle
 
+[#capybaracurrentpathexpectation]
 == Capybara/CurrentPathExpectation
 
 |===
@@ -135,6 +145,7 @@ completed.
 
 This cop does not support autocorrection in some cases.
 
+[#examples-capybaracurrentpathexpectation]
 === Examples
 
 [source,ruby]
@@ -150,10 +161,12 @@ expect(page).to have_current_path('/callback', ignore_query: true)
 expect(page).to match(variable)
 ----
 
+[#references-capybaracurrentpathexpectation]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/CurrentPathExpectation
 
+[#capybarafindallfirst]
 == Capybara/FindAllFirst
 
 |===
@@ -168,6 +181,7 @@ expect(page).to match(variable)
 
 Enforces use of `first` instead of `all` with `first` or `[0]`.
 
+[#examples-capybarafindallfirst]
 === Examples
 
 [source,ruby]
@@ -182,10 +196,12 @@ all('a', match: :first)
 first('a')
 ----
 
+[#references-capybarafindallfirst]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
+[#capybaramatchstyle]
 == Capybara/MatchStyle
 
 |===
@@ -200,8 +216,10 @@ first('a')
 
 Checks for usage of deprecated style methods.
 
+[#examples-capybaramatchstyle]
 === Examples
 
+[#when-using-_assert_style_-capybaramatchstyle]
 ==== when using `assert_style`
 
 [source,ruby]
@@ -213,6 +231,7 @@ page.find(:css, '#first').assert_style(display: 'block')
 page.find(:css, '#first').assert_matches_style(display: 'block')
 ----
 
+[#when-using-_has_style__-capybaramatchstyle]
 ==== when using `has_style?`
 
 [source,ruby]
@@ -226,6 +245,7 @@ expect(page.find(:css, 'first')
   .matches_style?(display: 'block')).to be true
 ----
 
+[#when-using-_have_style_-capybaramatchstyle]
 ==== when using `have_style`
 
 [source,ruby]
@@ -237,10 +257,12 @@ expect(page).to have_style(display: 'block')
 expect(page).to match_style(display: 'block')
 ----
 
+[#references-capybaramatchstyle]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/MatchStyle
 
+[#capybaranegationmatcher]
 == Capybara/NegationMatcher
 
 |===
@@ -255,8 +277,10 @@ expect(page).to match_style(display: 'block')
 
 Enforces use of `have_no_*` or `not_to` for negated expectations.
 
+[#examples-capybaranegationmatcher]
 === Examples
 
+[#enforcedstyle_-have_no-_default_-capybaranegationmatcher]
 ==== EnforcedStyle: have_no (default)
 
 [source,ruby]
@@ -270,6 +294,7 @@ expect(page).to have_no_selector 'a'
 expect(page).to have_no_css('a')
 ----
 
+[#enforcedstyle_-not_to-capybaranegationmatcher]
 ==== EnforcedStyle: not_to
 
 [source,ruby]
@@ -283,6 +308,7 @@ expect(page).not_to have_selector 'a'
 expect(page).not_to have_css('a')
 ----
 
+[#configurable-attributes-capybaranegationmatcher]
 === Configurable attributes
 
 |===
@@ -293,10 +319,12 @@ expect(page).not_to have_css('a')
 | `have_no`, `not_to`
 |===
 
+[#references-capybaranegationmatcher]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NegationMatcher
 
+[#capybararedundantwithinfind]
 == Capybara/RedundantWithinFind
 
 |===
@@ -311,6 +339,7 @@ expect(page).not_to have_css('a')
 
 Checks for redundant `within find(...)` calls.
 
+[#examples-capybararedundantwithinfind]
 === Examples
 
 [source,ruby]
@@ -336,10 +365,12 @@ within '#foo' do
 end
 ----
 
+[#references-capybararedundantwithinfind]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RedundantWithinFind
 
+[#capybaraspecificactions]
 == Capybara/SpecificActions
 
 |===
@@ -354,6 +385,7 @@ end
 
 Checks for there is a more specific actions offered by Capybara.
 
+[#examples-capybaraspecificactions]
 === Examples
 
 [source,ruby]
@@ -371,10 +403,12 @@ click_link(exact_text: 'foo')
 find('div').click_button
 ----
 
+[#references-capybaraspecificactions]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificActions
 
+[#capybaraspecificfinders]
 == Capybara/SpecificFinders
 
 |===
@@ -389,6 +423,7 @@ find('div').click_button
 
 Checks if there is a more specific finder offered by Capybara.
 
+[#examples-capybaraspecificfinders]
 === Examples
 
 [source,ruby]
@@ -403,10 +438,12 @@ find(:id, 'some-id')
 find_by_id('some-id')
 ----
 
+[#references-capybaraspecificfinders]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificFinders
 
+[#capybaraspecificmatcher]
 == Capybara/SpecificMatcher
 
 |===
@@ -421,6 +458,7 @@ find_by_id('some-id')
 
 Checks for there is a more specific matcher offered by Capybara.
 
+[#examples-capybaraspecificmatcher]
 === Examples
 
 [source,ruby]
@@ -444,10 +482,12 @@ expect(page).to have_select
 expect(page).to have_field(with: 'foo')
 ----
 
+[#references-capybaraspecificmatcher]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificMatcher
 
+[#capybaravisibilitymatcher]
 == Capybara/VisibilityMatcher
 
 |===
@@ -471,6 +511,7 @@ symbol values, `:all`, `:hidden` or `:visible`.
 Read more in
 https://www.rubydoc.info/gems/capybara/Capybara%2FNode%2FFinders:all[the documentation].
 
+[#examples-capybaravisibilitymatcher]
 === Examples
 
 [source,ruby]
@@ -486,6 +527,7 @@ expect(page).to have_css('.foo', visible: :all)
 expect(page).to have_link('my link', visible: :hidden)
 ----
 
+[#references-capybaravisibilitymatcher]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/VisibilityMatcher
