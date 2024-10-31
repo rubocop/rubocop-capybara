@@ -53,11 +53,15 @@ module RuboCop
         end
 
         def replaced(node)
-          replaced = node.arguments.map(&:source).join(', ')
           if node.method?(:find_by_id)
-            replaced.sub(/\A(["'])/, '\1#')
+            node.first_argument.source.match(/\A(['"])(.*)['"]\z/) do
+              quote = ::Regexp.last_match(1)
+              css = ::Regexp.last_match(2)
+              return ["#{quote}##{CssSelector.css_escape(css)}#{quote}",
+                      *node.arguments[1..].map(&:source)].join(', ')
+            end
           else
-            replaced
+            node.arguments.map(&:source).join(', ')
           end
         end
       end
