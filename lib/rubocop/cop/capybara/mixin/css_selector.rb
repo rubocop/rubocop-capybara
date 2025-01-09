@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'strscan'
+
 module RuboCop
   module Cop
     module Capybara
@@ -82,6 +84,49 @@ module RuboCop
         def multiple_selectors?(selector)
           normalize = selector.gsub(/(\\[>,+~]|\(.*\))/, '')
           normalize.match?(/[ >,+~]/)
+        end
+
+        # @param selector [String]
+        # @return [String]
+        # @example
+        #   css_escape('some-id') # => some-id
+        #   css_escape('some-id.with-priod') # => some-id\.with-priod
+        # @reference
+        #   https://github.com/mathiasbynens/CSS.escape/blob/master/css.escape.js
+        def css_escape(selector) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+          scanner = StringScanner.new(selector)
+          result = +''
+
+          # Special case: if the selector is of length 1 and
+          # the first character is `-`
+          if selector.length == 1 && scanner.peek(1) == '-'
+            return "\\#{selector}"
+          end
+
+          until scanner.eos?
+            # NULL character (U+0000)
+            if scanner.scan(/\0/)
+              result << "\uFFFD"
+            # Control characters (U+0001 to U+001F, U+007F)
+            elsif scanner.scan(/[\x01-\x1F\x7F]/)
+              result << "\\#{scanner.matched.ord.to_s(16)} "
+            # First character is a digit (U+0030 to U+0039)
+            elsif scanner.pos.zero? && scanner.scan(/\d/)
+              result << "\\#{scanner.matched.ord.to_s(16)} "
+            # Second character is a digit and first is `-`
+            elsif scanner.pos == 1 && scanner.scan(/\d/) &&
+                scanner.pre_match == '-'
+              result << "\\#{scanner.matched.ord.to_s(16)} "
+            # Alphanumeric characters, `-`, `_`
+            elsif scanner.scan(/[a-zA-Z0-9\-_]/)
+              result << scanner.matched
+            # Any other characters, escape them
+            elsif scanner.scan(/./)
+              result << "\\#{scanner.matched}"
+            end
+          end
+
+          result
         end
       end
     end

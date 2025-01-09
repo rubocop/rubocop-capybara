@@ -143,4 +143,73 @@ RSpec.describe RuboCop::Cop::Capybara::CssSelector do
       expect(described_class.multiple_selectors?('a.cls\>b')).to be false
     end
   end
+
+  describe 'CssSelector.css_escape' do
+    context 'when selector is a single hyphen' do
+      let(:selector) { '-' }
+
+      it 'escapes the hyphen character' do
+        expect(described_class.css_escape(selector)).to eq('\\-')
+      end
+    end
+
+    context 'when selector contains NULL character' do
+      let(:selector) { "abc\0def" }
+
+      it 'replaces NULL character with U+FFFD' do
+        expect(described_class.css_escape(selector)).to eq('abc�def')
+      end
+    end
+
+    context 'when selector contains control characters' do
+      let(:selector) { "abc\x01\x1F\x7Fdef" }
+
+      it 'escapes control characters as hexadecimal with a trailing space' do
+        expect(described_class.css_escape(selector))
+          .to eq('abc\\1 \\1f \\7f def')
+      end
+    end
+
+    context 'when selector starts with a digit' do
+      let(:selector) { '1abc' }
+
+      it 'escapes the starting digit as hexadecimal with a trailing space' do
+        expect(described_class.css_escape(selector)).to eq('\\31 abc')
+      end
+    end
+
+    context 'when selector starts with a hyphen followed by a digit' do
+      let(:selector) { '-1abc' }
+
+      it 'escapes the digit following a hyphen as hexadecimal with a ' \
+         'trailing space' do
+        expect(described_class.css_escape(selector)).to eq('-\\31 abc')
+      end
+    end
+
+    context 'when selector contains alphanumeric characters, hyphen, or ' \
+            'underscore' do
+      let(:selector) { 'a-Z_0-9' }
+
+      it 'does not escape alphanumeric characters, hyphen, or underscore' do
+        expect(described_class.css_escape(selector)).to eq('a-Z_0-9')
+      end
+    end
+
+    context 'when selector contains special characters needing escape' do
+      let(:selector) { 'a!b@c#d$' }
+
+      it 'escapes special characters' do
+        expect(described_class.css_escape(selector)).to eq('a\\!b\\@c\\#d\\$')
+      end
+    end
+
+    context 'when selector contains mixed cases' do
+      let(:selector) { "ab\x00\x7F" }
+
+      it 'handles mixed cases appropriately' do
+        expect(described_class.css_escape(selector)).to eq('ab�\\7f ')
+      end
+    end
+  end
 end

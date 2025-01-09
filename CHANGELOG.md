@@ -6,6 +6,7 @@
 - Add new `Capybara/FindAllFirst` cop. ([@ydah])
 - Add a new `Capybara/NegationMatcherAfterVisit` cop. ([@ydah])
 - Fix an error for `Capybara/RSpec/HaveSelector` when passing no arguments. ([@earlopain])
+- Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when escape required css selector. ([@ydah])
 
 ## 2.21.0 (2024-06-08)
 
