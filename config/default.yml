@@ -56,6 +56,12 @@ Capybara/NegationMatcher:
     - not_to
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NegationMatcher
 
+Capybara/NegationMatcherAfterVisit:
+  Description: Do not allow negative matchers to be used immediately after `visit`.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NegationMatcherAfterVisit
+
 Capybara/RedundantWithinFind:
   Description: Checks for redundant `within find(...)` calls.
   Enabled: pending
