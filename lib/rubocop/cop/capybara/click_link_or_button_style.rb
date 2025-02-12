@@ -67,6 +67,10 @@ module RuboCop
             format(MSG_STRICT, method: node.method_name)
           elsif style == :link_or_button
             format(MSG_CLICK_LINK_OR_BUTTON, method: node.method_name)
+          else
+            # :nocov:
+            :noop
+            # :nocov:
           end
         end
 

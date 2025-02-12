@@ -79,6 +79,10 @@ module RuboCop
             'to'
           when :not_to
             'not_to'
+          else
+            # :nocov:
+            :noop
+            # :nocov:
           end
         end
 
@@ -88,6 +92,10 @@ module RuboCop
             matcher.sub('have_', 'have_no_')
           when :not_to
             matcher.sub('have_no_', 'have_')
+          else
+            # :nocov:
+            :noop
+            # :nocov:
           end
         end
       end

@@ -177,6 +177,7 @@ module RuboCop
             "#{matcher.to_s.sub('match_', 'matches_')}?"
           end
 
+          # rubocop:disable Metrics/MethodLength
           def replacement_matcher(node)
             case [cop_config['Strict'], node.method?(:to)]
             when [true, true]
@@ -187,8 +188,13 @@ module RuboCop
               'be_truthy'
             when [false, false]
               'be_falsey'
+            else
+              # :nocov:
+              :noop
+              # :nocov:
             end
           end
+          # rubocop:enable Metrics/MethodLength
         end
 
         # Prefer using predicate matcher over using predicate method directly.
@@ -248,6 +254,10 @@ module RuboCop
               check_inflected(node)
             elsif style == :explicit
               check_explicit(node)
+            else
+              # :nocov:
+              :noop
+              # :nocov:
             end
           end
 
