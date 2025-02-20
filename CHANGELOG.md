@@ -6,6 +6,7 @@
 - Add new `Capybara/FindAllFirst` cop. ([@ydah])
 - Add a new `Capybara/NegationMatcherAfterVisit` cop. ([@ydah])
 - Fix an error for `Capybara/RSpec/HaveSelector` when passing no arguments. ([@earlopain])
+- Make RuboCop Capybara work as a RuboCop plugin. ([@bquorning])
 
 ## 2.21.0 (2024-06-08)
 

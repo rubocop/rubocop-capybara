@@ -31,13 +31,13 @@ ways to do this:
 Put this into your `.rubocop.yml`.
 
 ```yaml
-require: rubocop-capybara
+plugins: rubocop-capybara
 ```
 
 Alternatively, use the following array notation when specifying multiple extensions.
 
 ```yaml
-require:
+plugins:
   - rubocop-other-extension
   - rubocop-capybara
 ```
@@ -45,17 +45,20 @@ require:
 Now you can run `rubocop` and it will automatically load the RuboCop Capybara
 cops together with the standard cops.
 
+> [!NOTE]
+> The plugin system is supported in RuboCop 1.72+. In earlier versions, use `require` instead of `plugins`.
+
 ### Command line
 
 ```bash
-rubocop --require rubocop-capybara
+rubocop --plugin rubocop-capybara
 ```
 
 ### Rake task
 
 ```ruby
 RuboCop::RakeTask.new do |task|
-  task.requires << 'rubocop-capybara'
+  task.plugins << 'rubocop-capybara'
 end
 ```
 
