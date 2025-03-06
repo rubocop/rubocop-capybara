@@ -12,14 +12,14 @@ Capybara:
 Capybara/AmbiguousClick:
   Description: Specify the exact target to click on.
   Enabled: false
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.22'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AmbiguousClick
 
 Capybara/ClickLinkOrButtonStyle:
   Description: Checks for methods of button or link clicks.
   Enabled: false
   VersionAdded: '2.19'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.22'
   EnforcedStyle: link_or_button
   SupportedStyles:
     - link_or_button
@@ -36,7 +36,7 @@ Capybara/CurrentPathExpectation:
 Capybara/FindAllFirst:
   Description: Enforces use of `first` instead of `all` with `first` or `[0]`.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.22'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
 Capybara/MatchStyle:
@@ -59,7 +59,7 @@ Capybara/NegationMatcher:
 Capybara/NegationMatcherAfterVisit:
   Description: Do not allow negative matchers to be used immediately after `visit`.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.22'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NegationMatcherAfterVisit
 
 Capybara/RedundantWithinFind:

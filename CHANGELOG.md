@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+## 2.22.0 (2025-03-10)
+
 - Add `Capybara/AmbiguousClick` cop and make soft-deprecated `Capybara/ClickLinkOrButtonStyle` cop. If you want to use `EnforcedStyle: strict`, use `Capybara/AmbiguousClick` cop instead. ([@ydah])
 - Add new `Capybara/FindAllFirst` cop. ([@ydah])
 - Add a new `Capybara/NegationMatcherAfterVisit` cop. ([@ydah])
