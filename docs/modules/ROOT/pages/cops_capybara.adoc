@@ -15,7 +15,7 @@
 | Disabled
 | Yes
 | No
-| <<next>>
+| 2.22
 | -
 |===
 
@@ -53,7 +53,7 @@ click_button('foo')
 | Yes
 | No
 | 2.19
-| <<next>>
+| 2.22
 |===
 
 Checks for methods of button or link clicks.
@@ -175,7 +175,7 @@ expect(page).to match(variable)
 | Pending
 | Yes
 | Always
-| <<next>>
+| 2.22
 | -
 |===
 
@@ -333,7 +333,7 @@ expect(page).not_to have_css('a')
 | Pending
 | Yes
 | No
-| <<next>>
+| 2.22
 | -
 |===
 
