@@ -6,6 +6,7 @@ require 'yaml'
 require 'rubocop'
 
 require_relative 'rubocop/capybara/plugin'
+require_relative 'rubocop/capybara/version'
 
 require_relative 'rubocop/cop/capybara/mixin/capybara_help'
 require_relative 'rubocop/cop/capybara/mixin/css_attributes_parser'

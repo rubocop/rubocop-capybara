@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Fix incorrect plugin version. ([@koic])
+
 ## 2.22.0 (2025-03-10)
 
 - Add `Capybara/AmbiguousClick` cop and make soft-deprecated `Capybara/ClickLinkOrButtonStyle` cop. If you want to use `EnforcedStyle: strict`, use `Capybara/AmbiguousClick` cop instead. ([@ydah])
@@ -84,6 +86,7 @@
 [@bquorning]: https://github.com/bquorning
 [@darhazer]: https://github.com/Darhazer
 [@earlopain]: https://github.com/earlopain
+[@koic]: https://github.com/koic
 [@onumis]: https://github.com/onumis
 [@oskarsezerins]: https://github.com/OskarsEzerins
 [@pirj]: https://github.com/pirj
