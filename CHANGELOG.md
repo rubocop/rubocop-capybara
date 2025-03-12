@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+## 2.22.1 (2025-03-12)
+
 - Fix incorrect plugin version. ([@koic])
 
 ## 2.22.0 (2025-03-10)
