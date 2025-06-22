@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Fix a false positive for `Capybara/FindAllFirst` when using logical operators with `all('...')[0]`. ([@ydah])
+
 ## 2.22.1 (2025-03-12)
 
 - Fix incorrect plugin version. ([@koic])
