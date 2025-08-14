@@ -118,4 +118,63 @@ RSpec.describe RuboCop::Cop::Capybara::FindAllFirst, :config do
       all[0]
     RUBY
   end
+
+  context 'when using logical operators' do
+    it 'does not register an offense when using `all` with ' \
+       '`[0]` and `||` operator' do
+      expect_no_offenses(<<~RUBY)
+        all('a')[0] || all('div')[0]
+      RUBY
+    end
+
+    it 'does not register an offense when using `all` with ' \
+       '`first` and `||` operator' do
+      expect_no_offenses(<<~RUBY)
+        all('a').first || all('div').first
+      RUBY
+    end
+
+    it 'does not register an offense when using `all` with ' \
+       '`[0]` and `&&` operator' do
+      expect_no_offenses(<<~RUBY)
+        all('a')[0] && all('div')[0]
+      RUBY
+    end
+
+    it 'does not register an offense when using `all` with ' \
+       '`first` and `&&` operator' do
+      expect_no_offenses(<<~RUBY)
+        all('a').first && all('div').first
+      RUBY
+    end
+
+    it 'does not register an offense when using mixed ' \
+       'logical operators' do
+      expect_no_offenses(<<~RUBY)
+        all('a')[0] || all('div').first && all('span')[0]
+      RUBY
+    end
+
+    it 'does not register an offense when using logical operators' \
+       'with parentheses' do
+      expect_no_offenses(<<~RUBY)
+        (all('a')[0] || all('div')[0]) && all('span').first
+      RUBY
+    end
+
+    it 'does not register an offense when using logical operators' \
+       'in assignment' do
+      expect_no_offenses(<<~RUBY)
+        element = all('a')[0] || all('div')[0]
+      RUBY
+    end
+
+    it 'does not register an offense when using logical operators' \
+       'in method call' do
+      expect_no_offenses(<<~RUBY)
+        do_something(all('a')[0] || all('div')[0])
+        do_something(all('a').first || all('div').first)
+      RUBY
+    end
+  end
 end

@@ -46,6 +46,7 @@ module RuboCop
         def on_all_first(node)
           return unless (parent = node.parent)
           return unless find_all_first?(parent)
+          return if part_of_logical_operator?(parent)
 
           range = range_between(node.loc.selector.begin_pos,
                                 parent.loc.selector.end_pos)
@@ -71,6 +72,10 @@ module RuboCop
           hash.child_nodes.flat_map(&:source).reject do |arg|
             arg == 'match: :first'
           end
+        end
+
+        def part_of_logical_operator?(node)
+          node.ancestors.any?(&:operator_keyword?)
         end
       end
     end
