@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Capybara::NegationMatcherAfterVisit, :config do
+RSpec.describe RuboCop::Cop::Capybara::RSpec::NegationMatcherAfterVisit,
+               :config do
   it 'registers an offense when using `have_no_*` after ' \
      'immediately `visit` method call' do
     expect_offense(<<~RUBY)

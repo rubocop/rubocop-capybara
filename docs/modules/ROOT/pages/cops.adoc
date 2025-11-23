@@ -4,21 +4,21 @@
 
 * xref:cops_capybara.adoc#capybaraambiguousclick[Capybara/AmbiguousClick]
 * xref:cops_capybara.adoc#capybaraclicklinkorbuttonstyle[Capybara/ClickLinkOrButtonStyle]
-* xref:cops_capybara.adoc#capybaracurrentpathexpectation[Capybara/CurrentPathExpectation]
 * xref:cops_capybara.adoc#capybarafindallfirst[Capybara/FindAllFirst]
 * xref:cops_capybara.adoc#capybaramatchstyle[Capybara/MatchStyle]
-* xref:cops_capybara.adoc#capybaranegationmatcher[Capybara/NegationMatcher]
-* xref:cops_capybara.adoc#capybaranegationmatcheraftervisit[Capybara/NegationMatcherAfterVisit]
 * xref:cops_capybara.adoc#capybararedundantwithinfind[Capybara/RedundantWithinFind]
 * xref:cops_capybara.adoc#capybaraspecificactions[Capybara/SpecificActions]
 * xref:cops_capybara.adoc#capybaraspecificfinders[Capybara/SpecificFinders]
-* xref:cops_capybara.adoc#capybaraspecificmatcher[Capybara/SpecificMatcher]
-* xref:cops_capybara.adoc#capybaravisibilitymatcher[Capybara/VisibilityMatcher]
 
 === Department xref:cops_capybara_rspec.adoc[Capybara/RSpec]
 
+* xref:cops_capybara_rspec.adoc#capybararspeccurrentpathexpectation[Capybara/RSpec/CurrentPathExpectation]
 * xref:cops_capybara_rspec.adoc#capybararspechavecontent[Capybara/RSpec/HaveContent]
 * xref:cops_capybara_rspec.adoc#capybararspechaveselector[Capybara/RSpec/HaveSelector]
+* xref:cops_capybara_rspec.adoc#capybararspecnegationmatcher[Capybara/RSpec/NegationMatcher]
+* xref:cops_capybara_rspec.adoc#capybararspecnegationmatcheraftervisit[Capybara/RSpec/NegationMatcherAfterVisit]
 * xref:cops_capybara_rspec.adoc#capybararspecpredicatematcher[Capybara/RSpec/PredicateMatcher]
+* xref:cops_capybara_rspec.adoc#capybararspecspecificmatcher[Capybara/RSpec/SpecificMatcher]
+* xref:cops_capybara_rspec.adoc#capybararspecvisibilitymatcher[Capybara/RSpec/VisibilityMatcher]
 
 // END_COP_LIST
