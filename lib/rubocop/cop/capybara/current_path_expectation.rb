@@ -53,7 +53,7 @@ module RuboCop
         def_node_matcher :regexp_node_matcher, <<~PATTERN
           (send
             #expectation_set_on_current_path ${:to :to_not :not_to}
-            $(send nil? :match ${str dstr xstr}))
+            $(send nil? :match $any_str))
         PATTERN
 
         def self.autocorrect_incompatible_with

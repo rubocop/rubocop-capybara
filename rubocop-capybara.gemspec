@@ -34,5 +34,5 @@ Gem::Specification.new do |spec|
   }
 
   spec.add_dependency 'lint_roller', '~> 1.1'
-  spec.add_dependency 'rubocop', '~> 1.72', '>= 1.72.1'
+  spec.add_dependency 'rubocop', '~> 1.81'
 end
