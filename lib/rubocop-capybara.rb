@@ -17,7 +17,7 @@ require_relative 'rubocop/cop/capybara_cops'
 RuboCop::Cop::Style::TrailingCommaInArguments.singleton_class.prepend(
   Module.new do
     def autocorrect_incompatible_with
-      super.push(RuboCop::Cop::Capybara::CurrentPathExpectation)
+      super.push(RuboCop::Cop::Capybara::RSpec::CurrentPathExpectation)
     end
   end
 )
