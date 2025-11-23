@@ -66,6 +66,24 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
     RUBY
   end
 
+  it 'registers an offense when using `within find_by_id("foo.bar")`' do
+    expect_offense(<<~RUBY)
+      within find_by_id('foo.bar') do
+             ^^^^^^^^^^^^^^^^^^^^^ Redundant `within find_by_id(...)` call detected.
+      end
+      within find_by_id("foo.bar") do
+             ^^^^^^^^^^^^^^^^^^^^^ Redundant `within find_by_id(...)` call detected.
+      end
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      within '#foo\.bar' do
+      end
+      within "#foo\\.bar" do
+      end
+    RUBY
+  end
+
   it 'registers an offense when using `within find_by_id(...)` with ' \
      'other argument' do
     expect_offense(<<~RUBY)
@@ -76,6 +94,19 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
 
     expect_correction(<<~RUBY)
       within '#foo', visible: false do
+      end
+    RUBY
+  end
+
+  it 'registers an offense when using `within find_by_id(variable)`' do
+    expect_offense(<<~RUBY)
+      within find_by_id(id_variable) do
+             ^^^^^^^^^^^^^^^^^^^^^^^ Redundant `within find_by_id(...)` call detected.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      within id_variable do
       end
     RUBY
   end
