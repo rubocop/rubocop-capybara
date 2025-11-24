@@ -4,6 +4,7 @@
 
 - Bump RuboCop requirement to +1.81. ([@ydah])
 - Fix a false positive for `Capybara/FindAllFirst` when using logical operators with `all('...')[0]`. ([@ydah])
+- Add support for using `find` with `:link` and `:field` in `Capybara/SpecificFinders` cop. ([@ydah])
 
 ## 2.22.1 (2025-03-12)
 
