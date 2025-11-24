@@ -15,6 +15,12 @@ Capybara/AmbiguousClick:
   VersionAdded: '2.22'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AmbiguousClick
 
+Capybara/ChainedFind:
+  Description: Avoid chaining `find` methods and combine selectors.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ChainedFind
+
 Capybara/ClickLinkOrButtonStyle:
   Description: Checks for methods of button or link clicks.
   Enabled: false

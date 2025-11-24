@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- Add new `Capybara/ChainedFind` cop. ([@ydah])
 - Bump RuboCop requirement to +1.81. ([@ydah])
 - Fix a false positive for `Capybara/FindAllFirst` when using logical operators with `all('...')[0]`. ([@ydah])
 
