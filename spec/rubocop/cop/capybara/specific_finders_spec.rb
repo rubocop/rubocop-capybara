@@ -237,6 +237,18 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'registers an offense when using `find` ' \
+     'with argument is attribute specified id and style attribute' do
+    expect_offense(<<~RUBY)
+      find('[id=some-id][style=display:none]')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('some-id', style: 'display:none')
+    RUBY
+  end
+
   it 'does not register an offense when using `find ' \
      'with argument is attribute not specified id' do
     expect_no_offenses(<<~RUBY)
@@ -306,6 +318,64 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
       find('#foo:enabled')
       find('#foo:not(:disabled)')
       find('#foo:is(:enabled,:checked)')
+    RUBY
+  end
+
+  it 'registers an offense when using `find` with `:link`' do
+    expect_offense(<<~RUBY)
+      find(:link, 'Home')
+      ^^^^^^^^^^^^^^^^^^^ Prefer `find_link` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_link('Home')
+    RUBY
+  end
+
+  it 'registers an offense when using `find` with `:field`' do
+    expect_offense(<<~RUBY)
+      find(:field, 'Name')
+      ^^^^^^^^^^^^^^^^^^^^ Prefer `find_field` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_field('Name')
+    RUBY
+  end
+
+  it 'registers an offense when using `find` with `:link` ' \
+     'and option' do
+    expect_offense(<<~RUBY)
+      find(:link, 'Home', class: 'navbar-link')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_link` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_link('Home', class: 'navbar-link')
+    RUBY
+  end
+
+  it 'registers an offense when using `find` with `:field` ' \
+     'and option' do
+    expect_offense(<<~RUBY)
+      find(:field, 'Email', visible: false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_field` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_field('Email', visible: false)
+    RUBY
+  end
+
+  it 'does not register an offense when using `find_link`' do
+    expect_no_offenses(<<~RUBY)
+      find_link('Home')
+    RUBY
+  end
+
+  it 'does not register an offense when using `find_field`' do
+    expect_no_offenses(<<~RUBY)
+      find_field('Name')
     RUBY
   end
 end
