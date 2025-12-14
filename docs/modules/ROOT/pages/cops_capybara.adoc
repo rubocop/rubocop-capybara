@@ -43,6 +43,43 @@ click_button('foo')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AmbiguousClick
 
+[#capybarachainedfind]
+== Capybara/ChainedFind
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Avoid chaining `find` methods and combine selectors.
+
+Combining selectors into a single `find` call is more efficient than
+chaining multiple `find` calls, as it reduces the number of DOM queries.
+
+[#examples-capybarachainedfind]
+=== Examples
+
+[source,ruby]
+----
+# bad
+page.find('#foo').find('.bar')
+page.find('#foo').find('.bar').find('.baz')
+
+# good
+page.find('#foo .bar')
+page.find('#foo .bar .baz')
+----
+
+[#references-capybarachainedfind]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ChainedFind
+
 [#capybaraclicklinkorbuttonstyle]
 == Capybara/ClickLinkOrButtonStyle
 
