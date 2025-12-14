@@ -83,6 +83,18 @@ module RuboCop
           normalize = selector.gsub(/(\\[>,+~]|\(.*\))/, '')
           normalize.match?(/[ >,+~]/)
         end
+
+        # @param str [String]
+        # @param quote [String] the quote character used (' or ")
+        # @return [String]
+        # @example
+        #   css_escape('foo.bar', "'") # => 'foo\.bar'
+        #   css_escape('foo.bar', '"') # => 'foo\\.bar'
+        #   css_escape('foo', "'") # => 'foo'
+        def css_escape(str, quote = "'")
+          escaped_dot = quote == '"' ? '\\\\\\\\.' : '\\\\.'
+          str.gsub('.', escaped_dot)
+        end
       end
     end
   end
