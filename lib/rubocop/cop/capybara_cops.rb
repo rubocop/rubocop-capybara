@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'capybara/rspec/have_content'
 require_relative 'capybara/rspec/have_selector'
 require_relative 'capybara/rspec/predicate_matcher'
 

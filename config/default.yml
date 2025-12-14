@@ -97,6 +97,12 @@ Capybara/RSpec:
   Enabled: true
   Include: *1
 
+Capybara/RSpec/HaveContent:
+  Description: Checks for usage of `have_content` and `have_no_content`.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/HaveContent
+
 Capybara/RSpec/HaveSelector:
   Description: Use `have_css` or `have_xpath` instead of `have_selector`.
   Enabled: pending

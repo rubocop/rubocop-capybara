@@ -3,6 +3,7 @@
 ## Edge (Unreleased)
 
 - Bump RuboCop requirement to +1.81. ([@ydah])
+- Add new `Capybara/RSpec/HaveContent` cop. ([@nzlaura])
 - Fix a false positive for `Capybara/FindAllFirst` when using logical operators with `all('...')[0]`. ([@ydah])
 
 ## 2.22.1 (2025-03-12)
@@ -92,6 +93,7 @@
 [@darhazer]: https://github.com/Darhazer
 [@earlopain]: https://github.com/earlopain
 [@koic]: https://github.com/koic
+[@nzlaura]: https://github.com/nzlaura
 [@onumis]: https://github.com/onumis
 [@oskarsezerins]: https://github.com/OskarsEzerins
 [@pirj]: https://github.com/pirj
