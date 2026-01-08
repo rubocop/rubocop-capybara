@@ -27,6 +27,7 @@ module RuboCop
       #   end
       #
       class RedundantWithinFind < ::RuboCop::Cop::Base
+        include CssSelector
         extend AutoCorrector
         MSG = 'Redundant `within %<method>s(...)` call detected.'
         RESTRICT_ON_SEND = %i[within].freeze
@@ -53,12 +54,24 @@ module RuboCop
         end
 
         def replaced(node)
-          replaced = node.arguments.map(&:source).join(', ')
-          if node.method?(:find_by_id)
-            replaced.sub(/\A(["'])/, '\1#')
-          else
-            replaced
+          unless node.method?(:find_by_id)
+            return node.arguments.map(&:source).join(', ')
           end
+
+          if node.first_argument.str_type?
+            build_escaped_selector(node.first_argument, node)
+          else
+            node.arguments.map(&:source).join(', ')
+              .sub(/\A(["'])/, '\1#')
+          end
+        end
+
+        def build_escaped_selector(first_arg, node)
+          quote = first_arg.source[0]
+          escaped_id = CssSelector.css_escape(first_arg.value, quote)
+          rest_args = node.arguments.drop(1).map(&:source)
+
+          ["#{quote}##{escaped_id}#{quote}", *rest_args].join(', ')
         end
       end
     end
