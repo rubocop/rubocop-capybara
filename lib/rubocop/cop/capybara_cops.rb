@@ -5,6 +5,7 @@ require_relative 'capybara/rspec/have_selector'
 require_relative 'capybara/rspec/predicate_matcher'
 
 require_relative 'capybara/ambiguous_click'
+require_relative 'capybara/chained_find'
 require_relative 'capybara/click_link_or_button_style'
 require_relative 'capybara/current_path_expectation'
 require_relative 'capybara/find_all_first'
