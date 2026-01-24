@@ -143,4 +143,42 @@ RSpec.describe RuboCop::Cop::Capybara::CssSelector do
       expect(described_class.multiple_selectors?('a.cls\>b')).to be false
     end
   end
+
+  describe 'CssSelector.css_escape' do
+    context 'with single quote' do
+      it 'escapes dots with single backslash' do
+        expect(described_class.css_escape('foo.bar', "'")).to eq 'foo\\.bar'
+      end
+
+      it 'does not escape when no dots' do
+        expect(described_class.css_escape('foo', "'")).to eq 'foo'
+      end
+
+      it 'escapes multiple dots' do
+        expect(described_class.css_escape('foo.bar.baz',
+                                          "'")).to eq 'foo\\.bar\\.baz'
+      end
+    end
+
+    context 'with double quote' do
+      it 'escapes dots with double backslash for double-quoted strings' do
+        expect(described_class.css_escape('foo.bar', '"')).to eq 'foo\\\\.bar'
+      end
+
+      it 'does not escape when no dots' do
+        expect(described_class.css_escape('foo', '"')).to eq 'foo'
+      end
+
+      it 'escapes multiple dots' do
+        expect(described_class.css_escape('foo.bar.baz',
+                                          '"')).to eq 'foo\\\\.bar\\\\.baz'
+      end
+    end
+
+    context 'with default quote (single quote)' do
+      it 'uses single quote escaping by default' do
+        expect(described_class.css_escape('foo.bar')).to eq 'foo\\.bar'
+      end
+    end
+  end
 end
