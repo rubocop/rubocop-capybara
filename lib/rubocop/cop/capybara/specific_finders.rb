@@ -11,20 +11,29 @@ module RuboCop
       #   find('[id=some-id]')
       #   find(:css, '#some-id')
       #   find(:id, 'some-id')
+      #   find(:link, 'Home')
+      #   find(:field, 'Name')
       #
       #   # good
       #   find_by_id('some-id')
+      #   find_link('Home')
+      #   find_field('Name')
       #
-      class SpecificFinders < ::RuboCop::Cop::Base
+      class SpecificFinders < ::RuboCop::Cop::Base # rubocop:disable Metrics/ClassLength
         extend AutoCorrector
         include RangeHelp
 
-        MSG = 'Prefer `find_by_id` over `find`.'
+        MSG = 'Prefer `%<replacement>s` over `find`.'
         RESTRICT_ON_SEND = %i[find].freeze
 
         # @!method find_argument(node)
         def_node_matcher :find_argument, <<~PATTERN
-          (send _ :find $(sym {:css :id})? (str $_) ...)
+          (send _ :find $(sym {:css :id :link :field})? (str $_) ...)
+        PATTERN
+
+        # @!method find_argument_without_locator(node)
+        def_node_matcher :find_argument_without_locator, <<~PATTERN
+          (send _ :find $(sym {:link :field}))
         PATTERN
 
         # @!method class_options(node)
@@ -32,7 +41,7 @@ module RuboCop
           (pair (sym :class) $_ ...)
         PATTERN
 
-        def on_send(node)
+        def on_send(node) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
           find_argument(node) do |sym, arg|
             next if CssSelector.pseudo_classes(arg).any?
             next if CssSelector.multiple_selectors?(arg)
@@ -40,10 +49,38 @@ module RuboCop
             on_attr(node, sym, arg) if attribute?(arg)
             on_id(node, sym, arg) if CssSelector.id?(arg)
             on_sym_id(node, sym, arg) if sym.first&.value == :id
+            on_sym_selector(node, sym) if sym.first && selector?(sym)
           end
         end
 
         private
+
+        def selector?(sym)
+          %i[link field].include?(sym.first.value)
+        end
+
+        def on_sym_selector(node, sym)
+          replacement = "find_#{sym.first.value}"
+          register_selector_offense(node, replacement)
+        end
+
+        def register_selector_offense(node, replacement)
+          message = format(MSG, replacement: replacement)
+          add_offense(offense_range(node), message: message) do |corrector|
+            corrector.replace(node.loc.selector, replacement)
+            remove_selector_argument(corrector, node)
+          end
+        end
+
+        def remove_selector_argument(corrector, node)
+          if node.arguments.size == 1
+            corrector.remove(node.first_argument)
+          else
+            range = range_between(node.first_argument.source_range.begin_pos,
+                                  node.arguments[1].source_range.begin_pos)
+            corrector.remove(range)
+          end
+        end
 
         def on_attr(node, sym, arg)
           attrs = CssSelector.attributes(arg)
@@ -71,14 +108,17 @@ module RuboCop
         end
 
         def register_offense(node, sym, id, classes = [])
-          add_offense(offense_range(node)) do |corrector|
+          message = format(MSG, replacement: 'find_by_id')
+          add_offense(offense_range(node), message: message) do |corrector|
             corrector.replace(node.loc.selector, 'find_by_id')
             corrector.replace(node.first_argument, id.delete('\\'))
-            unless classes.compact.empty?
-              autocorrect_classes(corrector, node, classes)
-            end
+            autocorrect_id_classes(corrector, node, classes)
             corrector.remove(deletion_range(node)) unless sym.empty?
           end
+        end
+
+        def autocorrect_id_classes(corrector, node, classes)
+          autocorrect_classes(corrector, node, classes) if classes.compact.any?
         end
 
         def deletion_range(node)

@@ -296,9 +296,13 @@ find('#some-id')
 find('[id=some-id]')
 find(:css, '#some-id')
 find(:id, 'some-id')
+find(:link, 'Home')
+find(:field, 'Name')
 
 # good
 find_by_id('some-id')
+find_link('Home')
+find_field('Name')
 ----
 
 [#references-capybaraspecificfinders]
