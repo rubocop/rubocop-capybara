@@ -163,6 +163,55 @@ expect(foo).to have_xpath('bar')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/HaveSelector
 
+[#capybararspecmatchstyle]
+== Capybara/RSpec/MatchStyle
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Checks for usage of deprecated style methods in RSpec matchers.
+
+[#examples-capybararspecmatchstyle]
+=== Examples
+
+[#when-using-_has_style__-capybararspecmatchstyle]
+==== when using `has_style?`
+
+[source,ruby]
+----
+# bad
+expect(page.find(:css, 'first')
+  .has_style?(display: 'block')).to be true
+
+# good
+expect(page.find(:css, 'first')
+  .matches_style?(display: 'block')).to be true
+----
+
+[#when-using-_have_style_-capybararspecmatchstyle]
+==== when using `have_style`
+
+[source,ruby]
+----
+# bad
+expect(page).to have_style(display: 'block')
+
+# good
+expect(page).to match_style(display: 'block')
+----
+
+[#references-capybararspecmatchstyle]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/MatchStyle
+
 [#capybararspecnegationmatcher]
 == Capybara/RSpec/NegationMatcher
 

@@ -15,6 +15,12 @@ Capybara/AmbiguousClick:
   VersionAdded: '2.22'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AmbiguousClick
 
+Capybara/AssertStyle:
+  Description: Checks for usage of deprecated assert style method.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AssertStyle
+
 Capybara/ClickLinkOrButtonStyle:
   Description: Checks for methods of button or link clicks.
   Enabled: false
@@ -31,12 +37,6 @@ Capybara/FindAllFirst:
   Enabled: pending
   VersionAdded: '2.22'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
-
-Capybara/MatchStyle:
-  Description: Checks for usage of deprecated style methods.
-  Enabled: pending
-  VersionAdded: '2.17'
-  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/MatchStyle
 
 Capybara/RedundantWithinFind:
   Description: Checks for redundant `within find(...)` calls.
@@ -79,6 +79,12 @@ Capybara/RSpec/HaveSelector:
   DefaultSelector: css
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/HaveSelector
+
+Capybara/RSpec/MatchStyle:
+  Description: Checks for usage of deprecated style methods in RSpec matchers.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/MatchStyle
 
 Capybara/RSpec/NegationMatcher:
   Description: Enforces use of `have_no_*` or `not_to` for negated expectations.

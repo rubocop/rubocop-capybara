@@ -10,6 +10,7 @@
   - Rename `Capybara/NegationMatcher` to `Capybara/RSpec/NegationMatcher`
   - Rename `Capybara/NegationMatcherAfterVisit` to `Capybara/RSpec/NegationMatcherAfterVisit`
   - Rename `Capybara/VisibilityMatcher` to `Capybara/RSpec/VisibilityMatcher`
+- Split `Capybara/MatchStyle` into `Capybara/AssertStyle` and `Capybara/RSpec/MatchStyle`. ([@ydah])
 - Fix a false positive for `Capybara/FindAllFirst` when using logical operators with `all('...')[0]`. ([@ydah])
 
 ## 2.22.1 (2025-03-12)

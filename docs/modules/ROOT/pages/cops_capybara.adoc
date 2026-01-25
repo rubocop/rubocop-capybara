@@ -43,6 +43,38 @@ click_button('foo')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AmbiguousClick
 
+[#capybaraassertstyle]
+== Capybara/AssertStyle
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Checks for usage of deprecated assert style method.
+
+[#examples-capybaraassertstyle]
+=== Examples
+
+[source,ruby]
+----
+# bad
+page.find(:css, '#first').assert_style(display: 'block')
+
+# good
+page.find(:css, '#first').assert_matches_style(display: 'block')
+----
+
+[#references-capybaraassertstyle]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AssertStyle
+
 [#capybaraclicklinkorbuttonstyle]
 == Capybara/ClickLinkOrButtonStyle
 
@@ -154,67 +186,6 @@ first('a')
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
-
-[#capybaramatchstyle]
-== Capybara/MatchStyle
-
-|===
-| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
-
-| Pending
-| Yes
-| Always
-| 2.17
-| -
-|===
-
-Checks for usage of deprecated style methods.
-
-[#examples-capybaramatchstyle]
-=== Examples
-
-[#when-using-_assert_style_-capybaramatchstyle]
-==== when using `assert_style`
-
-[source,ruby]
-----
-# bad
-page.find(:css, '#first').assert_style(display: 'block')
-
-# good
-page.find(:css, '#first').assert_matches_style(display: 'block')
-----
-
-[#when-using-_has_style__-capybaramatchstyle]
-==== when using `has_style?`
-
-[source,ruby]
-----
-# bad
-expect(page.find(:css, 'first')
-  .has_style?(display: 'block')).to be true
-
-# good
-expect(page.find(:css, 'first')
-  .matches_style?(display: 'block')).to be true
-----
-
-[#when-using-_have_style_-capybaramatchstyle]
-==== when using `have_style`
-
-[source,ruby]
-----
-# bad
-expect(page).to have_style(display: 'block')
-
-# good
-expect(page).to match_style(display: 'block')
-----
-
-[#references-capybaramatchstyle]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/MatchStyle
 
 [#capybararedundantwithinfind]
 == Capybara/RedundantWithinFind

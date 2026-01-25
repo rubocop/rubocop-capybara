@@ -10,3 +10,9 @@ renamed:
   Capybara/NegationMatcherAfterVisit: Capybara/RSpec/NegationMatcherAfterVisit
   Capybara/SpecificMatcher: Capybara/RSpec/SpecificMatcher
   Capybara/VisibilityMatcher: Capybara/RSpec/VisibilityMatcher
+
+split:
+  Capybara/MatchStyle:
+    alternatives:
+      - Capybara/AssertStyle
+      - Capybara/RSpec/MatchStyle

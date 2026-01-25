@@ -9,12 +9,13 @@
 InternalAffairs/OnSendWithoutOnCSend:
   Exclude:
     - 'lib/rubocop/cop/capybara/ambiguous_click.rb'
+    - 'lib/rubocop/cop/capybara/assert_style.rb'
     - 'lib/rubocop/cop/capybara/click_link_or_button_style.rb'
     - 'lib/rubocop/cop/capybara/find_all_first.rb'
-    - 'lib/rubocop/cop/capybara/match_style.rb'
     - 'lib/rubocop/cop/capybara/redundant_within_find.rb'
     - 'lib/rubocop/cop/capybara/rspec/current_path_expectation.rb'
     - 'lib/rubocop/cop/capybara/rspec/have_selector.rb'
+    - 'lib/rubocop/cop/capybara/rspec/match_style.rb'
     - 'lib/rubocop/cop/capybara/rspec/negation_matcher.rb'
     - 'lib/rubocop/cop/capybara/rspec/negation_matcher_after_visit.rb'
     - 'lib/rubocop/cop/capybara/rspec/predicate_matcher.rb'

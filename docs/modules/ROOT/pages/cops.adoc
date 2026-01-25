@@ -3,9 +3,9 @@
 === Department xref:cops_capybara.adoc[Capybara]
 
 * xref:cops_capybara.adoc#capybaraambiguousclick[Capybara/AmbiguousClick]
+* xref:cops_capybara.adoc#capybaraassertstyle[Capybara/AssertStyle]
 * xref:cops_capybara.adoc#capybaraclicklinkorbuttonstyle[Capybara/ClickLinkOrButtonStyle]
 * xref:cops_capybara.adoc#capybarafindallfirst[Capybara/FindAllFirst]
-* xref:cops_capybara.adoc#capybaramatchstyle[Capybara/MatchStyle]
 * xref:cops_capybara.adoc#capybararedundantwithinfind[Capybara/RedundantWithinFind]
 * xref:cops_capybara.adoc#capybaraspecificactions[Capybara/SpecificActions]
 * xref:cops_capybara.adoc#capybaraspecificfinders[Capybara/SpecificFinders]
@@ -15,6 +15,7 @@
 * xref:cops_capybara_rspec.adoc#capybararspeccurrentpathexpectation[Capybara/RSpec/CurrentPathExpectation]
 * xref:cops_capybara_rspec.adoc#capybararspechavecontent[Capybara/RSpec/HaveContent]
 * xref:cops_capybara_rspec.adoc#capybararspechaveselector[Capybara/RSpec/HaveSelector]
+* xref:cops_capybara_rspec.adoc#capybararspecmatchstyle[Capybara/RSpec/MatchStyle]
 * xref:cops_capybara_rspec.adoc#capybararspecnegationmatcher[Capybara/RSpec/NegationMatcher]
 * xref:cops_capybara_rspec.adoc#capybararspecnegationmatcheraftervisit[Capybara/RSpec/NegationMatcherAfterVisit]
 * xref:cops_capybara_rspec.adoc#capybararspecpredicatematcher[Capybara/RSpec/PredicateMatcher]
