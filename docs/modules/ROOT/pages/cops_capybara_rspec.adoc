@@ -6,6 +6,52 @@
 
 = Capybara/RSpec
 
+[#capybararspeccurrentpathexpectation]
+== Capybara/RSpec/CurrentPathExpectation
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| 1.18
+| <<next>>
+|===
+
+Checks that no expectations are set on Capybara's `current_path`.
+
+The
+https://www.rubydoc.info/github/teamcapybara/capybara/master/Capybara/RSpecMatchers#have_current_path-instance_method[`have_current_path` matcher]
+should be used on `page` to set expectations on Capybara's
+current path, since it uses
+https://github.com/teamcapybara/capybara/blob/master/README.md#asynchronous-javascript-ajax-and-friends[Capybara's waiting functionality]
+which ensures that preceding actions (like `click_link`) have
+completed.
+
+This cop does not support autocorrection in some cases.
+
+[#examples-capybararspeccurrentpathexpectation]
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(current_path).to eq('/callback')
+expect(page.current_path).to eq('/callback')
+
+# good
+expect(page).to have_current_path('/callback', ignore_query: true)
+
+# bad (does not support autocorrection when `match` with a variable)
+expect(page).to match(variable)
+----
+
+[#references-capybararspeccurrentpathexpectation]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/CurrentPathExpectation
+
 [#capybararspechavecontent]
 == Capybara/RSpec/HaveContent
 
@@ -117,6 +163,163 @@ expect(foo).to have_xpath('bar')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/HaveSelector
 
+[#capybararspecmatchstyle]
+== Capybara/RSpec/MatchStyle
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Checks for usage of deprecated style methods in RSpec matchers.
+
+[#examples-capybararspecmatchstyle]
+=== Examples
+
+[#when-using-_has_style__-capybararspecmatchstyle]
+==== when using `has_style?`
+
+[source,ruby]
+----
+# bad
+expect(page.find(:css, 'first')
+  .has_style?(display: 'block')).to be true
+
+# good
+expect(page.find(:css, 'first')
+  .matches_style?(display: 'block')).to be true
+----
+
+[#when-using-_have_style_-capybararspecmatchstyle]
+==== when using `have_style`
+
+[source,ruby]
+----
+# bad
+expect(page).to have_style(display: 'block')
+
+# good
+expect(page).to match_style(display: 'block')
+----
+
+[#references-capybararspecmatchstyle]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/MatchStyle
+
+[#capybararspecnegationmatcher]
+== Capybara/RSpec/NegationMatcher
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| 2.14
+| <<next>>
+|===
+
+Enforces use of `have_no_*` or `not_to` for negated expectations.
+
+[#examples-capybararspecnegationmatcher]
+=== Examples
+
+[#enforcedstyle_-have_no-_default_-capybararspecnegationmatcher]
+==== EnforcedStyle: have_no (default)
+
+[source,ruby]
+----
+# bad
+expect(page).not_to have_selector 'a'
+expect(page).not_to have_css('a')
+
+# good
+expect(page).to have_no_selector 'a'
+expect(page).to have_no_css('a')
+----
+
+[#enforcedstyle_-not_to-capybararspecnegationmatcher]
+==== EnforcedStyle: not_to
+
+[source,ruby]
+----
+# bad
+expect(page).to have_no_selector 'a'
+expect(page).to have_no_css('a')
+
+# good
+expect(page).not_to have_selector 'a'
+expect(page).not_to have_css('a')
+----
+
+[#configurable-attributes-capybararspecnegationmatcher]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| EnforcedStyle
+| `have_no`
+| `have_no`, `not_to`
+|===
+
+[#references-capybararspecnegationmatcher]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/NegationMatcher
+
+[#capybararspecnegationmatcheraftervisit]
+== Capybara/RSpec/NegationMatcherAfterVisit
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| 2.22
+| <<next>>
+|===
+
+Do not allow negative matchers to be used immediately after `visit`.
+
+[#examples-capybararspecnegationmatcheraftervisit]
+=== Examples
+
+[source,ruby]
+----
+# bad
+visit foo_path
+expect(page).to have_no_link('bar')
+expect(page).to have_css('a')
+
+# good
+visit foo_path
+expect(page).to have_css('a')
+expect(page).to have_no_link('bar')
+
+# bad
+visit foo_path
+expect(page).not_to have_link('bar')
+expect(page).to have_css('a')
+
+# good
+visit foo_path
+expect(page).to have_css('a')
+expect(page).not_to have_link('bar')
+----
+
+[#references-capybararspecnegationmatcheraftervisit]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/NegationMatcherAfterVisit
+
 [#capybararspecpredicatematcher]
 == Capybara/RSpec/PredicateMatcher
 
@@ -220,3 +423,91 @@ expect(foo.matches_style?(bar: 'baz')).to be_truthy
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/PredicateMatcher
+
+[#capybararspecspecificmatcher]
+== Capybara/RSpec/SpecificMatcher
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| 2.12
+| <<next>>
+|===
+
+Checks for there is a more specific matcher offered by Capybara.
+
+[#examples-capybararspecspecificmatcher]
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(page).to have_selector('button')
+expect(page).to have_no_selector('button.cls')
+expect(page).to have_css('button')
+expect(page).to have_no_css('a.cls', href: 'http://example.com')
+expect(page).to have_css('table.cls')
+expect(page).to have_css('select')
+expect(page).to have_css('input', exact_text: 'foo')
+
+# good
+expect(page).to have_button
+expect(page).to have_no_button(class: 'cls')
+expect(page).to have_button
+expect(page).to have_no_link('foo', class: 'cls', href: 'http://example.com')
+expect(page).to have_table(class: 'cls')
+expect(page).to have_select
+expect(page).to have_field(with: 'foo')
+----
+
+[#references-capybararspecspecificmatcher]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/SpecificMatcher
+
+[#capybararspecvisibilitymatcher]
+== Capybara/RSpec/VisibilityMatcher
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| 1.39
+| <<next>>
+|===
+
+Checks for boolean visibility in Capybara finders.
+
+Capybara lets you find elements that match a certain visibility using
+the `:visible` option. `:visible` accepts both boolean and symbols as
+values, however using booleans can have unwanted effects. `visible:
+false` does not find just invisible elements, but both visible and
+invisible elements. For expressiveness and clarity, use one of the
+symbol values, `:all`, `:hidden` or `:visible`.
+Read more at: https://www.rubydoc.info/gems/capybara/Capybara%2FNode%2FFinders:all
+
+[#examples-capybararspecvisibilitymatcher]
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(page).to have_selector('.foo', visible: false)
+expect(page).to have_css('.foo', visible: true)
+expect(page).to have_link('my link', visible: false)
+
+# good
+expect(page).to have_selector('.foo', visible: :visible)
+expect(page).to have_css('.foo', visible: :all)
+expect(page).to have_link('my link', visible: :hidden)
+----
+
+[#references-capybararspecvisibilitymatcher]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/VisibilityMatcher

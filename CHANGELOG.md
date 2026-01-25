@@ -4,6 +4,13 @@
 
 - Bump RuboCop requirement to +1.81. ([@ydah])
 - Add new `Capybara/RSpec/HaveContent` cop. ([@nzlaura])
+- Move the department associated with `Capybara::RSpecMatchers` to `Capybara/RSpec/*`. ([@ydah])
+  - Rename `Capybara/CurrentPathExpectation` to `Capybara/RSpec/CurrentPathExpectation`
+  - Rename `Capybara/SpecificMatcher` to `Capybara/RSpec/SpecificMatcher`
+  - Rename `Capybara/NegationMatcher` to `Capybara/RSpec/NegationMatcher`
+  - Rename `Capybara/NegationMatcherAfterVisit` to `Capybara/RSpec/NegationMatcherAfterVisit`
+  - Rename `Capybara/VisibilityMatcher` to `Capybara/RSpec/VisibilityMatcher`
+- Split `Capybara/MatchStyle` into `Capybara/AssertStyle` and `Capybara/RSpec/MatchStyle`. ([@ydah])
 - Fix a false positive for `Capybara/FindAllFirst` when using logical operators with `all('...')[0]`. ([@ydah])
 
 ## 2.22.1 (2025-03-12)
