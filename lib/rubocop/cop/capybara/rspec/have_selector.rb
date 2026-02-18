@@ -52,9 +52,10 @@ module RuboCop
 
           def on_select_with_type(node, type)
             return unless SELECTORS.include?(type.value)
+            return unless (locator = node.arguments[1])
 
             add_offense(node, message: message_typed(type)) do |corrector|
-              corrector.remove(deletion_range(type, node.arguments[1]))
+              corrector.remove(deletion_range(type, locator))
               corrector.replace(node.loc.selector, "have_#{type.value}")
             end
           end
