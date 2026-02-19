@@ -81,6 +81,13 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
     RUBY
   end
 
+  it 'does not register an offense when using `have_selector` ' \
+     'with only `:css`' do
+    expect_no_offenses(<<~RUBY)
+      expect(foo).to have_selector(:css)
+    RUBY
+  end
+
   context 'when DefaultSelector is xpath' do
     let(:default_selector) { 'xpath' }
 
