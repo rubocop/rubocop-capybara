@@ -12,6 +12,7 @@
   - Rename `Capybara/VisibilityMatcher` to `Capybara/RSpec/VisibilityMatcher`
 - Split `Capybara/MatchStyle` into `Capybara/AssertStyle` and `Capybara/RSpec/MatchStyle`. ([@ydah])
 - Fix a false positive for `Capybara/FindAllFirst` when using logical operators with `all('...')[0]`. ([@ydah])
+- Fix an incorrect autocorrect for `Capybara/FindAllFirst` when `find` or `all` with `match: :first` uses a receiver and mark autocorrection as unsafe. ([@ydah])
 - Fix an error for `Capybara/RSpec/HaveSelector` when passing only a selector type. ([@ydah])
 
 ## 2.22.1 (2025-03-12)

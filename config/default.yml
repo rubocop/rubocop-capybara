@@ -35,7 +35,9 @@ Capybara/ClickLinkOrButtonStyle:
 Capybara/FindAllFirst:
   Description: Enforces use of `first` instead of `all` with `first` or `[0]`.
   Enabled: pending
+  SafeAutoCorrect: false
   VersionAdded: '2.22'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
 Capybara/RedundantWithinFind:
