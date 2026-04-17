@@ -5,6 +5,13 @@ module RuboCop
     module Capybara
       # Enforces use of `first` instead of `all` with `first` or `[0]`.
       #
+      # @safety
+      #   This cop's autocorrection is unsafe because `all` returns a
+      #   `Capybara::Result` (an enumerable collection), while `first`
+      #   returns a single `Capybara::Node::Element`. Replacing `all`
+      #   with `first` may break code that depends on the return value
+      #   being a collection (e.g. calling `.each` on the result).
+      #
       # @example
       #
       #   # bad
@@ -61,9 +68,11 @@ module RuboCop
           include_match_first?(node) do |hash|
             selector = ([node.first_argument.source] + replaced_hash(hash))
               .join(', ')
-            add_offense(node,
+            range = range_between(node.loc.selector.begin_pos,
+                                  node.source_range.end_pos)
+            add_offense(range,
                         message: format(MSG, selector: selector)) do |corrector|
-              corrector.replace(node, "first(#{selector})")
+              corrector.replace(range, "first(#{selector})")
             end
           end
         end
