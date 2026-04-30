@@ -16,7 +16,7 @@
 | Yes
 | Always
 | 1.18
-| <<next>>
+| 2.23
 |===
 
 Checks that no expectations are set on Capybara's `current_path`.
@@ -61,7 +61,7 @@ expect(page).to match(variable)
 | Pending
 | Yes
 | Always
-| <<next>>
+| 2.23
 | -
 |===
 
@@ -172,7 +172,7 @@ expect(foo).to have_xpath('bar')
 | Pending
 | Yes
 | Always
-| <<next>>
+| 2.23
 | -
 |===
 
@@ -222,7 +222,7 @@ expect(page).to match_style(display: 'block')
 | Yes
 | Always
 | 2.14
-| <<next>>
+| 2.23
 |===
 
 Enforces use of `have_no_*` or `not_to` for negated expectations.
@@ -284,7 +284,7 @@ expect(page).not_to have_css('a')
 | Yes
 | No
 | 2.22
-| <<next>>
+| 2.23
 |===
 
 Do not allow negative matchers to be used immediately after `visit`.
@@ -434,7 +434,7 @@ expect(foo.matches_style?(bar: 'baz')).to be_truthy
 | Yes
 | No
 | 2.12
-| <<next>>
+| 2.23
 |===
 
 Checks for there is a more specific matcher offered by Capybara.
@@ -478,7 +478,7 @@ expect(page).to have_field(with: 'foo')
 | Yes
 | No
 | 1.39
-| <<next>>
+| 2.23
 |===
 
 Checks for boolean visibility in Capybara finders.

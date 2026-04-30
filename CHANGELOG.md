@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+## 2.23.0 (2026-04-30)
+
 - Bump RuboCop requirement to +1.81. ([@ydah])
 - Add new `Capybara/RSpec/HaveContent` cop. ([@nzlaura])
 - Move the department associated with `Capybara::RSpecMatchers` to `Capybara/RSpec/*`. ([@ydah])
