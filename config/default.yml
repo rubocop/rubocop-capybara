@@ -18,7 +18,7 @@ Capybara/AmbiguousClick:
 Capybara/AssertStyle:
   Description: Checks for usage of deprecated assert style method.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AssertStyle
 
 Capybara/ClickLinkOrButtonStyle:
@@ -37,7 +37,7 @@ Capybara/FindAllFirst:
   Enabled: pending
   SafeAutoCorrect: false
   VersionAdded: '2.22'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
 Capybara/RedundantWithinFind:
@@ -66,13 +66,13 @@ Capybara/RSpec/CurrentPathExpectation:
   Description: Checks that no expectations are set on Capybara's `current_path`.
   Enabled: pending
   VersionAdded: '1.18'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/CurrentPathExpectation
 
 Capybara/RSpec/HaveContent:
   Description: Checks for usage of `have_content` and `have_no_content`.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/HaveContent
 
 Capybara/RSpec/HaveSelector:
@@ -85,14 +85,14 @@ Capybara/RSpec/HaveSelector:
 Capybara/RSpec/MatchStyle:
   Description: Checks for usage of deprecated style methods in RSpec matchers.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/MatchStyle
 
 Capybara/RSpec/NegationMatcher:
   Description: Enforces use of `have_no_*` or `not_to` for negated expectations.
   Enabled: pending
   VersionAdded: '2.14'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   EnforcedStyle: have_no
   SupportedStyles:
     - have_no
@@ -103,7 +103,7 @@ Capybara/RSpec/NegationMatcherAfterVisit:
   Description: Do not allow negative matchers to be used immediately after `visit`.
   Enabled: pending
   VersionAdded: '2.22'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/NegationMatcherAfterVisit
 
 Capybara/RSpec/PredicateMatcher:
@@ -122,12 +122,12 @@ Capybara/RSpec/SpecificMatcher:
   Description: Checks for there is a more specific matcher offered by Capybara.
   Enabled: pending
   VersionAdded: '2.12'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/SpecificMatcher
 
 Capybara/RSpec/VisibilityMatcher:
   Description: Checks for boolean visibility in Capybara finders.
   Enabled: pending
   VersionAdded: '1.39'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/VisibilityMatcher

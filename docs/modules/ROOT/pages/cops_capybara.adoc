@@ -52,7 +52,7 @@ click_button('foo')
 | Pending
 | Yes
 | Always
-| <<next>>
+| 2.23
 | -
 |===
 
@@ -162,7 +162,7 @@ click_button('foo')
 | Yes
 | Always (Unsafe)
 | 2.22
-| <<next>>
+| 2.23
 |===
 
 Enforces use of `first` instead of `all` with `first` or `[0]`.
