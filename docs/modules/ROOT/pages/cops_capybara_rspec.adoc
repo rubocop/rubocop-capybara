@@ -12,11 +12,11 @@
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 1.18
-| 2.23
+| 3.0
 |===
 
 Checks that no expectations are set on Capybara's `current_path`.
@@ -58,11 +58,11 @@ expect(page).to match(variable)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.23
-| -
+| 3.0
 |===
 
 Checks for usage of `have_content` and `have_no_content`.
@@ -96,11 +96,11 @@ expect(page).to have_no_text('bara')
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.19
-| -
+| 3.0
 |===
 
 Use `have_css` or `have_xpath` instead of `have_selector`.
@@ -169,11 +169,11 @@ expect(foo).to have_xpath('bar')
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.23
-| -
+| 3.0
 |===
 
 Checks for usage of deprecated style methods in RSpec matchers.
@@ -218,11 +218,11 @@ expect(page).to match_style(display: 'block')
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.14
-| 2.23
+| 3.0
 |===
 
 Enforces use of `have_no_*` or `not_to` for negated expectations.
@@ -280,11 +280,11 @@ expect(page).not_to have_css('a')
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.22
-| 2.23
+| 3.0
 |===
 
 Do not allow negative matchers to be used immediately after `visit`.
@@ -326,11 +326,11 @@ expect(page).not_to have_link('bar')
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.19
-| -
+| 3.0
 |===
 
 Prefer using predicate matcher over using predicate method directly.
@@ -430,11 +430,11 @@ expect(foo.matches_style?(bar: 'baz')).to be_truthy
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.12
-| 2.23
+| 3.0
 |===
 
 Checks for there is a more specific matcher offered by Capybara.
@@ -474,11 +474,11 @@ expect(page).to have_field(with: 'foo')
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 1.39
-| 2.23
+| 3.0
 |===
 
 Checks for boolean visibility in Capybara finders.

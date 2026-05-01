@@ -49,11 +49,11 @@ click_button('foo')
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.23
-| -
+| 3.0
 |===
 
 Checks for usage of deprecated assert style method.
@@ -81,11 +81,11 @@ page.find(:css, '#first').assert_matches_style(display: 'block')
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always (Unsafe)
 | 2.22
-| 2.23
+| 3.0
 |===
 
 Enforces use of `first` instead of `all` with `first` or `[0]`.
@@ -125,11 +125,11 @@ first('a')
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.20
-| -
+| 3.0
 |===
 
 Checks for redundant `within find(...)` calls.
@@ -171,11 +171,11 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.14
-| -
+| 3.0
 |===
 
 Checks for there is a more specific actions offered by Capybara.
@@ -209,11 +209,11 @@ find('div').click_button
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.13
-| -
+| 3.0
 |===
 
 Checks if there is a more specific finder offered by Capybara.
