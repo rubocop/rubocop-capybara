@@ -10,7 +10,6 @@ InternalAffairs/OnSendWithoutOnCSend:
   Exclude:
     - 'lib/rubocop/cop/capybara/ambiguous_click.rb'
     - 'lib/rubocop/cop/capybara/assert_style.rb'
-    - 'lib/rubocop/cop/capybara/click_link_or_button_style.rb'
     - 'lib/rubocop/cop/capybara/find_all_first.rb'
     - 'lib/rubocop/cop/capybara/redundant_within_find.rb'
     - 'lib/rubocop/cop/capybara/rspec/current_path_expectation.rb'

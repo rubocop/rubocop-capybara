@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Remove the deprecated `Capybara/ClickLinkOrButtonStyle` cop. ([@ydah])
+
 ## 2.23.0 (2026-04-30)
 
 - Bump RuboCop requirement to +1.81. ([@ydah])

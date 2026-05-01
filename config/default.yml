@@ -21,17 +21,6 @@ Capybara/AssertStyle:
   VersionAdded: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AssertStyle
 
-Capybara/ClickLinkOrButtonStyle:
-  Description: Checks for methods of button or link clicks.
-  Enabled: false
-  VersionAdded: '2.19'
-  VersionChanged: '2.22'
-  EnforcedStyle: link_or_button
-  SupportedStyles:
-    - link_or_button
-    - strict
-  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ClickLinkOrButtonStyle
-
 Capybara/FindAllFirst:
   Description: Enforces use of `first` instead of `all` with `first` or `[0]`.
   Enabled: pending
