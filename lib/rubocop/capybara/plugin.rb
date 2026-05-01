@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pathname'
+
 require 'lint_roller'
 
 module RuboCop
@@ -23,9 +25,6 @@ module RuboCop
 
       def rules(_context)
         project_root = Pathname.new(__dir__).join('../../..')
-
-        obsoletion = project_root.join('config', 'obsoletion.yml')
-        ConfigObsoletion.files << obsoletion if obsoletion.exist?
 
         LintRoller::Rules.new(
           type: :path,
