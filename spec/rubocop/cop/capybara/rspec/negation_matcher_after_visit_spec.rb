@@ -20,6 +20,15 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::NegationMatcherAfterVisit,
     RUBY
   end
 
+  it 'registers an offense when using `to_not` with `have_*` after ' \
+     'immediately `visit` method call' do
+    expect_offense(<<~RUBY)
+      visit foo_path
+      expect(page).to_not have_link('bar')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not use negation matcher immediately after visit.
+    RUBY
+  end
+
   it 'does not register an offense when using positive matchers after ' \
      'immediately `visit` method call' do
     expect_no_offenses(<<~RUBY)

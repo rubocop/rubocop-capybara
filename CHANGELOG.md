@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Fix a false negative for `Capybara/RSpec/NegationMatcherAfterVisit` when using `to_not`. ([@ydah])
+
 ## 3.0.0 (2026-06-22)
 
 - Enable pending cops by default for the 3.0 release. ([@ydah])
