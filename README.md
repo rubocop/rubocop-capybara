@@ -76,7 +76,7 @@ In your `.rubocop.yml`, you may treat the Capybara cops just like any other
 cop. For example:
 
 ```yaml
-Capybara/SpecificMatcher:
+Capybara/RSpec/SpecificMatcher:
   Exclude:
     - spec/my_spec.rb
 ```
