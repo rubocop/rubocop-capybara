@@ -3,6 +3,7 @@
 ## Edge (Unreleased)
 
 - Remove the deprecated `Capybara/ClickLinkOrButtonStyle` cop. ([@ydah])
+- Remove obsolete cop name migration config for the 2.x to 3.0 transition. ([@ydah])
 
 ## 2.23.0 (2026-04-30)
 
