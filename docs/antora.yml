@@ -1,5 +1,5 @@
 name: rubocop-capybara
 title: RuboCop Capybara
-version: '3.0'
+version: ~
 nav:
   - modules/ROOT/nav.adoc
