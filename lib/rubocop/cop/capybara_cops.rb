@@ -12,7 +12,6 @@ require_relative 'capybara/rspec/visibility_matcher'
 
 require_relative 'capybara/ambiguous_click'
 require_relative 'capybara/assert_style'
-require_relative 'capybara/click_link_or_button_style'
 require_relative 'capybara/find_all_first'
 require_relative 'capybara/redundant_within_find'
 require_relative 'capybara/specific_actions'

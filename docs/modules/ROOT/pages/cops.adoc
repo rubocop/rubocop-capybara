@@ -4,7 +4,6 @@
 
 * xref:cops_capybara.adoc#capybaraambiguousclick[Capybara/AmbiguousClick]
 * xref:cops_capybara.adoc#capybaraassertstyle[Capybara/AssertStyle]
-* xref:cops_capybara.adoc#capybaraclicklinkorbuttonstyle[Capybara/ClickLinkOrButtonStyle]
 * xref:cops_capybara.adoc#capybarafindallfirst[Capybara/FindAllFirst]
 * xref:cops_capybara.adoc#capybararedundantwithinfind[Capybara/RedundantWithinFind]
 * xref:cops_capybara.adoc#capybaraspecificactions[Capybara/SpecificActions]
