@@ -78,6 +78,12 @@ RSpec.describe RuboCop::Cop::Capybara::CssSelector do
       )
     end
 
+    it 'returns attributes hash when attribute value contains equals sign' do
+      expect(
+        described_class.attributes('a[href="https://example.test?a=b"]')
+      ).to eq('href' => "'https://example.test?a=b'")
+    end
+
     it 'returns attributes hash when specify multiple attributes' do
       expect(described_class.attributes('button[foo][bar=baz]')).to eq(
         'foo' => nil, 'bar' => "'baz'"

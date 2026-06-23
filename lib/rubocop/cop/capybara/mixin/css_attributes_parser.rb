@@ -43,7 +43,7 @@ module RuboCop
           @bracket_count -= 1
           if @bracket_count.zero?
             @state = :initial
-            key, value = @temp.split('=')
+            key, value = @temp.split('=', 2)
             @results[key] = normalize_value(value)
             @temp.clear
           else
