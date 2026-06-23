@@ -358,6 +358,16 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
   end
 
   it 'does not register an offense when using `find` ' \
+     'with unsupported id selector syntax' do
+    expect_no_offenses(<<~RUBY)
+      find('#some-id#other-id')
+      find('#some-id\\#other-id')
+      find("#some-id'quote")
+      find('#some-id\\000026other-id')
+    RUBY
+  end
+
+  it 'does not register an offense when using `find` ' \
      'with id and attribute' do
     expect_no_offenses(<<~RUBY)
       find('#foo[hidden]')
