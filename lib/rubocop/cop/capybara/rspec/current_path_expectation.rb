@@ -25,7 +25,7 @@ module RuboCop
         #   expect(page).to have_current_path('/callback', ignore_query: true)
         #
         #   # bad (does not support autocorrection when `match` with a variable)
-        #   expect(page).to match(variable)
+        #   expect(current_path).to match(variable)
         #
         class CurrentPathExpectation < ::RuboCop::Cop::Base
           extend AutoCorrector
