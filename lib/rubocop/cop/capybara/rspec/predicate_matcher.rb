@@ -118,6 +118,12 @@ module RuboCop
           INFLECTED_MATCHER = %w[css selector style xpath].each.map do |suffix|
             "match_#{suffix}"
           end.freeze
+          SAFE_RECEIVER_TYPES = Set.new(
+            %i[
+              array complex dstr false float hash int nil rational regexp str
+              sym true xstr
+            ]
+          ).freeze
 
           private
 
@@ -169,12 +175,38 @@ module RuboCop
           def move_predicate(corrector, actual, matcher)
             predicate = to_predicate_method(matcher.method_name)
             args = args_loc(matcher).source
-            corrector.insert_after(actual,
-                                   ".#{predicate}" + args)
+            replacement = ".#{predicate}#{args}"
+
+            if actual_requires_parentheses?(actual)
+              corrector.replace(actual, "(#{actual.source})#{replacement}")
+            else
+              corrector.insert_after(actual, replacement)
+            end
           end
 
           def to_predicate_method(matcher)
             "#{matcher.to_s.sub('match_', 'matches_')}?"
+          end
+
+          def actual_requires_parentheses?(actual)
+            return false if actual.begin_type?
+
+            if actual.call_type?
+              return actual_send_requires_parentheses?(actual)
+            end
+
+            !literal_receiver?(actual)
+          end
+
+          def actual_send_requires_parentheses?(actual)
+            return false if actual.method?(:[])
+
+            actual.operator_method? ||
+              (actual.arguments? && !actual.parenthesized?)
+          end
+
+          def literal_receiver?(actual)
+            SAFE_RECEIVER_TYPES.include?(actual.type)
           end
 
           # rubocop:disable Metrics/MethodLength
