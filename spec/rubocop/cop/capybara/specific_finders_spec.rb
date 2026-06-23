@@ -249,6 +249,17 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'preserves quotes inside attribute values during autocorrection' do
+    expect_offense(<<~RUBY)
+      find('[id=some-id][style="font-family:\\'Inter\\'"]')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('some-id', style: 'font-family:\\'Inter\\'')
+    RUBY
+  end
+
   it 'does not register an offense when using `find ' \
      'with argument is attribute not specified id' do
     expect_no_offenses(<<~RUBY)

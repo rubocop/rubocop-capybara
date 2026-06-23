@@ -6,6 +6,8 @@ module RuboCop
       # Css selector parser.
       # @api private
       class CssAttributesParser
+        QUOTE_CHARS = ['"', "'"].freeze
+
         def initialize(selector)
           @selector = selector
           @state = :initial
@@ -63,8 +65,25 @@ module RuboCop
           when 'true' then true
           when 'false' then false
           when nil then nil
-          else "'#{value.gsub(/"|'/, '')}'"
+          else "'#{escape_single_quotes(strip_outer_quotes(value))}'"
           end
+        end
+
+        def strip_outer_quotes(value)
+          return value unless quoted?(value)
+
+          value[1...-1]
+        end
+
+        def quoted?(value)
+          return false if value.length < 2
+
+          quote = value[0]
+          QUOTE_CHARS.include?(quote) && value.end_with?(quote)
+        end
+
+        def escape_single_quotes(value)
+          value.gsub("'", "\\\\'")
         end
       end
     end
