@@ -35,6 +35,20 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'registers an offense when using `find` with input field attributes' do
+    expect_offense(<<~RUBY)
+      find('input[placeholder="City"]')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_field` over `find`.
+      find(:css, 'input[type="checkbox"]')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_field` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_field(placeholder: 'City')
+      find_field(type: 'checkbox')
+    RUBY
+  end
+
   it 'registers an offense when using `find` with `:id`' do
     expect_offense(<<~RUBY)
       find(:id, 'some-id')
@@ -243,6 +257,15 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
       find('[id]')
       find('[disabled=true]')
       find('[class=some-cls][disabled]')
+    RUBY
+  end
+
+  it 'does not register an offense when using `find` ' \
+     'with unsupported field selector' do
+    expect_no_offenses(<<~RUBY)
+      find('input[placeholder]')
+      find('input.some-cls[placeholder="City"]')
+      find('textarea[placeholder="City"]')
     RUBY
   end
 
