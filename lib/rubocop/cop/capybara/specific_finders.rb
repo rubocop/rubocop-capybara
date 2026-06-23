@@ -3,6 +3,37 @@
 module RuboCop
   module Cop
     module Capybara
+      # Help methods for SpecificFinders.
+      # @api private
+      module SpecificFindersHelp
+        MESSAGE = 'Prefer `%<good_finder>s` over `find`.'
+        FIELD_OPTIONS = CapybaraHelp::SPECIFIC_OPTIONS['field']
+        FIELD_SELECTOR_PATTERN = /\Ainput(?:\[.+\])+\z/.freeze
+
+        module_function
+
+        def field_selector?(arg)
+          return false unless FIELD_SELECTOR_PATTERN.match?(arg)
+
+          attrs = CssSelector.attributes(arg)
+          CapybaraHelp.replaceable_attributes?(attrs) &&
+            attrs.keys.all? { |attr| FIELD_OPTIONS.include?(attr) }
+        end
+
+        def options(attrs)
+          attrs.filter_map { |key, value| "#{key}: #{yield(value)}" }.join(', ')
+        end
+
+        def unsupported_selector?(arg)
+          CssSelector.pseudo_classes(arg).any? ||
+            CssSelector.multiple_selectors?(arg)
+        end
+
+        def message(finder)
+          format(MESSAGE, good_finder: finder)
+        end
+      end
+
       # Checks if there is a more specific finder offered by Capybara.
       #
       # @example
@@ -13,11 +44,15 @@ module RuboCop
       #   find(:id, 'some-id')
       #   find(:link, 'Home')
       #   find(:field, 'Name')
+      #   find('input[placeholder="Email"]')
+      #   find(:css, 'input[type="checkbox"]')
       #
       #   # good
       #   find_by_id('some-id')
       #   find_link('Home')
       #   find_field('Name')
+      #   find_field(placeholder: 'Email')
+      #   find_field(type: 'checkbox')
       #
       class SpecificFinders < RuboCop::Cop::Base # rubocop:disable Metrics/ClassLength
         extend AutoCorrector
@@ -38,13 +73,9 @@ module RuboCop
 
         def on_send(node) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
           find_argument(node) do |sym, arg|
-            next if CssSelector.pseudo_classes(arg).any?
-            next if CssSelector.multiple_selectors?(arg)
+            next if SpecificFindersHelp.unsupported_selector?(arg)
 
-            on_attr(node, sym, arg) if attribute?(arg)
-            on_id(node, sym, arg) if CssSelector.id?(arg)
-            on_sym_id(node, sym, arg) if sym.first&.value == :id
-            on_sym_selector(node, sym) if sym.first && selector?(sym)
+            handle_find(node, sym, arg)
           end
         end
 
@@ -52,6 +83,14 @@ module RuboCop
 
         def selector?(sym)
           %i[link field].include?(sym.first.value)
+        end
+
+        def id_symbol?(sym)
+          sym.first&.value == :id
+        end
+
+        def selector_symbol?(sym)
+          sym.first && selector?(sym)
         end
 
         def on_sym_selector(node, sym)
@@ -73,6 +112,17 @@ module RuboCop
           corrector.remove(range)
         end
 
+        def handle_find(node, sym, arg)
+          if SpecificFindersHelp.field_selector?(arg)
+            return on_field(node, sym, arg)
+          end
+          return on_attr(node, sym, arg) if attribute?(arg)
+          return on_id(node, sym, arg) if CssSelector.id?(arg)
+          return on_sym_id(node, sym, arg) if id_symbol?(sym)
+
+          on_sym_selector(node, sym) if selector_symbol?(sym)
+        end
+
         def on_attr(node, sym, arg)
           attrs = CssSelector.attributes(arg)
           return unless (id = attrs['id'])
@@ -91,6 +141,23 @@ module RuboCop
 
         def on_sym_id(node, sym, id)
           register_offense(node, sym, ruby_literal(id.delete('\\')))
+        end
+
+        def on_field(node, sym, arg)
+          add_offense(
+            offense_range(node),
+            message: SpecificFindersHelp.message('find_field')
+          ) do |corrector|
+            corrector.replace(node.loc.selector, 'find_field')
+            corrector.replace(node.first_argument, field_options(arg))
+            corrector.remove(deletion_range(node)) unless sym.empty?
+          end
+        end
+
+        def field_options(arg)
+          SpecificFindersHelp.options(CssSelector.attributes(arg)) do |value|
+            ruby_literal(value)
+          end
         end
 
         def attribute?(arg)
@@ -167,11 +234,7 @@ module RuboCop
         end
 
         def end_pos(node)
-          if node.loc.end
-            node.loc.end.end_pos
-          else
-            node.source_range.end_pos
-          end
+          node.loc.end ? node.loc.end.end_pos : node.source_range.end_pos
         end
       end
     end
