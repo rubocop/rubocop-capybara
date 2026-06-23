@@ -37,7 +37,7 @@ module RuboCop
           def_node_matcher :negation_matcher?, <<~PATTERN
             {
               (send (send nil? :expect _) :to (send nil? %NEGATIVE_MATCHERS ...))
-              (send (send nil? :expect _) :not_to (send nil? %POSITIVE_MATCHERS ...))
+              (send (send nil? :expect _) {:not_to :to_not} (send nil? %POSITIVE_MATCHERS ...))
             }
           PATTERN
 
