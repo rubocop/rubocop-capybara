@@ -48,6 +48,18 @@ RSpec.describe RuboCop::Cop::Capybara::CssSelector do
         expect(described_class.classes('.cls1.cls2')).to match %w[cls1 cls2]
         expect(described_class.classes('h2.cls1.cls2')).to match %w[cls1 cls2]
       end
+
+      it 'returns empty array when class selector has no name' do
+        expect(described_class.classes('.')).to match []
+        expect(described_class.classes('h1#foo.')).to match []
+      end
+
+      it 'treats escaped dots as part of names' do
+        expect(described_class.classes('#some-id\.id')).to match []
+        expect(
+          described_class.classes('.some-cls\.with-dot')
+        ).to match ['some-cls.with-dot']
+      end
     end
 
     context 'when string whose argument not contains `.`' do

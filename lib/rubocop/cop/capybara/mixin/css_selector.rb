@@ -36,8 +36,11 @@ module RuboCop
         #   classes('.some-cls') # => ['some-cls']
         #   classes('#some-id.some-cls') # => ['some-cls']
         #   classes('#some-id.cls1.cls2') # => ['cls1', 'cls2']
+        #   classes('.some-cls\.with-dot') # => ['some-cls.with-dot']
         def classes(selector)
-          selector.scan(/\.([\w-]*)/).flatten
+          selector.scan(/(?<!\\)\.((?:\\.|[\w-])+)/).flatten.map do |class_name|
+            class_name.gsub('\\.', '.')
+          end
         end
 
         # @param selector [String]
