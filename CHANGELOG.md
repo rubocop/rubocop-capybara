@@ -4,6 +4,7 @@
 
 - Fix a false negative for `Capybara/RSpec/NegationMatcherAfterVisit` when using `to_not`. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/RSpec/PredicateMatcher` when `EnforcedStyle: explicit` and `expect` actual is a complex expression. ([@ydah])
+- Fix a false negative for `Capybara/SpecificFinders` when using `find` with input field attributes. ([@ydah])
 
 ## 3.0.0 (2026-06-22)
 

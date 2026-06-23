@@ -163,6 +163,16 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::SpecificMatcher do
     end
   end
 
+  it 'registers an offense for abstract matcher when first argument ' \
+     'is input with replaceable field attributes' do
+    expect_offense(<<~RUBY)
+      expect(page).to have_no_css('input[placeholder="foo"]')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_no_field` over `have_no_css`.
+      expect(page).to have_no_css('input[type="checkbox"]')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_no_field` over `have_no_css`.
+    RUBY
+  end
+
   it 'registers an offense when using abstract matcher with ' \
      'first argument is element with multiple replaceable attributes' do
     expect_offense(<<~RUBY)

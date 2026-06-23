@@ -228,9 +228,13 @@ find('#some-id')
 find('[id=some-id]')
 find(:css, '#some-id')
 find(:id, 'some-id')
+find('input[placeholder="Email"]')
+find(:css, 'input[type="checkbox"]')
 
 # good
 find_by_id('some-id')
+find_field(placeholder: 'Email')
+find_field(type: 'checkbox')
 ----
 
 [#references-capybaraspecificfinders]
