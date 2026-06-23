@@ -11,6 +11,20 @@ RSpec.describe RuboCop::Cop::Capybara::CssSelector do
       it 'returns id string when contain `\`' do
         expect(described_class.id('#some-id\.id')).to eq 'some-id\\.id'
       end
+
+      it 'returns nil when selector contains multiple id selectors' do
+        expect(described_class.id('#some-id#other-id')).to be_nil
+        expect(described_class.id('#some-id\#other-id')).to be_nil
+      end
+
+      it 'returns nil when selector contains an unsupported id escape' do
+        expect(described_class.id('#some-id\:field')).to be_nil
+        expect(described_class.id(%q(#some-id\000026other-id))).to be_nil
+      end
+
+      it 'returns nil when selector contains a quote' do
+        expect(described_class.id("#some-id'quote")).to be_nil
+      end
     end
 
     context 'when string whose argument not begins with `#`' do
@@ -26,6 +40,11 @@ RSpec.describe RuboCop::Cop::Capybara::CssSelector do
       it 'returns true' do
         expect(described_class.id?('#some-id')).to be true
         expect(described_class.id?('#some-id.cls')).to be true
+      end
+
+      it 'returns false when selector contains unsupported id syntax' do
+        expect(described_class.id?('#some-id#other-id')).to be false
+        expect(described_class.id?('#some-id\#other-id')).to be false
       end
     end
 
