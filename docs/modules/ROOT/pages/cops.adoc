@@ -12,6 +12,7 @@
 === Department xref:cops_capybara_rspec.adoc[Capybara/RSpec]
 
 * xref:cops_capybara_rspec.adoc#capybararspeccurrentpathexpectation[Capybara/RSpec/CurrentPathExpectation]
+* xref:cops_capybara_rspec.adoc#capybararspecfindelementvalueeq[Capybara/RSpec/FindElementValueEq]
 * xref:cops_capybara_rspec.adoc#capybararspechavecontent[Capybara/RSpec/HaveContent]
 * xref:cops_capybara_rspec.adoc#capybararspechaveselector[Capybara/RSpec/HaveSelector]
 * xref:cops_capybara_rspec.adoc#capybararspecmatchstyle[Capybara/RSpec/MatchStyle]

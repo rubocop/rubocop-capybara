@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- Add new `Capybara/RSpec/FindElementValueEq` cop. ([@ydah])
 - Fix a false negative for `Capybara/RSpec/NegationMatcherAfterVisit` when using `to_not`. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/RSpec/PredicateMatcher` when `EnforcedStyle: explicit` and `expect` actual is a complex expression. ([@ydah])
 
