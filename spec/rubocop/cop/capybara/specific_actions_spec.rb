@@ -18,6 +18,14 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificActions do
     RUBY
   end
 
+  it 'does not register an offense when using find and click action ' \
+     'with click arguments or block' do
+    expect_no_offenses(<<~RUBY)
+      find('a', href: 'http://example.com').click(:middle)
+      find('button').click { |element| element[:id] }
+    RUBY
+  end
+
   it 'registers an offense when using find and click action when ' \
      'first argument is button' do
     expect_offense(<<~RUBY)

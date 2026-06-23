@@ -33,6 +33,8 @@ module RuboCop
         PATTERN
 
         def on_send(node)
+          return if node.arguments? || node.block_node
+
           click_on_selector(node.receiver) do |arg|
             next unless supported_selector?(arg)
             # Always check the last selector in the case of multiple selectors
