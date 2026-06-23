@@ -96,6 +96,15 @@ RSpec.describe RuboCop::Cop::Capybara::CssSelector do
       )
     end
 
+    it 'returns attributes hash when attribute value contains quotes' do
+      expect(described_class.attributes(%q([title="Bob's book"]))).to eq(
+        'title' => %q('Bob\'s book')
+      )
+      expect(described_class.attributes(%q([title='Say "hi"']))).to eq(
+        'title' => %q('Say "hi"')
+      )
+    end
+
     it 'returns attributes hash when specify nested and include ' \
        'multiple bracket' do
       expect(described_class.attributes('[foo="bar[baz][qux]"]')).to eq(

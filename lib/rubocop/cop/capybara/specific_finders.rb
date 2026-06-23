@@ -57,12 +57,12 @@ module RuboCop
           return if CssSelector.attributes(arg).any?
 
           id = CssSelector.id(arg)
-          register_offense(node, sym, "'#{id}'",
+          register_offense(node, sym, "'#{id.delete('\\')}'",
                            CssSelector.classes(arg.sub("##{id}", '')))
         end
 
         def on_sym_id(node, sym, id)
-          register_offense(node, sym, "'#{id}'")
+          register_offense(node, sym, "'#{id.delete('\\')}'")
         end
 
         def attribute?(arg)
@@ -70,10 +70,10 @@ module RuboCop
             CapybaraHelp.common_attributes?(arg)
         end
 
-        def register_offense(node, sym, id, classes = [])
+        def register_offense(node, sym, replacement, classes = [])
           add_offense(offense_range(node)) do |corrector|
             corrector.replace(node.loc.selector, 'find_by_id')
-            corrector.replace(node.first_argument, id.delete('\\'))
+            corrector.replace(node.first_argument, replacement)
             unless classes.compact.empty?
               autocorrect_classes(corrector, node, classes)
             end
@@ -107,6 +107,7 @@ module RuboCop
         end
 
         def replaced_arguments(arg, id)
+          id = id.delete('\\')
           options = to_options(CssSelector.attributes(arg))
           options.empty? ? id : "#{id}, #{options}"
         end
