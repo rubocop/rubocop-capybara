@@ -150,6 +150,18 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'registers an offense when using `find` with an id, class, ' \
+     'and nested class option' do
+    expect_offense(<<~RUBY)
+      find('#some-id.some-cls', data: { class: 'nested-cls' })
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('some-id', class: 'some-cls', data: { class: 'nested-cls' })
+    RUBY
+  end
+
   it 'registers an offense when using `find` and other args' do
     expect_offense(<<~RUBY)
       find('#some-id', exact_text: 'foo')

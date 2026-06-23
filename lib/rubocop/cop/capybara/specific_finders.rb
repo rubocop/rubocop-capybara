@@ -27,9 +27,9 @@ module RuboCop
           (send _ :find $(sym {:css :id})? (str $_) ...)
         PATTERN
 
-        # @!method class_options(node)
-        def_node_search :class_options, <<~PATTERN
-          (pair (sym :class) $_ ...)
+        # @!method class_option(node)
+        def_node_matcher :class_option, <<~PATTERN
+          (send _ :find ... (hash <(pair (sym :class) $_) ...>))
         PATTERN
 
         def on_send(node)
@@ -87,7 +87,7 @@ module RuboCop
         end
 
         def autocorrect_classes(corrector, node, classes)
-          if (options = class_options(node).first)
+          if (options = class_option(node))
             append_options(classes, options)
             corrector.replace(options, classes.to_s)
           else
