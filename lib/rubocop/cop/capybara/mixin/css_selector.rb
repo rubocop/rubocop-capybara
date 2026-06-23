@@ -30,7 +30,7 @@ module RuboCop
         end
 
         # @param selector [String]
-        # @return [Array<String>]
+        # @return [Hash<String, String, Boolean, nil>]
         # @example
         #   classes('#some-id') # => []
         #   classes('.some-cls') # => ['some-cls']
@@ -53,9 +53,9 @@ module RuboCop
         # @return [Array<String>]
         # @example
         #   attributes('a[foo-bar_baz]') # => {"foo-bar_baz=>nil}
-        #   attributes('button[foo][bar=baz]') # => {"foo"=>nil, "bar"=>"'baz'"}
-        #   attributes('table[foo=bar]') # => {"foo"=>"'bar'"}
-        #   attributes('[foo="bar[baz][qux]"]') # => {"foo"=>"'bar[baz][qux]'"}
+        #   attributes('button[foo][bar=baz]') # => {"foo"=>nil, "bar"=>"baz"}
+        #   attributes('table[foo=bar]') # => {"foo"=>"bar"}
+        #   attributes('[foo="bar[baz][qux]"]') # => {"foo"=>"bar[baz][qux]"}
         def attributes(selector)
           CssAttributesParser.new(selector).parse
         end

@@ -234,6 +234,21 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'registers an offense when using `find` ' \
+     'with argument is attribute specified id and style' do
+    expect_offense(<<~RUBY)
+      find('[id=some-id][style="font-family:\\'Inter\\'"]')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+      find('[id=some-id][style="--target:https://example.test?a=b"]')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('some-id', style: 'font-family:\\'Inter\\'')
+      find_by_id('some-id', style: '--target:https://example.test?a=b')
+    RUBY
+  end
+
   it 'registers an offense when using `find ' \
      'with argument is attribute specified id surrounded by quotation' do
     expect_offense(<<~RUBY)
@@ -269,6 +284,21 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
 
     expect_correction(<<~RUBY)
       find_by_id('some-id', style: 'display:none')
+    RUBY
+  end
+
+  it 'registers an offense when using `find` ' \
+     'with boolean and nil style attributes' do
+    expect_offense(<<~RUBY)
+      find('[id=some-id][style=true]')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+      find('[id=other-id][style]')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('some-id', style: true)
+      find_by_id('other-id', style: nil)
     RUBY
   end
 

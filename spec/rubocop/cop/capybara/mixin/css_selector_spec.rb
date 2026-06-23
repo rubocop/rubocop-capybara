@@ -74,41 +74,41 @@ RSpec.describe RuboCop::Cop::Capybara::CssSelector do
         'foo-bar_baz' => nil
       )
       expect(described_class.attributes('table[foo=bar]')).to eq(
-        'foo' => "'bar'"
+        'foo' => 'bar'
       )
     end
 
     it 'returns attributes hash when attribute value contains equals sign' do
       expect(
         described_class.attributes('a[href="https://example.test?a=b"]')
-      ).to eq('href' => "'https://example.test?a=b'")
+      ).to eq('href' => 'https://example.test?a=b')
     end
 
     it 'returns attributes hash when specify multiple attributes' do
       expect(described_class.attributes('button[foo][bar=baz]')).to eq(
-        'foo' => nil, 'bar' => "'baz'"
+        'foo' => nil, 'bar' => 'baz'
       )
     end
 
     it 'returns attributes hash when specify nested attributes' do
       expect(described_class.attributes('[foo="bar[baz]"]')).to eq(
-        'foo' => "'bar[baz]'"
+        'foo' => 'bar[baz]'
       )
     end
 
     it 'returns attributes hash when attribute value contains quotes' do
       expect(described_class.attributes(%q([title="Bob's book"]))).to eq(
-        'title' => %q('Bob\'s book')
+        'title' => "Bob's book"
       )
       expect(described_class.attributes(%q([title='Say "hi"']))).to eq(
-        'title' => %q('Say "hi"')
+        'title' => 'Say "hi"'
       )
     end
 
     it 'returns attributes hash when specify nested and include ' \
        'multiple bracket' do
       expect(described_class.attributes('[foo="bar[baz][qux]"]')).to eq(
-        'foo' => "'bar[baz][qux]'"
+        'foo' => 'bar[baz][qux]'
       )
     end
 

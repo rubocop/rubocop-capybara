@@ -16,7 +16,7 @@ module RuboCop
           @bracket_count = 0
         end
 
-        # @return [Array<String>]
+        # @return [Hash<String, String, Boolean, nil>]
         def parse # rubocop:disable Metrics/MethodLength
           @selector.each_char do |char|
             if char == '['
@@ -54,18 +54,19 @@ module RuboCop
         end
 
         # @param value [String]
-        # @return [Boolean, String]
+        # @return [Boolean, String, nil]
         # @example
         #   normalize_value('true') # => true
         #   normalize_value('false') # => false
         #   normalize_value(nil) # => nil
-        #   normalize_value("foo") # => "'foo'"
+        #   normalize_value("foo") # => "foo"
+        #   normalize_value("'foo'") # => "foo"
         def normalize_value(value)
           case value
           when 'true' then true
           when 'false' then false
           when nil then nil
-          else "'#{escape_single_quotes(strip_outer_quotes(value))}'"
+          else strip_outer_quotes(value)
           end
         end
 
@@ -80,10 +81,6 @@ module RuboCop
 
           quote = value[0]
           QUOTE_CHARS.include?(quote) && value.end_with?(quote)
-        end
-
-        def escape_single_quotes(value)
-          value.gsub("'", "\\\\'")
         end
       end
     end

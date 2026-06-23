@@ -8,6 +8,7 @@
 - Fix an incorrect autocorrect for `Capybara/SpecificFinders` when a selector class is used with nested `class:` options. ([@ydah])
 - Fix CSS attribute parsing when attribute values contain quotes. ([@ydah])
 - Add support for using `find` with `:link` and `:field` in `Capybara/SpecificFinders` cop. ([@ydah])
+- Fix CSS attribute parsing to return raw values and format Ruby literals in autocorrection. ([@ydah])
 
 ## 3.0.0 (2026-06-22)
 
