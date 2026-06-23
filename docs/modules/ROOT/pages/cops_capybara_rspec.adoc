@@ -52,6 +52,48 @@ expect(page).to match(variable)
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/CurrentPathExpectation
 
+[#capybararspecfindelementvalueeq]
+== Capybara/RSpec/FindElementValueEq
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always (Unsafe)
+| <<next>>
+| -
+|===
+
+Checks for expectations on the value of an element found by Capybara.
+
+[#safety-capybararspecfindelementvalueeq]
+=== Safety
+
+This cop's autocorrection is unsafe because `find('input').value`
+checks the value of the first matched element, while `have_field`
+checks that any field on the page has the expected value.
+
+[#examples-capybararspecfindelementvalueeq]
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(find('input').value).to eq('foobar')
+expect(find(:css, 'input').value).to eq('foobar')
+expect(find_field('Email').value).to eq('user@example.com')
+
+# good
+expect(page).to have_field(with: 'foobar')
+expect(page).to have_field('Email', with: 'user@example.com')
+----
+
+[#references-capybararspecfindelementvalueeq]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/FindElementValueEq
+
 [#capybararspechavecontent]
 == Capybara/RSpec/HaveContent
 

@@ -62,6 +62,13 @@ Capybara/RSpec/CurrentPathExpectation:
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/CurrentPathExpectation
 
+Capybara/RSpec/FindElementValueEq:
+  Description: Checks for expectations on the value of an element found by Capybara.
+  Enabled: pending
+  SafeAutoCorrect: false
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/FindElementValueEq
+
 Capybara/RSpec/HaveContent:
   Description: Checks for usage of `have_content` and `have_no_content`.
   Enabled: true
