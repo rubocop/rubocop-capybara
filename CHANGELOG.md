@@ -7,6 +7,7 @@
 - Fix a false positive for `Capybara/SpecificActions` when `click` uses arguments or a block. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/SpecificFinders` when a selector class is used with nested `class:` options. ([@ydah])
 - Fix CSS attribute parsing when attribute values contain quotes. ([@ydah])
+- Add support for using `find` with `:link` and `:field` in `Capybara/SpecificFinders` cop. ([@ydah])
 
 ## 3.0.0 (2026-06-22)
 
