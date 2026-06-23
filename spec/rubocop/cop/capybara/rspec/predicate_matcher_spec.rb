@@ -102,6 +102,62 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::PredicateMatcher, :config do
         RUBY
       end
 
+      it 'wraps complex actual expressions during autocorrection' do
+        expect_offense(<<~RUBY)
+          expect(foo || bar).to match_css(bar: 'baz')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `matches_css?` over `match_css` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect((foo || bar).matches_css?(bar: 'baz')).to #{matcher_true}
+        RUBY
+      end
+
+      it 'wraps operator method actual expressions during autocorrection' do
+        expect_offense(<<~RUBY)
+          expect(foo + bar).to match_css(bar: 'baz')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `matches_css?` over `match_css` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect((foo + bar).matches_css?(bar: 'baz')).to #{matcher_true}
+        RUBY
+      end
+
+      it 'wraps unparenthesized method call actual expressions during ' \
+         'autocorrection' do
+        expect_offense(<<~RUBY)
+          expect(foo bar).to match_css(bar: 'baz')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `matches_css?` over `match_css` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect((foo bar).matches_css?(bar: 'baz')).to #{matcher_true}
+        RUBY
+      end
+
+      it 'does not wrap parenthesized complex actual expressions again' do
+        expect_offense(<<~RUBY)
+          expect((foo || bar)).to match_css(bar: 'baz')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `matches_css?` over `match_css` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect((foo || bar).matches_css?(bar: 'baz')).to #{matcher_true}
+        RUBY
+      end
+
+      it 'does not wrap literal actual expressions' do
+        expect_offense(<<~RUBY)
+          expect('foo').to match_css(bar: 'baz')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `matches_css?` over `match_css` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect('foo'.matches_css?(bar: 'baz')).to #{matcher_true}
+        RUBY
+      end
+
       context 'when `AllowedExplicitMatchers: match_xpath`' do
         let(:allowed_explicit_matchers) { ['match_xpath'] }
 
