@@ -50,7 +50,7 @@ module RuboCop
         end
 
         # @param selector [String]
-        # @return [Array<String>]
+        # @return [Hash<String, String, Boolean, nil>]
         # @example
         #   attributes('a[foo-bar_baz]') # => {"foo-bar_baz=>nil}
         #   attributes('button[foo][bar=baz]') # => {"foo"=>nil, "bar"=>"baz"}
