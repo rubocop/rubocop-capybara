@@ -70,17 +70,20 @@ module RuboCop
           end
 
           def on_select_without_type(node)
-            add_offense(node, message: message_untyped) do |corrector|
-              corrector.replace(node.loc.selector, "have_#{default_selector}")
+            return unless (selector = default_selector)
+
+            add_offense(node, message: message_untyped(selector)) do |corrector|
+              corrector.replace(node.loc.selector, "have_#{selector}")
             end
           end
 
-          def message_untyped
-            format(MSG, good: "have_#{default_selector}")
+          def message_untyped(selector)
+            format(MSG, good: "have_#{selector}")
           end
 
           def default_selector
-            cop_config.fetch('DefaultSelector', 'css')
+            selector = cop_config.fetch('DefaultSelector', 'css').to_s.to_sym
+            selector if SELECTORS.include?(selector)
           end
         end
       end
