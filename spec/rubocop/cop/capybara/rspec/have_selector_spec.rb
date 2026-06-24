@@ -124,4 +124,14 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
       RUBY
     end
   end
+
+  context 'when DefaultSelector is unsupported' do
+    let(:default_selector) { 'foo' }
+
+    it 'does not register an offense when using `have_selector`' do
+      expect_no_offenses(<<~RUBY)
+        expect(foo).to have_selector('bar')
+      RUBY
+    end
+  end
 end
