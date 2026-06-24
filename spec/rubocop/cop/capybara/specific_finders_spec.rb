@@ -341,6 +341,7 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
      'with id and attribute' do
     expect_no_offenses(<<~RUBY)
       find('#foo[hidden]')
+      find('#foo.cls[hidden]')
       find('#foo[class="some-cls"]')
     RUBY
   end
