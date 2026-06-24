@@ -53,7 +53,7 @@ module RuboCop
         private
 
         def specific_action(selector)
-          SPECIFIC_ACTION[last_selector(selector)]
+          SPECIFIC_ACTION[selector]
         end
 
         def replaceable?(node, arg, action)
