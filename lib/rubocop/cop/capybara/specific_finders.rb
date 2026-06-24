@@ -68,13 +68,9 @@ module RuboCop
         end
 
         def remove_selector_argument(corrector, node)
-          if node.arguments.size == 1
-            corrector.remove(node.first_argument)
-          else
-            range = range_between(node.first_argument.source_range.begin_pos,
-                                  node.arguments[1].source_range.begin_pos)
-            corrector.remove(range)
-          end
+          range = range_between(node.first_argument.source_range.begin_pos,
+                                node.arguments[1].source_range.begin_pos)
+          corrector.remove(range)
         end
 
         def on_attr(node, sym, arg)
@@ -89,12 +85,12 @@ module RuboCop
           return if CssSelector.attributes(arg).any?
 
           id = CssSelector.id(arg)
-          register_offense(node, sym, "'#{id.delete('\\')}'",
+          register_offense(node, sym, ruby_literal(id.delete('\\')),
                            CssSelector.classes(arg.sub("##{id}", '')))
         end
 
         def on_sym_id(node, sym, id)
-          register_offense(node, sym, "'#{id.delete('\\')}'")
+          register_offense(node, sym, ruby_literal(id.delete('\\')))
         end
 
         def attribute?(arg)
@@ -142,8 +138,9 @@ module RuboCop
         end
 
         def replaced_arguments(arg, id)
-          id = id.delete('\\')
           options = to_options(CssSelector.attributes(arg))
+          id = ruby_literal(id.delete('\\'))
+
           options.empty? ? id : "#{id}, #{options}"
         end
 
@@ -151,8 +148,18 @@ module RuboCop
           attrs.each.filter_map do |key, value|
             next if key == 'id'
 
-            "#{key}: #{value}"
+            "#{key}: #{ruby_literal(value)}"
           end.join(', ')
+        end
+
+        def ruby_literal(value)
+          case value
+          when String
+            "'#{value.gsub(/['\\]/) { |char| "\\#{char}" }}'"
+          when nil then 'nil'
+          else
+            value.to_s
+          end
         end
 
         def offense_range(node)
