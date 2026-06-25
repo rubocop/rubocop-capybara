@@ -80,6 +80,28 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'registers an offense when using `find` with id and empty class' do
+    expect_offense(<<~RUBY)
+      find('#some-id.')
+      ^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('some-id')
+    RUBY
+  end
+
+  it 'registers an offense when using `find` with id and escaped class dot' do
+    expect_offense(<<~RUBY)
+      find('#some-id.some-cls\\.with-dot')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('some-id', class: 'some-cls.with-dot')
+    RUBY
+  end
+
   it 'registers an offense when using `find` with id include `\.`' do
     expect_offense(<<~RUBY)
       find('#some-id\\.some-cls')
