@@ -105,10 +105,29 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
       end
     RUBY
 
-    expect_correction(<<~RUBY)
-      within id_variable do
+    expect_no_corrections
+  end
+
+  it 'registers an offense when using `within find_by_id(...)` with ' \
+     'a dynamic id and other argument' do
+    expect_offense(<<~RUBY)
+      within find_by_id(dom_id(user), visible: :all) do
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Redundant `within find_by_id(...)` call detected.
       end
     RUBY
+
+    expect_no_corrections
+  end
+
+  it 'registers an offense when using `within find_by_id(...)` with ' \
+     'an interpolated id' do
+    expect_offense(<<~'RUBY')
+      within find_by_id("user_#{user.id}") do
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Redundant `within find_by_id(...)` call detected.
+      end
+    RUBY
+
+    expect_no_corrections
   end
 
   it 'does not register an offense when using `within` without `find`' do

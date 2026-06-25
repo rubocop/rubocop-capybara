@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when `find_by_id` uses a dynamic id. ([@ydah])
 - Fix a false positive for `Capybara/RSpec/HaveSelector` when `DefaultSelector` is unsupported. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/SpecificFinders` when a selector class is empty or contains an escaped dot. ([@ydah])
 - Fix a false negative for `Capybara/RSpec/NegationMatcherAfterVisit` when using `to_not`. ([@ydah])
