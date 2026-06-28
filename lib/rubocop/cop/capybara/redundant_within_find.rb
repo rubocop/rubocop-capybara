@@ -41,8 +41,10 @@ module RuboCop
 
         def on_send(node)
           within_find(node) do |find_node|
+            replacement = replaced(find_node)
+
             add_offense(find_node, message: msg(find_node)) do |corrector|
-              corrector.replace(find_node, replaced(find_node))
+              corrector.replace(find_node, replacement) if replacement
             end
           end
         end
@@ -58,12 +60,9 @@ module RuboCop
             return node.arguments.map(&:source).join(', ')
           end
 
-          if node.first_argument.str_type?
-            build_escaped_selector(node.first_argument, node)
-          else
-            node.arguments.map(&:source).join(', ')
-              .sub(/\A(["'])/, '\1#')
-          end
+          return unless node.first_argument&.str_type?
+
+          build_escaped_selector(node.first_argument, node)
         end
 
         def build_escaped_selector(first_arg, node)
