@@ -14,7 +14,7 @@ Use the bundled rake task `new_cop` to generate a cop template:
 $ bundle exec rake 'new_cop[Capybara/CopName]'
 [create] lib/rubocop/cop/capybara/cop_name.rb
 [create] spec/rubocop/cop/capybara/cop_name_spec.rb
-[modify] lib/rubocop/cop/capybara_cops.rb - `require_relative 'capybara/cop_name'` was injected.
+[modify] lib/rubocop/cop/capybara.rb - `register_cop :CopName, "#{__dir__}/capybara/cop_name"` was injected.
 [modify] A configuration for the cop is added into config/default.yml.
 Do 4 steps:
   1. Modify the description of Capybara/CopName in config/default.yml

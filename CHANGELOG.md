@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- Speed up loading rubocop-capybara by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
 - Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when `find_by_id` uses a dynamic id. ([@ydah])
 - Fix a false positive for `Capybara/RSpec/HaveSelector` when `DefaultSelector` is unsupported. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/SpecificFinders` when a selector class is empty or contains an escaped dot. ([@ydah])
