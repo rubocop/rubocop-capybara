@@ -54,7 +54,12 @@ module RuboCop
           return unless (parent = node.parent)
           return unless find_all_first?(parent)
           return if part_of_logical_operator?(parent)
+          return if keyword_only_all?(node)
 
+          register_all_first_offense(node, parent)
+        end
+
+        def register_all_first_offense(node, parent)
           range = range_between(node.loc.selector.begin_pos,
                                 parent.loc.selector.end_pos)
           selector = node.arguments.map(&:source).join(', ')
@@ -85,6 +90,14 @@ module RuboCop
 
         def part_of_logical_operator?(node)
           node.ancestors.any?(&:operator_keyword?)
+        end
+
+        # Capybara's `all` takes a positional selector as its first argument.
+        # A keyword-only `all(...)` (e.g. `all(include_inactive: true)`) is a
+        # non-Capybara collection method, so `first(...)` would not apply.
+        # `find_all_first?` guarantees `node` is an `all` send with an argument.
+        def keyword_only_all?(node)
+          node.first_argument.hash_type?
         end
       end
     end
