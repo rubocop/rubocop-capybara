@@ -147,6 +147,60 @@ RSpec.describe RuboCop::Cop::Capybara::FindAllFirst, :config do
     RUBY
   end
 
+  it 'registers an offense for keyword-only `all` with a Capybara ' \
+     'finder option' do
+    expect_offense(<<~RUBY)
+      all(text: 'Home').first
+      ^^^^^^^^^^^^^^^^^^^^^^^ Use `first(text: 'Home')`.
+      all(text: 'Home')[0]
+      ^^^^^^^^^^^^^^^^^^^^ Use `first(text: 'Home')`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      first(text: 'Home')
+      first(text: 'Home')
+    RUBY
+  end
+
+  it 'registers an offense for keyword-only `all` with a Capybara ' \
+     'finder option and receiver' do
+    expect_offense(<<~RUBY)
+      page.all(text: 'Home').first
+           ^^^^^^^^^^^^^^^^^^^^^^^ Use `first(text: 'Home')`.
+      page.all(text: 'Home')[0]
+           ^^^^^^^^^^^^^^^^^^^^ Use `first(text: 'Home')`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      page.first(text: 'Home')
+      page.first(text: 'Home')
+    RUBY
+  end
+
+  it 'does not register an offense when `all` receives non-Capybara ' \
+     'keyword arguments only' do
+    expect_no_offenses(<<~RUBY)
+      jobs.all(include_inactive: true).first
+      jobs.all(include_inactive: true)[0]
+    RUBY
+  end
+
+  it 'does not register an offense when `all` mixes Capybara and ' \
+     'non-Capybara keyword arguments' do
+    expect_no_offenses(<<~RUBY)
+      jobs.all(text: 'Home', include_inactive: true).first
+      jobs.all(text: 'Home', include_inactive: true)[0]
+    RUBY
+  end
+
+  it 'does not register an offense when keyword-only `all` uses a ' \
+     'double splat' do
+    expect_no_offenses(<<~RUBY)
+      jobs.all(**options).first
+      jobs.all(**options)[0]
+    RUBY
+  end
+
   context 'when using logical operators' do
     it 'does not register an offense when using `all` with ' \
        '`[0]` and `||` operator' do
