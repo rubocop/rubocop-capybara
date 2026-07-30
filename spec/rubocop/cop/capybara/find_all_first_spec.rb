@@ -147,6 +147,14 @@ RSpec.describe RuboCop::Cop::Capybara::FindAllFirst, :config do
     RUBY
   end
 
+  it 'does not register an offense when `all` receives keyword ' \
+     'arguments only' do
+    expect_no_offenses(<<~RUBY)
+      jobs.all(include_inactive: true).first
+      jobs.all(include_inactive: true)[0]
+    RUBY
+  end
+
   context 'when using logical operators' do
     it 'does not register an offense when using `all` with ' \
        '`[0]` and `||` operator' do

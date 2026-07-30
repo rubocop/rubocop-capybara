@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- Fix a false positive for `Capybara/FindAllFirst` when `all` is called with keyword arguments only (e.g. a non-Capybara collection method like `all(include_inactive: true).first`). ([@professor])
 - Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when `find_by_id` uses a dynamic id. ([@ydah])
 - Fix a false positive for `Capybara/RSpec/HaveSelector` when `DefaultSelector` is unsupported. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/SpecificFinders` when a selector class is empty or contains an escaped dot. ([@ydah])
@@ -126,6 +127,7 @@
 [@onumis]: https://github.com/onumis
 [@oskarsezerins]: https://github.com/OskarsEzerins
 [@pirj]: https://github.com/pirj
+[@professor]: https://github.com/professor
 [@rspeicher]: https://github.com/rspeicher
 [@timrogers]: https://github.com/timrogers
 [@twalpole]: https://github.com/twalpole
