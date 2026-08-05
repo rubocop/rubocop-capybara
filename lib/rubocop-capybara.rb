@@ -9,7 +9,7 @@ require_relative 'rubocop/cop/capybara/mixin/capybara_help'
 require_relative 'rubocop/cop/capybara/mixin/css_attributes_parser'
 require_relative 'rubocop/cop/capybara/mixin/css_selector'
 
-require_relative 'rubocop/cop/capybara_cops'
+require_relative 'rubocop/cop/capybara'
 
 RuboCop::Cop::Style::TrailingCommaInArguments.singleton_class.prepend(
   Module.new do
