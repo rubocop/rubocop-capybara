@@ -27,7 +27,7 @@ module RuboCop
         #   # bad (does not support autocorrection when `match` with a variable)
         #   expect(current_path).to match(variable)
         #
-        class CurrentPathExpectation < ::RuboCop::Cop::Base
+        class CurrentPathExpectation < RuboCop::Cop::Base
           extend AutoCorrector
           include RangeHelp
 

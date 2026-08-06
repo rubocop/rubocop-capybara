@@ -22,7 +22,7 @@ module RuboCop
         #   # good
         #   expect(page).to match_style(display: 'block')
         #
-        class MatchStyle < ::RuboCop::Cop::Base
+        class MatchStyle < RuboCop::Cop::Base
           extend AutoCorrector
 
           MSG = 'Use `%<good>s` instead of `%<bad>s`.'

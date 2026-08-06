@@ -19,7 +19,7 @@ module RuboCop
         #   expect(page).to have_text('capy')
         #   expect(page).to have_no_text('bara')
         #
-        class HaveContent < ::RuboCop::Cop::Base
+        class HaveContent < RuboCop::Cop::Base
           extend AutoCorrector
 
           MSG = 'Prefer `%<good>s` over `%<bad>s`.'

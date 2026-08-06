@@ -26,7 +26,7 @@ module RuboCop
       #     # ...
       #   end
       #
-      class RedundantWithinFind < ::RuboCop::Cop::Base
+      class RedundantWithinFind < RuboCop::Cop::Base
         include CssSelector
         extend AutoCorrector
 

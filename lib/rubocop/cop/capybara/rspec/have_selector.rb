@@ -33,7 +33,7 @@ module RuboCop
         #   # good
         #   expect(foo).to have_xpath('bar')
         #
-        class HaveSelector < ::RuboCop::Cop::Base
+        class HaveSelector < RuboCop::Cop::Base
           extend AutoCorrector
           include RangeHelp
 

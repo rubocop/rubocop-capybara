@@ -19,7 +19,7 @@ module RuboCop
       #   find_link('Home')
       #   find_field('Name')
       #
-      class SpecificFinders < ::RuboCop::Cop::Base # rubocop:disable Metrics/ClassLength
+      class SpecificFinders < RuboCop::Cop::Base # rubocop:disable Metrics/ClassLength
         extend AutoCorrector
         include RangeHelp
 

@@ -23,7 +23,7 @@ module RuboCop
       #   # good
       #   first('a')
       #
-      class FindAllFirst < ::RuboCop::Cop::Base
+      class FindAllFirst < RuboCop::Cop::Base
         extend AutoCorrector
         include RangeHelp
 
