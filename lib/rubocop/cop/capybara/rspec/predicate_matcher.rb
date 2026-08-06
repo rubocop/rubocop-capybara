@@ -9,7 +9,7 @@ module RuboCop
           extend NodePattern::Macros
 
           EXPLICIT_MATCHER = %w[css selector style xpath].map do |suffix|
-            "matches_#{suffix}?".to_sym
+            :"matches_#{suffix}?"
           end.freeze
           MSG_INFLECTED = 'Prefer using `%<matcher_name>s` matcher over ' \
                           '`%<predicate_name>s`.'

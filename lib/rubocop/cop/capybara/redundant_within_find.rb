@@ -29,6 +29,7 @@ module RuboCop
       class RedundantWithinFind < ::RuboCop::Cop::Base
         include CssSelector
         extend AutoCorrector
+
         MSG = 'Redundant `within %<method>s(...)` call detected.'
         RESTRICT_ON_SEND = %i[within].freeze
         FIND_METHODS = Set.new(%i[find find_by_id]).freeze

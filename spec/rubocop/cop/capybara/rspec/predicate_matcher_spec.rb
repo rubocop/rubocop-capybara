@@ -47,7 +47,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::PredicateMatcher, :config do
     context 'when `Strict: true`' do
       let(:strict) { true }
 
-      include_examples 'inflected common'
+      it_behaves_like 'inflected common'
 
       it 'does not register an offense when strict checking boolean matcher' do
         expect_no_offenses(<<~RUBY)
@@ -60,7 +60,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::PredicateMatcher, :config do
     context 'when `Strict: false`' do
       let(:strict) { false }
 
-      include_examples 'inflected common'
+      it_behaves_like 'inflected common'
 
       it 'registers an offense when predicate method in actual' do
         expect_offense(<<~RUBY)
@@ -182,13 +182,13 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::PredicateMatcher, :config do
     context 'when `Strict: true`' do
       let(:strict) { true }
 
-      include_examples 'explicit', 'be(true)', 'be(false)'
+      it_behaves_like 'explicit', 'be(true)', 'be(false)'
     end
 
     context 'when `Strict: false`' do
       let(:strict) { false }
 
-      include_examples 'explicit', 'be_truthy', 'be_falsey'
+      it_behaves_like 'explicit', 'be_truthy', 'be_falsey'
     end
   end
 end

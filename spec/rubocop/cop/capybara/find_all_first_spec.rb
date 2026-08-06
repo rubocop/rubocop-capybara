@@ -133,8 +133,8 @@ RSpec.describe RuboCop::Cop::Capybara::FindAllFirst, :config do
     RUBY
   end
 
-  it 'does not register an offense when using `all` with argument' \
-     ' without `first`' do
+  it 'does not register an offense when using `all` with argument ' \
+     'without `first`' do
     expect_no_offenses(<<~RUBY)
       all('a', text: 'b')
     RUBY

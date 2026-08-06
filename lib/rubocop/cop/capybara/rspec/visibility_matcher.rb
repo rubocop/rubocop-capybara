@@ -40,7 +40,7 @@ module RuboCop
             unchecked_field
             xpath
           ].flat_map do |element|
-            ["have_#{element}".to_sym, "have_no_#{element}".to_sym]
+            [:"have_#{element}", :"have_no_#{element}"]
           end
 
           RESTRICT_ON_SEND = CAPYBARA_MATCHER_METHODS
