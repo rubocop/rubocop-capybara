@@ -25,7 +25,7 @@ module RuboCop
         #   expect(page).to have_css('.foo', visible: :all)
         #   expect(page).to have_link('my link', visible: :hidden)
         #
-        class VisibilityMatcher < ::RuboCop::Cop::Base
+        class VisibilityMatcher < RuboCop::Cop::Base
           MSG_FALSE = 'Use `:all` or `:hidden` instead of `false`.'
           MSG_TRUE = 'Use `:visible` instead of `true`.'
           CAPYBARA_MATCHER_METHODS = %w[
@@ -40,7 +40,7 @@ module RuboCop
             unchecked_field
             xpath
           ].flat_map do |element|
-            ["have_#{element}".to_sym, "have_no_#{element}".to_sym]
+            [:"have_#{element}", :"have_no_#{element}"]
           end
 
           RESTRICT_ON_SEND = CAPYBARA_MATCHER_METHODS

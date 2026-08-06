@@ -27,7 +27,7 @@ module RuboCop
         #   expect(page).to have_css('a')
         #   expect(page).not_to have_link('bar')
         #
-        class NegationMatcherAfterVisit < ::RuboCop::Cop::Base
+        class NegationMatcherAfterVisit < RuboCop::Cop::Base
           include CapybaraHelp
 
           MSG = 'Do not use negation matcher immediately after visit.'

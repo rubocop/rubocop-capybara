@@ -17,7 +17,7 @@ module RuboCop
       #   click_link('foo')
       #   click_button('foo')
       #
-      class AmbiguousClick < ::RuboCop::Cop::Base
+      class AmbiguousClick < RuboCop::Cop::Base
         MSG = 'Use `click_link` or `click_button` instead of `%<method>s`.'
         RESTRICT_ON_SEND = %i[click_link_or_button click_on].freeze
 

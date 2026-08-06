@@ -9,7 +9,7 @@ module RuboCop
           extend NodePattern::Macros
 
           EXPLICIT_MATCHER = %w[css selector style xpath].map do |suffix|
-            "matches_#{suffix}?".to_sym
+            :"matches_#{suffix}?"
           end.freeze
           MSG_INFLECTED = 'Prefer using `%<matcher_name>s` matcher over ' \
                           '`%<predicate_name>s`.'
@@ -273,7 +273,7 @@ module RuboCop
         #   # good - the above code is rewritten to it by this cop
         #   expect(foo.matches_style?(bar: 'baz')).to be_truthy
         #
-        class PredicateMatcher < ::RuboCop::Cop::Base
+        class PredicateMatcher < RuboCop::Cop::Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
           include InflectedHelper

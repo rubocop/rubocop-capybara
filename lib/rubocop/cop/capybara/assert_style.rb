@@ -12,7 +12,7 @@ module RuboCop
       #   # good
       #   page.find(:css, '#first').assert_matches_style(display: 'block')
       #
-      class AssertStyle < ::RuboCop::Cop::Base
+      class AssertStyle < RuboCop::Cop::Base
         extend AutoCorrector
 
         MSG = 'Use `assert_matches_style` instead of `assert_style`.'

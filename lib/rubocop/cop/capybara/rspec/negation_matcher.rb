@@ -24,7 +24,7 @@ module RuboCop
         #   expect(page).not_to have_selector 'a'
         #   expect(page).not_to have_css('a')
         #
-        class NegationMatcher < ::RuboCop::Cop::Base
+        class NegationMatcher < RuboCop::Cop::Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
           include CapybaraHelp
