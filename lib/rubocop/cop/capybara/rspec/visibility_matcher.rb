@@ -28,22 +28,7 @@ module RuboCop
         class VisibilityMatcher < RuboCop::Cop::Base
           MSG_FALSE = 'Use `:all` or `:hidden` instead of `false`.'
           MSG_TRUE = 'Use `:visible` instead of `true`.'
-          CAPYBARA_MATCHER_METHODS = %w[
-            button
-            checked_field
-            css
-            field
-            link
-            select
-            selector
-            table
-            unchecked_field
-            xpath
-          ].flat_map do |element|
-            [:"have_#{element}", :"have_no_#{element}"]
-          end
-
-          RESTRICT_ON_SEND = CAPYBARA_MATCHER_METHODS
+          RESTRICT_ON_SEND = CapybaraHelp::VISIBILITY_MATCHER_METHODS
 
           # @!method visible_true?(node)
           def_node_matcher :visible_true?, <<~PATTERN
@@ -63,7 +48,7 @@ module RuboCop
           private
 
           def capybara_matcher?(method_name)
-            CAPYBARA_MATCHER_METHODS.include? method_name
+            RESTRICT_ON_SEND.include? method_name
           end
         end
       end

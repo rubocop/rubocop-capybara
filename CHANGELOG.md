@@ -4,6 +4,7 @@
 
 - Add new `Capybara/ModalMethodWithoutBlock` cop. ([@ydah])
 - Add new `Capybara/NativeAttribute` cop. ([@ydah])
+- Add new `Capybara/VisibilityOption` cop. ([@ydah])
 - Speed up loading rubocop-capybara by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
 - Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when `find_by_id` uses a dynamic id. ([@ydah])
 - Fix a false positive for `Capybara/RSpec/HaveSelector` when `DefaultSelector` is unsupported. ([@ydah])
