@@ -241,3 +241,69 @@ find_field('Name')
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificFinders
+
+[#capybaravisibilityoption]
+== Capybara/VisibilityOption
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Checks for boolean values passed to Capybara's `visible` option.
+
+`visible: false` finds both visible and hidden elements, rather than
+only hidden elements. Use `:all`, `:hidden` or `:visible` instead.
+Only `true` is autocorrected, to `:visible`.
+
+This cop targets Capybara's built-in selectors. Set `DefaultSelector`
+to match `Capybara.default_selector`, or to `null` if it varies at
+runtime. Queries using custom or unknown selectors are skipped.
+
+[#examples-capybaravisibilityoption]
+=== Examples
+
+[source,ruby]
+----
+# bad
+find('.menu', visible: true)
+expect(page).to have_css('.menu', visible: false)
+
+# good
+find('.menu', visible: :visible)
+find('.menu', visible: :all)
+find('.menu', visible: :hidden)
+----
+
+[#defaultselector_-custom-capybaravisibilityoption]
+==== DefaultSelector: custom
+
+[source,ruby]
+----
+# bad
+find(:css, '.menu', visible: true)
+
+# good
+find('.menu', visible: true)
+----
+
+[#configurable-attributes-capybaravisibilityoption]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| DefaultSelector
+| `css`
+| String
+|===
+
+[#references-capybaravisibilityoption]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/VisibilityOption

@@ -8,6 +8,7 @@
 * xref:cops_capybara.adoc#capybararedundantwithinfind[Capybara/RedundantWithinFind]
 * xref:cops_capybara.adoc#capybaraspecificactions[Capybara/SpecificActions]
 * xref:cops_capybara.adoc#capybaraspecificfinders[Capybara/SpecificFinders]
+* xref:cops_capybara.adoc#capybaravisibilityoption[Capybara/VisibilityOption]
 
 === Department xref:cops_capybara_rspec.adoc[Capybara/RSpec]
 

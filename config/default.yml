@@ -51,6 +51,13 @@ Capybara/SpecificFinders:
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificFinders
 
+Capybara/VisibilityOption:
+  Description: Checks for boolean values passed to Capybara's `visible` option.
+  Enabled: pending
+  DefaultSelector: css
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/VisibilityOption
+
 Capybara/RSpec:
   Enabled: true
   Include: *1
