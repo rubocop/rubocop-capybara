@@ -12,6 +12,7 @@ module RuboCop
       register_cop :AmbiguousClick, "#{__dir__}/capybara/ambiguous_click"
       register_cop :AssertStyle, "#{__dir__}/capybara/assert_style"
       register_cop :FindAllFirst, "#{__dir__}/capybara/find_all_first"
+      register_cop :NativeAttribute, "#{__dir__}/capybara/native_attribute"
       register_cop :RedundantWithinFind, "#{__dir__}/capybara/redundant_within_find"
       register_cop :SpecificActions, "#{__dir__}/capybara/specific_actions"
       register_cop :SpecificFinders, "#{__dir__}/capybara/specific_finders"

@@ -119,6 +119,48 @@ first('a')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
+[#capybaranativeattribute]
+== Capybara/NativeAttribute
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always (Unsafe)
+| <<next>>
+| -
+|===
+
+Enforces use of `Element#[]` instead of `native.attribute`.
+
+Only calls on Capybara finder chains are checked.
+
+[#safety-capybaranativeattribute]
+=== Safety
+
+This cop's autocorrection is unsafe because attribute values may
+differ between the driver API and Capybara's `Element#[]`.
+
+[#examples-capybaranativeattribute]
+=== Examples
+
+[source,ruby]
+----
+# bad
+find('.item').native.attribute(:id)
+page.find('.item').native.attribute('aria-label')
+
+# good
+find('.item')[:id]
+page.find('.item')['aria-label']
+----
+
+[#references-capybaranativeattribute]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NativeAttribute
+
 [#capybararedundantwithinfind]
 == Capybara/RedundantWithinFind
 
