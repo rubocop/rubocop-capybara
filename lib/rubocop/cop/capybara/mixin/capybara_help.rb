@@ -6,6 +6,8 @@ module RuboCop
       # Help methods for capybara.
       # @api private
       module CapybaraHelp
+        extend RuboCop::AST::NodePattern::Macros
+
         CAPYBARA_MATCHERS = %w[
           selector css xpath text title current_path link button
           field checked_field unchecked_field select table
@@ -47,6 +49,20 @@ module RuboCop
         ].freeze
 
         module_function
+
+        # Recognize the Capybara DSL and finder chains, not arbitrary objects
+        # with methods such as Enumerable#find or ActiveRecord#first.
+        # @!method capybara_receiver?(node)
+        def_node_matcher :capybara_receiver?, <<~PATTERN
+          {nil? self
+           (call {nil? self} :page)
+           (call (const {nil? cbase} :Capybara) :current_session)
+           (call #capybara_receiver?
+             {:ancestor :find :find_button :find_by_id :find_field :find_link :first :sibling} ...)
+           (any_block #capybara_receiver? ...)
+           (begin #capybara_receiver?)}
+        PATTERN
+        module_function :capybara_receiver?
 
         # @param node [RuboCop::AST::SendNode]
         # @param locator [String]

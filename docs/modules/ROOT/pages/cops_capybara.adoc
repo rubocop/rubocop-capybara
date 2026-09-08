@@ -119,6 +119,76 @@ first('a')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
+[#capybaraineffectivequeryoption]
+== Capybara/IneffectiveQueryOption
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Checks for query options that have no effect in Capybara.
+
+Count options passed to singular finders are not autocorrected because
+removing them may conceal the author's intent.
+
+This cop targets Capybara's built-in selectors. Set `DefaultSelector`
+to match `Capybara.default_selector`, or to `null` if it varies at
+runtime. Queries using custom or unknown selectors are skipped.
+
+[#examples-capybaraineffectivequeryoption]
+=== Examples
+
+[source,ruby]
+----
+# bad
+find('.row', count: 3)
+find(:css, '.item', exact: true)
+find('.item', text: /foo/, exact_text: true)
+all(:css, '.item', match: :first)
+expect(page).to have_css('.item', count: 3, minimum: 1)
+
+# good
+all('.row', count: 3)
+find(:css, '.item')
+find('.item', text: /foo/)
+all(:css, '.item')
+expect(page).to have_css('.item', count: 3)
+----
+
+[#defaultselector_-custom-capybaraineffectivequeryoption]
+==== DefaultSelector: custom
+
+[source,ruby]
+----
+# bad
+find(:css, '.item', text: /foo/, exact_text: true)
+
+# good
+find('.item', text: /foo/, exact_text: true)
+----
+
+[#configurable-attributes-capybaraineffectivequeryoption]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| DefaultSelector
+| `css`
+| String
+|===
+
+[#references-capybaraineffectivequeryoption]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/IneffectiveQueryOption
+
 [#capybararedundantwithinfind]
 == Capybara/RedundantWithinFind
 
