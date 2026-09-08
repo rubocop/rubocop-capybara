@@ -15,6 +15,7 @@ module RuboCop
       register_cop :RedundantWithinFind, "#{__dir__}/capybara/redundant_within_find"
       register_cop :SpecificActions, "#{__dir__}/capybara/specific_actions"
       register_cop :SpecificFinders, "#{__dir__}/capybara/specific_finders"
+      register_cop :VisibilityOption, "#{__dir__}/capybara/visibility_option"
     end
   end
 end
