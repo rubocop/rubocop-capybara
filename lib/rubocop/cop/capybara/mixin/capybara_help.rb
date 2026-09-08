@@ -5,7 +5,9 @@ module RuboCop
     module Capybara
       # Help methods for capybara.
       # @api private
-      module CapybaraHelp
+      module CapybaraHelp # rubocop:disable Metrics/ModuleLength
+        extend RuboCop::AST::NodePattern::Macros
+
         CAPYBARA_MATCHERS = %w[
           selector css xpath text title current_path link button
           field checked_field unchecked_field select table
@@ -47,6 +49,56 @@ module RuboCop
         ].freeze
 
         module_function
+
+        # Recognize the Capybara DSL and finder chains, not arbitrary objects
+        # with methods such as Enumerable#find or ActiveRecord#first.
+        # Recursive references intentionally use the pattern-only matcher.
+        # Resolving local variables here would recurse forever for assignments
+        # such as `tr = tr.find(...)`.
+        # @!method capybara_receiver_pattern?(node)
+        def_node_matcher :capybara_receiver_pattern?, <<~PATTERN
+          {nil? self
+           (call {nil? self} :page)
+           (call (const {nil? cbase} :Capybara) :current_session)
+           (call #capybara_receiver_pattern?
+             {:all :ancestor :find :find_all :find_button :find_by_id
+              :find_field :find_link :first :sibling} ...)
+           (any_block #capybara_receiver_pattern? ...)
+           (begin #capybara_receiver_pattern?) }
+        PATTERN
+        module_function :capybara_receiver_pattern?
+
+        # @param node [RuboCop::AST::Node]
+        # @return [Boolean]
+        def capybara_receiver?(node)
+          capybara_receiver_pattern?(node) ||
+            local_variable_capybara_receiver?(node)
+        end
+        module_function :capybara_receiver?
+
+        # ponytail: Direct same-scope assignments only; use data-flow analysis
+        # if coverage grows.
+        def local_variable_capybara_receiver?(node)
+          return false unless node.lvar_type?
+
+          assignment = node.each_ancestor.filter_map do |scope|
+            local_variable_assignment(node, scope) if scope.begin_type?
+          end.first
+          return false unless assignment
+
+          value = assignment.children[1]
+          value && capybara_receiver_pattern?(value)
+        end
+        module_function :local_variable_capybara_receiver?
+
+        def local_variable_assignment(node, scope)
+          scope.children.reverse.find do |child|
+            child.lvasgn_type? &&
+              child.children.first == node.children.first &&
+              child.source_range.begin_pos < node.source_range.begin_pos
+          end
+        end
+        module_function :local_variable_assignment
 
         # @param node [RuboCop::AST::SendNode]
         # @param locator [String]
