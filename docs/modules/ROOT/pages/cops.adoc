@@ -5,6 +5,7 @@
 * xref:cops_capybara.adoc#capybaraambiguousclick[Capybara/AmbiguousClick]
 * xref:cops_capybara.adoc#capybaraassertstyle[Capybara/AssertStyle]
 * xref:cops_capybara.adoc#capybarafindallfirst[Capybara/FindAllFirst]
+* xref:cops_capybara.adoc#capybaramodalmethodwithoutblock[Capybara/ModalMethodWithoutBlock]
 * xref:cops_capybara.adoc#capybararedundantwithinfind[Capybara/RedundantWithinFind]
 * xref:cops_capybara.adoc#capybaraspecificactions[Capybara/SpecificActions]
 * xref:cops_capybara.adoc#capybaraspecificfinders[Capybara/SpecificFinders]
