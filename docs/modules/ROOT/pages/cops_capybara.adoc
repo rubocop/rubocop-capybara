@@ -119,6 +119,40 @@ first('a')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
+[#capybaramodalmethodwithoutblock]
+== Capybara/ModalMethodWithoutBlock
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks that modal handling methods are called with a block.
+
+[#examples-capybaramodalmethodwithoutblock]
+=== Examples
+
+[source,ruby]
+----
+# bad
+accept_confirm
+page.accept_prompt(with: 'answer')
+
+# good
+accept_confirm { click_button 'Delete' }
+page.accept_prompt(with: 'answer', &trigger_modal)
+----
+
+[#references-capybaramodalmethodwithoutblock]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ModalMethodWithoutBlock
+
 [#capybararedundantwithinfind]
 == Capybara/RedundantWithinFind
 

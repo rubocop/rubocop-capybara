@@ -30,6 +30,12 @@ Capybara/FindAllFirst:
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
+Capybara/ModalMethodWithoutBlock:
+  Description: Checks that modal handling methods are called with a block.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ModalMethodWithoutBlock
+
 Capybara/RedundantWithinFind:
   Description: Checks for redundant `within find(...)` calls.
   Enabled: true
