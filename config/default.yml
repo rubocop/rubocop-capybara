@@ -30,6 +30,13 @@ Capybara/FindAllFirst:
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
+Capybara/IneffectiveQueryOption:
+  Description: Checks for query options that have no effect in Capybara.
+  Enabled: pending
+  DefaultSelector: css
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/IneffectiveQueryOption
+
 Capybara/RedundantWithinFind:
   Description: Checks for redundant `within find(...)` calls.
   Enabled: true
