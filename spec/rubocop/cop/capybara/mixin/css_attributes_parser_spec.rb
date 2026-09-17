@@ -38,6 +38,12 @@ RSpec.describe RuboCop::Cop::Capybara::CssAttributesParser do
       )
     end
 
+    it 'returns nil for unsupported attribute modifiers' do
+      expect(
+        described_class.new('input[placeholder="city" i]').parse
+      ).to eq('placeholder' => nil)
+    end
+
     it 'returns attributes hash when specify nested and include ' \
        'multiple bracket' do
       expect(described_class.new('[foo="bar[baz][qux]"]').parse).to eq(

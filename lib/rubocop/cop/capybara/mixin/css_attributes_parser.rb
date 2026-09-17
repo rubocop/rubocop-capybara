@@ -62,6 +62,8 @@ module RuboCop
         #   normalize_value("foo") # => "foo"
         #   normalize_value("'foo'") # => "foo"
         def normalize_value(value)
+          return if value&.match?(/\s+[is]\s*\z/i)
+
           case value
           when 'true' then true
           when 'false' then false
