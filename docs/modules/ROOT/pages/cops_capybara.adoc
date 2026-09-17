@@ -107,8 +107,6 @@ being a collection (e.g. calling `.each` on the result).
 # bad
 all('a').first
 all('a')[0]
-find('a', match: :first)
-all('a', match: :first)
 
 # good
 first('a')
