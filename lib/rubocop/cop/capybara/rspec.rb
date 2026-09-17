@@ -9,6 +9,7 @@ module RuboCop
         extend LazyLoader
 
         register_cop :CurrentPathExpectation, "#{__dir__}/rspec/current_path_expectation"
+        register_cop :FindElementValueEq, "#{__dir__}/rspec/find_element_value_eq"
         register_cop :HaveContent, "#{__dir__}/rspec/have_content"
         register_cop :HaveSelector, "#{__dir__}/rspec/have_selector"
         register_cop :MatchStyle, "#{__dir__}/rspec/match_style"
