@@ -36,6 +36,13 @@ Capybara/ModalMethodWithoutBlock:
   VersionAdded: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ModalMethodWithoutBlock
 
+Capybara/NativeAttribute:
+  Description: Enforces use of `Element#[]` instead of `native.attribute`.
+  Enabled: pending
+  SafeAutoCorrect: false
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NativeAttribute
+
 Capybara/RedundantWithinFind:
   Description: Checks for redundant `within find(...)` calls.
   Enabled: true
