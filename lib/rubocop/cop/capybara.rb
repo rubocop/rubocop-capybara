@@ -11,6 +11,7 @@ module RuboCop
 
       register_cop :AmbiguousClick, "#{__dir__}/capybara/ambiguous_click"
       register_cop :AssertStyle, "#{__dir__}/capybara/assert_style"
+      register_cop :ChainedFind, "#{__dir__}/capybara/chained_find"
       register_cop :FindAllFirst, "#{__dir__}/capybara/find_all_first"
       register_cop :ModalMethodWithoutBlock, "#{__dir__}/capybara/modal_method_without_block"
       register_cop :NativeAttribute, "#{__dir__}/capybara/native_attribute"

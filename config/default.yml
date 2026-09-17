@@ -22,6 +22,12 @@ Capybara/AssertStyle:
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AssertStyle
 
+Capybara/ChainedFind:
+  Description: Avoid chaining `find` methods and combine selectors.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ChainedFind
+
 Capybara/FindAllFirst:
   Description: Enforces use of `first` instead of `all` with `first` or `[0]`.
   Enabled: true

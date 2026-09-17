@@ -4,6 +4,7 @@
 
 * xref:cops_capybara.adoc#capybaraambiguousclick[Capybara/AmbiguousClick]
 * xref:cops_capybara.adoc#capybaraassertstyle[Capybara/AssertStyle]
+* xref:cops_capybara.adoc#capybarachainedfind[Capybara/ChainedFind]
 * xref:cops_capybara.adoc#capybarafindallfirst[Capybara/FindAllFirst]
 * xref:cops_capybara.adoc#capybaramodalmethodwithoutblock[Capybara/ModalMethodWithoutBlock]
 * xref:cops_capybara.adoc#capybaranativeattribute[Capybara/NativeAttribute]
