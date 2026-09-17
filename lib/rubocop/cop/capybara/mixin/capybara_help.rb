@@ -47,6 +47,12 @@ module RuboCop
         SPECIFIC_PSEUDO_CLASSES = %w[
           not() disabled enabled checked unchecked
         ].freeze
+        VISIBILITY_MATCHER_METHODS = %w[
+          button checked_field css field link select selector table
+          unchecked_field xpath
+        ].flat_map do |element|
+          [:"have_#{element}", :"have_no_#{element}"]
+        end.freeze
 
         module_function
 

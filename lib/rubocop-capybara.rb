@@ -8,6 +8,7 @@ require_relative 'rubocop/capybara/version'
 require_relative 'rubocop/cop/capybara/mixin/capybara_help'
 require_relative 'rubocop/cop/capybara/mixin/css_attributes_parser'
 require_relative 'rubocop/cop/capybara/mixin/css_selector'
+require_relative 'rubocop/cop/capybara/mixin/query_methods'
 
 require_relative 'rubocop/cop/capybara'
 
