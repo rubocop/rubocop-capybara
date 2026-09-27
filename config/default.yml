@@ -70,6 +70,12 @@ Capybara/SpecificFinders:
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificFinders
 
+Capybara/UnorderedWindowAccess:
+  Description: Checks positional access to Capybara windows, whose order is undefined.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/UnorderedWindowAccess
+
 Capybara/VisibilityOption:
   Description: Checks for boolean values passed to Capybara's `visible` option.
   Enabled: pending

@@ -357,6 +357,40 @@ find_field(type: 'checkbox')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificFinders
 
+[#capybaraunorderedwindowaccess]
+== Capybara/UnorderedWindowAccess
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks positional access to Capybara windows, whose order is undefined.
+
+[#examples-capybaraunorderedwindowaccess]
+=== Examples
+
+[source,ruby]
+----
+# bad
+popup = windows.last
+original = page.windows.first
+
+# good
+popup = window_opened_by { click_link 'Open' }
+original = current_window
+----
+
+[#references-capybaraunorderedwindowaccess]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/UnorderedWindowAccess
+
 [#capybaravisibilityoption]
 == Capybara/VisibilityOption
 
