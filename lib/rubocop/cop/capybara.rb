@@ -9,6 +9,7 @@ module RuboCop
     module Capybara
       extend LazyLoader
 
+      register_cop :AlwaysTrueCountQuery, "#{__dir__}/capybara/always_true_count_query"
       register_cop :AmbiguousClick, "#{__dir__}/capybara/ambiguous_click"
       register_cop :AssertStyle, "#{__dir__}/capybara/assert_style"
       register_cop :ChainedFind, "#{__dir__}/capybara/chained_find"

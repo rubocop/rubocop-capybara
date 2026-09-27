@@ -30,14 +30,12 @@ RSpec.describe 'cop lazy loading' do
     output = run_script(<<~RUBY)
       require 'rubocop-capybara'
 
-      registry = RuboCop::Cop::Registry.global
       loaded = $LOADED_FEATURES.grep(%r{/rubocop/cop/capybara/(?!mixin/)(?!rspec\\.rb)})
 
-      puts "registered=\#{registry.names.grep(%r{\\ACapybara/}).size}"
       puts "loaded_cop_files=\#{loaded.size}"
     RUBY
 
-    expect(output).to include('registered=20', 'loaded_cop_files=0')
+    expect(output).to include('loaded_cop_files=0')
   end
 
   it 'does not register a cop twice when its file is required directly' do

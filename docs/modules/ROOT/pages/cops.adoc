@@ -2,6 +2,7 @@
 
 === Department xref:cops_capybara.adoc[Capybara]
 
+* xref:cops_capybara.adoc#capybaraalwaystruecountquery[Capybara/AlwaysTrueCountQuery]
 * xref:cops_capybara.adoc#capybaraambiguousclick[Capybara/AmbiguousClick]
 * xref:cops_capybara.adoc#capybaraassertstyle[Capybara/AssertStyle]
 * xref:cops_capybara.adoc#capybarachainedfind[Capybara/ChainedFind]
