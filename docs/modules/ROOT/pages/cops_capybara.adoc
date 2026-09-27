@@ -122,10 +122,15 @@ page.find('#foo .bar .baz')
 | Yes
 | Always (Unsafe)
 | 2.22
-| 3.0
+| <<next>>
 |===
 
 Enforces use of `first` instead of `all` with `first` or `[0]`.
+
+Capybara's selectorless keyword-only form (e.g. `all(text: 'Home')`)
+is only flagged when every keyword is a valid Capybara option, to
+avoid breaking non-Capybara `all` methods. Set `DefaultSelector` to
+match `Capybara.default_selector` so that its filters are accepted.
 
 [#safety-capybarafindallfirst]
 === Safety
@@ -148,6 +153,42 @@ all('a')[0]
 # good
 first('a')
 ----
+
+[#defaultselector_-css-_default_-capybarafindallfirst]
+==== DefaultSelector: css (default)
+
+[source,ruby]
+----
+# bad
+all(text: 'Home').first
+
+# good
+first(text: 'Home')
+jobs.all(include_inactive: true).first
+----
+
+[#defaultselector_-field-capybarafindallfirst]
+==== DefaultSelector: field
+
+[source,ruby]
+----
+# bad
+all(disabled: true).first
+
+# good
+first(disabled: true)
+----
+
+[#configurable-attributes-capybarafindallfirst]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| DefaultSelector
+| `css`
+| String
+|===
 
 [#references-capybarafindallfirst]
 === References

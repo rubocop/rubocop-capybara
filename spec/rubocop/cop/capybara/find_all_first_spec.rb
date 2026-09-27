@@ -139,6 +139,62 @@ RSpec.describe RuboCop::Cop::Capybara::FindAllFirst, :config do
     RUBY
   end
 
+  it 'registers an offense for keyword-only `all` with selector ' \
+     'configuration options' do
+    expect_offense(<<~RUBY)
+      page.all(text: 'Home', enable_aria_label: true).first
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first(text: 'Home', enable_aria_label: true)`.
+      page.all(allow_reload: true)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first(allow_reload: true)`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      page.first(text: 'Home', enable_aria_label: true)
+      page.first(allow_reload: true)
+    RUBY
+  end
+
+  it 'registers an offense for keyword-only `all` with `filter_set` ' \
+     'and its filters' do
+    expect_offense(<<~RUBY)
+      page.all(filter_set: :field, disabled: true).first
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first(filter_set: :field, disabled: true)`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      page.first(filter_set: :field, disabled: true)
+    RUBY
+  end
+
+  context 'when DefaultSelector is xpath' do
+    let(:cop_config) { { 'DefaultSelector' => 'xpath' } }
+
+    it 'does not register an offense when `all` receives non-Capybara ' \
+       'keyword arguments only' do
+      expect_no_offenses(<<~RUBY)
+        jobs.all(include_inactive: true).first
+      RUBY
+    end
+  end
+
+  context 'when DefaultSelector defines its own filters' do
+    let(:cop_config) { { 'DefaultSelector' => 'field' } }
+
+    it 'registers an offense for keyword-only `all` with selector filters' do
+      expect_offense(<<~RUBY)
+        page.all(disabled: true).first
+             ^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first(disabled: true)`.
+        all(disabled: true)[0]
+        ^^^^^^^^^^^^^^^^^^^^^^ Use `first(disabled: true)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        page.first(disabled: true)
+        first(disabled: true)
+      RUBY
+    end
+  end
+
   it 'does not register an offense when `all` receives non-Capybara ' \
      'keyword arguments only' do
     expect_no_offenses(<<~RUBY)
@@ -152,6 +208,13 @@ RSpec.describe RuboCop::Cop::Capybara::FindAllFirst, :config do
     expect_no_offenses(<<~RUBY)
       jobs.all(text: 'Home', include_inactive: true).first
       jobs.all(text: 'Home', include_inactive: true)[0]
+    RUBY
+  end
+
+  it 'does not register an offense when `all` receives a hash with ' \
+     'non-symbol keys' do
+    expect_no_offenses(<<~RUBY)
+      jobs.all('text' => 'Home').first
     RUBY
   end
 

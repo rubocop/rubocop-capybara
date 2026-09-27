@@ -21,6 +21,26 @@ module RuboCop
       #   # good
       #   first('a')
       #
+      # Capybara's selectorless keyword-only form (e.g. `all(text: 'Home')`)
+      # is only flagged when every keyword is a valid Capybara option, to
+      # avoid breaking non-Capybara `all` methods. Set `DefaultSelector` to
+      # match `Capybara.default_selector` so that its filters are accepted.
+      #
+      # @example DefaultSelector: css (default)
+      #   # bad
+      #   all(text: 'Home').first
+      #
+      #   # good
+      #   first(text: 'Home')
+      #   jobs.all(include_inactive: true).first
+      #
+      # @example DefaultSelector: field
+      #   # bad
+      #   all(disabled: true).first
+      #
+      #   # good
+      #   first(disabled: true)
+      #
       class FindAllFirst < RuboCop::Cop::Base
         extend AutoCorrector
         include RangeHelp
@@ -28,20 +48,22 @@ module RuboCop
         MSG = 'Use `first(%<selector>s)`.'
         RESTRICT_ON_SEND = %i[all].freeze
 
-        # Global query options accepted by Capybara's `all`/`first`. A
-        # keyword-only `all(...)` whose keys are all valid Capybara options
-        # (e.g. `all(text: 'Home')`) is a real Capybara call. One with an
-        # unknown key (e.g. `all(include_inactive: true)`) is a non-Capybara
-        # collection method whose autocorrect to `first(...)` would break.
+        # `SelectorQuery::VALID_KEYS`, `SelectorQuery#initialize` keywords, and
+        # `all`'s `allow_reload`. Capybara raises on any other key unless the
+        # selector defines it as a filter.
         CAPYBARA_FINDER_OPTIONS = Set.new(
           %i[
             above below left_of right_of near
             count minimum maximum between
             text exact_text normalize_ws
             visible obscured exact match wait
-            id class style focused
+            id class style focused filter_set
+            enable_aria_label enable_aria_role test_id
+            selector_format order session_options allow_reload
           ]
         ).freeze
+
+        FILTERLESS_SELECTORS = %i[css xpath].freeze
 
         # @!method find_all_first?(node)
         def_node_matcher :find_all_first?, <<~PATTERN
@@ -76,26 +98,36 @@ module RuboCop
           node.ancestors.any?(&:operator_keyword?)
         end
 
-        # Skips keyword-only `all(...)` calls that are not Capybara finders.
-        # Capybara's `all` takes a positional selector, but also accepts a
-        # selectorless keyword-only form (e.g. `all(text: 'Home')`). Those are
-        # still valid Capybara calls, so only skip when a keyword is not a
-        # known Capybara option (or the keys can't be determined, e.g. a double
-        # splat). `find_all_first?` guarantees `node` is an `all` send with an
-        # argument.
+        # Selectorless `all(text: 'Home')` is valid Capybara, so only skip
+        # keyword-only calls whose keys can't all be Capybara options.
         def keyword_only_all?(node)
           first_argument = node.first_argument
           return false unless first_argument.hash_type?
+          return false unless filterless_default_selector?
 
           !capybara_finder_options_only?(first_argument)
         end
 
+        # Other default selectors (e.g. `:field`) define their own filters.
+        def filterless_default_selector?
+          FILTERLESS_SELECTORS.include?(
+            cop_config.fetch('DefaultSelector', 'css').to_s.to_sym
+          )
+        end
+
         def capybara_finder_options_only?(hash_node)
-          hash_node.pairs.size == hash_node.children.size &&
-            hash_node.pairs.all? do |pair|
-              pair.key.sym_type? &&
-                CAPYBARA_FINDER_OPTIONS.include?(pair.key.value)
-            end
+          return false unless (keys = symbol_keys(hash_node))
+
+          # `filter_set:` makes that filter set's filters valid options.
+          keys.include?(:filter_set) ||
+            keys.all? { |key| CAPYBARA_FINDER_OPTIONS.include?(key) }
+        end
+
+        def symbol_keys(hash_node)
+          return unless hash_node.pairs.size == hash_node.children.size
+          return unless hash_node.keys.all?(&:sym_type?)
+
+          hash_node.keys.map(&:value)
         end
       end
     end
