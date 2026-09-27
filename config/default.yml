@@ -9,6 +9,12 @@ Capybara:
     - "**/*_steps.rb"
     - "**/features/step_definitions/**/*"
 
+Capybara/AbsoluteXPathInElementScope:
+  Description: Checks for absolute XPath searches on Capybara elements.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AbsoluteXPathInElementScope
+
 Capybara/AmbiguousClick:
   Description: Specify the exact target to click on.
   Enabled: false

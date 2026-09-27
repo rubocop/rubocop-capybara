@@ -9,6 +9,7 @@ module RuboCop
     module Capybara
       extend LazyLoader
 
+      register_cop :AbsoluteXPathInElementScope, "#{__dir__}/capybara/absolute_x_path_in_element_scope"
       register_cop :AmbiguousClick, "#{__dir__}/capybara/ambiguous_click"
       register_cop :AssertStyle, "#{__dir__}/capybara/assert_style"
       register_cop :ChainedFind, "#{__dir__}/capybara/chained_find"
