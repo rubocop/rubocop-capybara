@@ -510,6 +510,45 @@ expect(page).to have_field(with: 'foo')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/SpecificMatcher
 
+[#capybararspectitleexpectation]
+== Capybara/RSpec/TitleExpectation
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always (Unsafe)
+| <<next>>
+| -
+|===
+
+Checks expectations on `page.title` that bypass Capybara's waiting.
+
+`have_title` waits for the expected title. Its whitespace matching
+differs from direct String comparison, so autocorrection is unsafe.
+
+[#examples-capybararspectitleexpectation]
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(page.title).to eq('Dashboard')
+expect(page.title).to include('Dash')
+expect(page.title).to match(/Dash/)
+
+# good
+expect(page).to have_title('Dashboard', exact: true)
+expect(page).to have_title('Dash')
+expect(page).to have_title(/Dash/)
+----
+
+[#references-capybararspectitleexpectation]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/TitleExpectation
+
 [#capybararspecvisibilitymatcher]
 == Capybara/RSpec/VisibilityMatcher
 

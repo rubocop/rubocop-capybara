@@ -155,6 +155,13 @@ Capybara/RSpec/SpecificMatcher:
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/SpecificMatcher
 
+Capybara/RSpec/TitleExpectation:
+  Description: Checks expectations on `page.title` that bypass Capybara's waiting.
+  Enabled: pending
+  SafeAutoCorrect: false
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/TitleExpectation
+
 Capybara/RSpec/VisibilityMatcher:
   Description: Checks for boolean visibility in Capybara finders.
   Enabled: true
