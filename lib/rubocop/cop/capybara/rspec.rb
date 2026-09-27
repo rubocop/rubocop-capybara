@@ -17,6 +17,7 @@ module RuboCop
         register_cop :NegationMatcherAfterVisit, "#{__dir__}/rspec/negation_matcher_after_visit"
         register_cop :PredicateMatcher, "#{__dir__}/rspec/predicate_matcher"
         register_cop :SpecificMatcher, "#{__dir__}/rspec/specific_matcher"
+        register_cop :TitleExpectation, "#{__dir__}/rspec/title_expectation"
         register_cop :VisibilityMatcher, "#{__dir__}/rspec/visibility_matcher"
       end
     end
