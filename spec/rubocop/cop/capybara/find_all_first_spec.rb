@@ -23,59 +23,21 @@ RSpec.describe RuboCop::Cop::Capybara::FindAllFirst, :config do
     RUBY
   end
 
-  it 'registers an offense when using `find` with `match: :first`' do
-    expect_offense(<<~RUBY)
+  it 'does not register an offense when using `find` with `match: :first`' do
+    expect_no_offenses(<<~RUBY)
       find('a', match: :first)
-      ^^^^^^^^^^^^^^^^^^^^^^^^ Use `first('a')`.
       find('a', text: 'b', match: :first)
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first('a', text: 'b')`.
-    RUBY
-
-    expect_correction(<<~RUBY)
-      first('a')
-      first('a', text: 'b')
-    RUBY
-  end
-
-  it 'registers an offense for `find(..., match: :first)` with receiver' do
-    expect_offense(<<~RUBY)
       page.find('a', match: :first)
-           ^^^^^^^^^^^^^^^^^^^^^^^^ Use `first('a')`.
       page.find('a', text: 'b', match: :first)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first('a', text: 'b')`.
-    RUBY
-
-    expect_correction(<<~RUBY)
-      page.first('a')
-      page.first('a', text: 'b')
     RUBY
   end
 
-  it 'registers an offense when using `all` with `match: :first`' do
-    expect_offense(<<~RUBY)
+  it 'does not register an offense when using `all` with `match: :first`' do
+    expect_no_offenses(<<~RUBY)
       all('a', match: :first)
-      ^^^^^^^^^^^^^^^^^^^^^^^ Use `first('a')`.
       all('a', text: 'b', match: :first)
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first('a', text: 'b')`.
-    RUBY
-
-    expect_correction(<<~RUBY)
-      first('a')
-      first('a', text: 'b')
-    RUBY
-  end
-
-  it 'registers an offense for `all(..., match: :first)` with receiver' do
-    expect_offense(<<~RUBY)
       page.all('a', match: :first)
-           ^^^^^^^^^^^^^^^^^^^^^^^ Use `first('a')`.
       page.all('a', text: 'b', match: :first)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first('a', text: 'b')`.
-    RUBY
-
-    expect_correction(<<~RUBY)
-      page.first('a')
-      page.first('a', text: 'b')
     RUBY
   end
 
