@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- Add new `Capybara/AlwaysTrueCountQuery` cop. ([@ydah])
 - Add new `Capybara/RSpec/CurrentUrlExpectation` cop. ([@ydah])
 - Add new `Capybara/ModalMethodWithoutBlock` cop. ([@ydah])
 - Add new `Capybara/NativeAttribute` cop. ([@ydah])

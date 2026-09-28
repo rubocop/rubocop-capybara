@@ -6,6 +6,41 @@
 
 = Capybara
 
+[#capybaraalwaystruecountquery]
+== Capybara/AlwaysTrueCountQuery
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for positive queries that succeed when there are no matches.
+
+[#examples-capybaraalwaystruecountquery]
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(page).to have_css('.item', minimum: 0)
+page.has_css?('.item', minimum: 0)
+
+# good
+expect(page).to have_css('.item')
+expect(page).to have_css('.item', minimum: 0, maximum: 2)
+all('.item', minimum: 0)
+----
+
+[#references-capybaraalwaystruecountquery]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AlwaysTrueCountQuery
+
 [#capybaraambiguousclick]
 == Capybara/AmbiguousClick
 

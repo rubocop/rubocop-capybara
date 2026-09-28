@@ -9,6 +9,12 @@ Capybara:
     - "**/*_steps.rb"
     - "**/features/step_definitions/**/*"
 
+Capybara/AlwaysTrueCountQuery:
+  Description: Checks for positive queries that succeed when there are no matches.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AlwaysTrueCountQuery
+
 Capybara/AmbiguousClick:
   Description: Specify the exact target to click on.
   Enabled: false
