@@ -26,6 +26,7 @@
 - Speed up loading rubocop-capybara by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
 - Add new `Capybara/IgnoredQueryOption` cop. ([@ydah])
 - Fix false positives and incorrect autocorrections for `Capybara/FindAllFirst` when `find` or `all` uses `match: :first`. ([@ydah])
+- Avoid `Capybara/FindAllFirst` offenses when the result is used with safe navigation or as a condition. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when `find_by_id` uses a dynamic id. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when a finder call has a block argument. ([@ydah])
 - Fix a false positive for `Capybara/RSpec/HaveSelector` when `DefaultSelector` is unsupported. ([@ydah])

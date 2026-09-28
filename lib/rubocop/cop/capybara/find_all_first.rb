@@ -6,11 +6,9 @@ module RuboCop
       # Enforces use of `first` instead of `all` with `first` or `[0]`.
       #
       # @safety
-      #   This cop's autocorrection is unsafe because `all` returns a
-      #   `Capybara::Result` (an enumerable collection), while `first`
-      #   returns a single `Capybara::Node::Element`. Replacing `all`
-      #   with `first` may break code that depends on the return value
-      #   being a collection (e.g. calling `.each` on the result).
+      #   With default options, `all(...).first` and `all(...)[0]` return
+      #   `nil` when no element matches, while `first(...)` raises an
+      #   exception. Autocorrection can break code that depends on `nil`.
       #
       # @example
       #
@@ -39,7 +37,7 @@ module RuboCop
         def on_send(node)
           return unless (parent = node.parent)
           return unless find_all_first?(parent)
-          return if part_of_logical_operator?(parent)
+          return if nil_sensitive_use?(parent)
 
           range = range_between(node.loc.selector.begin_pos,
                                 parent.loc.selector.end_pos)
@@ -52,8 +50,13 @@ module RuboCop
 
         private
 
-        def part_of_logical_operator?(node)
-          node.ancestors.any?(&:operator_keyword?)
+        def nil_sensitive_use?(node)
+          return true if node.ancestors.any?(&:operator_keyword?)
+
+          parent = node.parent
+          (parent&.csend_type? && parent.receiver == node) ||
+            (parent&.type?(:if, :while, :until) &&
+             parent.condition == node)
         end
       end
     end
