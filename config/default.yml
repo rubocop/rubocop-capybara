@@ -36,6 +36,13 @@ Capybara/FindAllFirst:
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
+Capybara/IgnoredQueryOption:
+  Description: Checks for query options that have no effect in Capybara.
+  Enabled: pending
+  DefaultSelector: css
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/IgnoredQueryOption
+
 Capybara/ModalMethodWithoutBlock:
   Description: Checks that modal handling methods are called with a block.
   Enabled: pending
