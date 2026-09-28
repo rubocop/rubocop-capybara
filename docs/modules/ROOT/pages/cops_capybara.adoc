@@ -6,6 +6,50 @@
 
 = Capybara
 
+[#capybaraabsolutexpathinelementscope]
+== Capybara/AbsoluteXPathInElementScope
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for absolute XPath searches on Capybara elements.
+
+An XPath starting with `//` searches from the document root, even when
+the query is called on an element. Use `.//` to stay within it.
+Direct RSpec `let` and named `subject` element definitions are
+recognized.
+
+[#examples-capybaraabsolutexpathinelementscope]
+=== Examples
+
+[source,ruby]
+----
+# bad
+page.find('.dialog').find(:xpath, '//button')
+dialog = page.find('.dialog')
+dialog.find(:xpath, '//button')
+RSpec.describe 'dialog' do
+  let(:dialog) { find('.dialog') }
+  it { dialog.find(:xpath, '//button') }
+end
+
+# good
+page.find('.dialog').find(:xpath, './/button')
+page.find(:xpath, '//button')
+----
+
+[#references-capybaraabsolutexpathinelementscope]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AbsoluteXPathInElementScope
+
 [#capybaraalwaystruecountquery]
 == Capybara/AlwaysTrueCountQuery
 

@@ -85,17 +85,20 @@ module RuboCop
         # ponytail: Direct same-scope assignments only; use data-flow analysis
         # if coverage grows.
         def local_variable_capybara_receiver?(node)
-          return false unless node.lvar_type?
+          value = local_variable_value(node)
+          value && capybara_receiver_pattern?(value)
+        end
+        module_function :local_variable_capybara_receiver?
+
+        def local_variable_value(node)
+          return unless node.lvar_type?
 
           assignment = node.each_ancestor.filter_map do |scope|
             local_variable_assignment(node, scope) if scope.begin_type?
           end.first
-          return false unless assignment
-
-          value = assignment.children[1]
-          value && capybara_receiver_pattern?(value)
+          assignment && assignment.children[1]
         end
-        module_function :local_variable_capybara_receiver?
+        module_function :local_variable_value
 
         def local_variable_assignment(node, scope)
           scope.children.reverse.find do |child|
