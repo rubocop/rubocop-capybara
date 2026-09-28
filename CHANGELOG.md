@@ -2,12 +2,17 @@
 
 ## Edge (Unreleased)
 
+- Add new `Capybara/AbsoluteXPathInElementScope` cop. ([@ydah])
+- Add new `Capybara/AlwaysTrueCountQuery` cop. ([@ydah])
+- Add new `Capybara/RSpec/CurrentUrlExpectation` cop. ([@ydah])
 - Add new `Capybara/ModalMethodWithoutBlock` cop. ([@ydah])
 - Add new `Capybara/NativeAttribute` cop. ([@ydah])
 - Add new `Capybara/VisibilityOption` cop. ([@ydah])
 - Add new `Capybara/ChainedFind` cop. ([@ydah])
 - Fix a crash in `Capybara/RSpec/CurrentPathExpectation` for invalid regexp strings. ([@ydah])
+- Fix `Capybara/SpecificFinders` when CSS id values are `true` or `false`. ([@ydah])
 - Speed up loading rubocop-capybara by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
+- Add new `Capybara/IgnoredQueryOption` cop. ([@ydah])
 - Fix false positives and incorrect autocorrections for `Capybara/FindAllFirst` when `find` or `all` uses `match: :first`. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when `find_by_id` uses a dynamic id. ([@ydah])
 - Fix a false positive for `Capybara/RSpec/HaveSelector` when `DefaultSelector` is unsupported. ([@ydah])
