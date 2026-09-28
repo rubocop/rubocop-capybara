@@ -19,6 +19,8 @@ module RuboCop
           def check_inflected(node)
             predicate_in_actual?(node) do |predicate, to, matcher|
               msg = message_inflected(predicate)
+              next add_offense(node, message: msg) if predicate.block_node
+
               add_offense(node, message: msg) do |corrector|
                 remove_predicate(corrector, predicate)
                 corrector.replace(node.loc.selector,
@@ -120,8 +122,8 @@ module RuboCop
           end.freeze
           SAFE_RECEIVER_TYPES = Set.new(
             %i[
-              array complex dstr false float hash int nil rational regexp str
-              sym true xstr
+              array complex const cvar dstr false float gvar hash int ivar
+              lvar nil rational regexp self str sym true xstr
             ]
           ).freeze
 
@@ -133,8 +135,10 @@ module RuboCop
 
           def check_explicit(node) # rubocop:disable Metrics/MethodLength
             predicate_matcher?(node) do |actual, matcher|
-              add_offense(node,
-                          message: message_explicit(matcher)) do |corrector|
+              msg = message_explicit(matcher)
+              next add_offense(node, message: msg) if matcher.block_node
+
+              add_offense(node, message: msg) do |corrector|
                 corrector_explicit(corrector, node, actual, matcher)
               end
             end
@@ -195,7 +199,7 @@ module RuboCop
               return actual_send_requires_parentheses?(actual)
             end
 
-            !literal_receiver?(actual)
+            !safe_receiver?(actual)
           end
 
           def actual_send_requires_parentheses?(actual)
@@ -205,7 +209,7 @@ module RuboCop
               (actual.arguments? && !actual.parenthesized?)
           end
 
-          def literal_receiver?(actual)
+          def safe_receiver?(actual)
             SAFE_RECEIVER_TYPES.include?(actual.type)
           end
 
