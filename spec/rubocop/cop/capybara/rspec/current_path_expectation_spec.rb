@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Capybara::RSpec::CurrentPathExpectation do
+  it 'reports a bare current_path expectation without correction' do
+    expect_offense(<<~RUBY)
+      expect(current_path)
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+    RUBY
+
+    expect_no_corrections
+  end
+
   it 'flags offenses for `expect(current_path)`' do
     expect_offense(<<~RUBY)
       expect(current_path).to eq "/callback"
