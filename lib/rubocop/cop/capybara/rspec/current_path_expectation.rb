@@ -79,8 +79,11 @@ module RuboCop
             end
 
             regexp_node_matcher(node.parent) do |to_sym, matcher_node, regexp|
+              regexp_expr = regexp_node_to_regexp_expr(regexp)
+              next unless regexp_expr
+
               rewrite_expectation(corrector, node, to_sym, matcher_node)
-              convert_regexp_node_to_literal(corrector, matcher_node, regexp)
+              corrector.replace(matcher_node.first_argument, regexp_expr)
             end
           end
 
@@ -97,19 +100,14 @@ module RuboCop
             add_ignore_query_options(corrector, node, matcher_node)
           end
 
-          def convert_regexp_node_to_literal(corrector, matcher_node,
-                                             regexp_node)
-            str_node = matcher_node.first_argument
-            regexp_expr = regexp_node_to_regexp_expr(regexp_node)
-            corrector.replace(str_node, regexp_expr)
-          end
-
           def regexp_node_to_regexp_expr(regexp_node)
             if regexp_node.xstr_type?
               "/\#{`#{regexp_node.value.value}`}/"
             else
               Regexp.new(regexp_node.value).inspect
             end
+          rescue RegexpError
+            nil
           end
 
           def add_argument_parentheses(corrector, arg_node)

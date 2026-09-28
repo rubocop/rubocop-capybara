@@ -10,6 +10,7 @@
 - Add new `Capybara/NativeAttribute` cop. ([@ydah])
 - Add new `Capybara/VisibilityOption` cop. ([@ydah])
 - Add new `Capybara/ChainedFind` cop. ([@ydah])
+- Fix a crash in `Capybara/RSpec/CurrentPathExpectation` for invalid regexp strings. ([@ydah])
 - Fix `Capybara/SpecificFinders` when CSS id values are `true` or `false`. ([@ydah])
 - Speed up loading rubocop-capybara by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
 - Add new `Capybara/IgnoredQueryOption` cop. ([@ydah])
