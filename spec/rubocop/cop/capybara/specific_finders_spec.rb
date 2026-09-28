@@ -49,6 +49,25 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'does not replace input types with different `:field` behavior' do
+    expect_no_offenses(<<~RUBY)
+      find('input[type=submit]')
+      find(:css, 'input[type="image"]')
+      find('input[type=hidden]')
+    RUBY
+  end
+
+  it 'does not replace CSS boolean attributes with field state filters' do
+    expect_no_offenses(<<~RUBY)
+      find('input[disabled=false]')
+      find('input[disabled="false"]')
+      find('input[disabled=true]')
+      find('input[checked=false]')
+      find('input[readonly=false]')
+      find('input[multiple=false]')
+    RUBY
+  end
+
   it 'registers an offense when using `find` with `:id`' do
     expect_offense(<<~RUBY)
       find(:id, 'some-id')
