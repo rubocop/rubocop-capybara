@@ -20,6 +20,7 @@
 - Fix `Capybara/SpecificFinders` when CSS id values are `true` or `false`. ([@ydah])
 - Fix a crash in `Capybara/SpecificActions` for blank `find` selectors. ([@ydah])
 - Fix reversed autocorrection in `Capybara/RSpec/PredicateMatcher` for `eql` and `equal` boolean matchers. ([@ydah])
+- Avoid errors and unsafe autocorrection in `Capybara/SpecificFinders` with dynamic `class:` options. ([@ydah])
 - Speed up loading rubocop-capybara by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
 - Add new `Capybara/IgnoredQueryOption` cop. ([@ydah])
 - Fix false positives and incorrect autocorrections for `Capybara/FindAllFirst` when `find` or `all` uses `match: :first`. ([@ydah])
