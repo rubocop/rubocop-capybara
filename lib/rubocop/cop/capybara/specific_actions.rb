@@ -73,7 +73,10 @@ module RuboCop
         end
 
         def last_selector(arg)
-          arg.split.last[/^[\w-]+/, 0]
+          without_attributes = arg.gsub(/\[(?:'[^']*'|"[^"]*"|[^\]])*\]/) do |m|
+            m.gsub(/\s/, '')
+          end
+          without_attributes.split.last&.[](/^[\w-]+/, 0)
         end
 
         def offense_range(node, receiver)
