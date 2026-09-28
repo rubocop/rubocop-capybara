@@ -92,6 +92,8 @@ Avoid chaining `find` methods and combine selectors.
 
 Combining selectors into a single `find` call is more efficient than
 chaining multiple `find` calls, as it reduces the number of DOM queries.
+Set `DefaultSelector` to match `Capybara.default_selector`, or to
+`null` if it varies at runtime. Autocorrection requires `css`.
 
 [#examples-capybarachainedfind]
 === Examples
@@ -106,6 +108,17 @@ page.find('#foo').find('.bar').find('.baz')
 page.find('#foo .bar')
 page.find('#foo .bar .baz')
 ----
+
+[#configurable-attributes-capybarachainedfind]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| DefaultSelector
+| `css`
+| String
+|===
 
 [#references-capybarachainedfind]
 === References
