@@ -9,15 +9,19 @@ module RuboCop
     module Capybara
       extend LazyLoader
 
+      register_cop :AbsoluteXPathInElementScope, "#{__dir__}/capybara/absolute_x_path_in_element_scope"
+      register_cop :AlwaysTrueCountQuery, "#{__dir__}/capybara/always_true_count_query"
       register_cop :AmbiguousClick, "#{__dir__}/capybara/ambiguous_click"
       register_cop :AssertStyle, "#{__dir__}/capybara/assert_style"
       register_cop :ChainedFind, "#{__dir__}/capybara/chained_find"
       register_cop :FindAllFirst, "#{__dir__}/capybara/find_all_first"
+      register_cop :IgnoredQueryOption, "#{__dir__}/capybara/ignored_query_option"
       register_cop :ModalMethodWithoutBlock, "#{__dir__}/capybara/modal_method_without_block"
       register_cop :NativeAttribute, "#{__dir__}/capybara/native_attribute"
       register_cop :RedundantWithinFind, "#{__dir__}/capybara/redundant_within_find"
       register_cop :SpecificActions, "#{__dir__}/capybara/specific_actions"
       register_cop :SpecificFinders, "#{__dir__}/capybara/specific_finders"
+      register_cop :UnorderedWindowAccess, "#{__dir__}/capybara/unordered_window_access"
       register_cop :VisibilityOption, "#{__dir__}/capybara/visibility_option"
     end
   end

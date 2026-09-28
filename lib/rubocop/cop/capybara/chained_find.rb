@@ -9,6 +9,8 @@ module RuboCop
       # chaining multiple `find` calls, as it reduces the number of DOM queries.
       # Only recognizable Capybara finder chains with literal string locators
       # are checked.
+      # Set `DefaultSelector` to match `Capybara.default_selector`, or to
+      # `null` if it varies at runtime. Autocorrection requires `css`.
       #
       # @example
       #   # bad
@@ -96,7 +98,8 @@ module RuboCop
         end
 
         def safe_to_autocorrect?(node, receiver)
-          single_string_argument?(node) &&
+          cop_config.fetch('DefaultSelector', 'css').to_s == 'css' &&
+            single_string_argument?(node) &&
             single_string_argument?(receiver) &&
             node.type == receiver.type &&
             safe_selectors?(node)

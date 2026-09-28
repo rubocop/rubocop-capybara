@@ -6,6 +6,85 @@
 
 = Capybara
 
+[#capybaraabsolutexpathinelementscope]
+== Capybara/AbsoluteXPathInElementScope
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for absolute XPath searches on Capybara elements.
+
+An XPath starting with `//` searches from the document root, even when
+the query is called on an element. Use `.//` to stay within it.
+Direct RSpec `let` and named `subject` element definitions are
+recognized.
+
+[#examples-capybaraabsolutexpathinelementscope]
+=== Examples
+
+[source,ruby]
+----
+# bad
+page.find('.dialog').find(:xpath, '//button')
+dialog = page.find('.dialog')
+dialog.find(:xpath, '//button')
+RSpec.describe 'dialog' do
+  let(:dialog) { find('.dialog') }
+  it { dialog.find(:xpath, '//button') }
+end
+
+# good
+page.find('.dialog').find(:xpath, './/button')
+page.find(:xpath, '//button')
+----
+
+[#references-capybaraabsolutexpathinelementscope]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AbsoluteXPathInElementScope
+
+[#capybaraalwaystruecountquery]
+== Capybara/AlwaysTrueCountQuery
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for positive queries that succeed when there are no matches.
+
+[#examples-capybaraalwaystruecountquery]
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(page).to have_css('.item', minimum: 0)
+page.has_css?('.item', minimum: 0)
+
+# good
+expect(page).to have_css('.item')
+expect(page).to have_css('.item', minimum: 0, maximum: 2)
+all('.item', minimum: 0)
+----
+
+[#references-capybaraalwaystruecountquery]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AlwaysTrueCountQuery
+
 [#capybaraambiguousclick]
 == Capybara/AmbiguousClick
 
@@ -94,6 +173,8 @@ Combining selectors into a single `find` call is more efficient than
 chaining multiple `find` calls, as it reduces the number of DOM queries.
 Only recognizable Capybara finder chains with literal string locators
 are checked.
+Set `DefaultSelector` to match `Capybara.default_selector`, or to
+`null` if it varies at runtime. Autocorrection requires `css`.
 
 [#examples-capybarachainedfind]
 === Examples
@@ -109,6 +190,17 @@ page.find('#foo .bar')
 page.find('#foo .bar .baz')
 find('#form').find(:button, 'Save')
 ----
+
+[#configurable-attributes-capybarachainedfind]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| DefaultSelector
+| `css`
+| String
+|===
 
 [#references-capybarachainedfind]
 === References
@@ -156,6 +248,76 @@ first('a')
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
+
+[#capybaraignoredqueryoption]
+== Capybara/IgnoredQueryOption
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Checks for query options that have no effect in Capybara.
+
+Count options passed to singular finders are not autocorrected because
+removing them may conceal the author's intent.
+
+This cop targets Capybara's built-in selectors. Set `DefaultSelector`
+to match `Capybara.default_selector`, or to `null` if it varies at
+runtime. Queries using custom or unknown selectors are skipped.
+
+[#examples-capybaraignoredqueryoption]
+=== Examples
+
+[source,ruby]
+----
+# bad
+find('.row', count: 3)
+find(:css, '.item', exact: true)
+find('.item', text: /foo/, exact_text: true)
+all(:css, '.item', match: :first)
+expect(page).to have_css('.item', count: 3, minimum: 1)
+
+# good
+all('.row', count: 3)
+find(:css, '.item')
+find('.item', text: /foo/)
+all(:css, '.item')
+expect(page).to have_css('.item', count: 3)
+----
+
+[#defaultselector_-custom-capybaraignoredqueryoption]
+==== DefaultSelector: custom
+
+[source,ruby]
+----
+# bad
+find(:css, '.item', text: /foo/, exact_text: true)
+
+# good
+find('.item', text: /foo/, exact_text: true)
+----
+
+[#configurable-attributes-capybaraignoredqueryoption]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| DefaultSelector
+| `css`
+| String
+|===
+
+[#references-capybaraignoredqueryoption]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/IgnoredQueryOption
 
 [#capybaramodalmethodwithoutblock]
 == Capybara/ModalMethodWithoutBlock
@@ -359,6 +521,40 @@ find_field(type: 'checkbox')
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/SpecificFinders
+
+[#capybaraunorderedwindowaccess]
+== Capybara/UnorderedWindowAccess
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks positional access to Capybara windows, whose order is undefined.
+
+[#examples-capybaraunorderedwindowaccess]
+=== Examples
+
+[source,ruby]
+----
+# bad
+popup = windows.last
+original = page.windows.first
+
+# good
+popup = window_opened_by { click_link 'Open' }
+original = current_window
+----
+
+[#references-capybaraunorderedwindowaccess]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/UnorderedWindowAccess
 
 [#capybaravisibilityoption]
 == Capybara/VisibilityOption

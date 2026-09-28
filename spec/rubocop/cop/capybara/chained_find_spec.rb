@@ -129,6 +129,32 @@ RSpec.describe RuboCop::Cop::Capybara::ChainedFind, :config do
     expect_no_corrections
   end
 
+  context 'when DefaultSelector is xpath' do
+    let(:cop_config) { { 'DefaultSelector' => 'xpath' } }
+
+    it 'registers an offense without combining XPath selectors as CSS' do
+      expect_offense(<<~RUBY)
+        page.find('section').find('a')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid chaining `find` methods. Combine the selectors into a single `find` call.
+      RUBY
+
+      expect_no_corrections
+    end
+  end
+
+  context 'when DefaultSelector is unknown' do
+    let(:cop_config) { { 'DefaultSelector' => nil } }
+
+    it 'registers an offense without combining selectors' do
+      expect_offense(<<~RUBY)
+        page.find('section').find('a')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid chaining `find` methods. Combine the selectors into a single `find` call.
+      RUBY
+
+      expect_no_corrections
+    end
+  end
+
   it 'preserves quotes when autocorrecting a selector' do
     expect_offense(<<~RUBY)
       page.find("it's").find('.bar')
