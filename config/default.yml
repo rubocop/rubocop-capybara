@@ -95,6 +95,13 @@ Capybara/RSpec/CurrentPathExpectation:
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/CurrentPathExpectation
 
+Capybara/RSpec/CurrentUrlExpectation:
+  Description: Checks expectations on `current_url` that bypass Capybara's waiting.
+  Enabled: pending
+  SafeAutoCorrect: false
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/CurrentUrlExpectation
+
 Capybara/RSpec/FindElementValueEq:
   Description: Checks for expectations on the value of an element found by Capybara.
   Enabled: pending
