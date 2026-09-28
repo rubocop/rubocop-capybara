@@ -57,6 +57,8 @@ module RuboCop
         end
 
         def replaced(node)
+          return if node.arguments.any?(&:block_pass_type?)
+
           unless node.method?(:find_by_id)
             return node.arguments.map(&:source).join(', ')
           end
