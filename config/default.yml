@@ -37,6 +37,7 @@ Capybara/AssertStyle:
 Capybara/ChainedFind:
   Description: Avoid chaining `find` methods and combine selectors.
   Enabled: pending
+  DefaultSelector: css
   VersionAdded: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ChainedFind
 
