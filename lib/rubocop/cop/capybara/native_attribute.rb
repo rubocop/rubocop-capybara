@@ -47,6 +47,8 @@ module RuboCop
 
         def on_send(node)
           native_attribute(node) do |native, attribute|
+            next unless native.receiver
+
             add_offense(node) do |corrector|
               next if attribute.str_type? && attribute.heredoc?
 
