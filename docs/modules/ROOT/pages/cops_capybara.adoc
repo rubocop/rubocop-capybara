@@ -50,6 +50,41 @@ page.find(:xpath, '//button')
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AbsoluteXPathInElementScope
 
+[#capybaraalwaystruecountquery]
+== Capybara/AlwaysTrueCountQuery
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for positive queries that succeed when there are no matches.
+
+[#examples-capybaraalwaystruecountquery]
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(page).to have_css('.item', minimum: 0)
+page.has_css?('.item', minimum: 0)
+
+# good
+expect(page).to have_css('.item')
+expect(page).to have_css('.item', minimum: 0, maximum: 2)
+all('.item', minimum: 0)
+----
+
+[#references-capybaraalwaystruecountquery]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AlwaysTrueCountQuery
+
 [#capybaraambiguousclick]
 == Capybara/AmbiguousClick
 
@@ -197,6 +232,76 @@ first('a')
 === References
 
 * https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
+
+[#capybaraignoredqueryoption]
+== Capybara/IgnoredQueryOption
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Checks for query options that have no effect in Capybara.
+
+Count options passed to singular finders are not autocorrected because
+removing them may conceal the author's intent.
+
+This cop targets Capybara's built-in selectors. Set `DefaultSelector`
+to match `Capybara.default_selector`, or to `null` if it varies at
+runtime. Queries using custom or unknown selectors are skipped.
+
+[#examples-capybaraignoredqueryoption]
+=== Examples
+
+[source,ruby]
+----
+# bad
+find('.row', count: 3)
+find(:css, '.item', exact: true)
+find('.item', text: /foo/, exact_text: true)
+all(:css, '.item', match: :first)
+expect(page).to have_css('.item', count: 3, minimum: 1)
+
+# good
+all('.row', count: 3)
+find(:css, '.item')
+find('.item', text: /foo/)
+all(:css, '.item')
+expect(page).to have_css('.item', count: 3)
+----
+
+[#defaultselector_-custom-capybaraignoredqueryoption]
+==== DefaultSelector: custom
+
+[source,ruby]
+----
+# bad
+find(:css, '.item', text: /foo/, exact_text: true)
+
+# good
+find('.item', text: /foo/, exact_text: true)
+----
+
+[#configurable-attributes-capybaraignoredqueryoption]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| DefaultSelector
+| `css`
+| String
+|===
+
+[#references-capybaraignoredqueryoption]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/IgnoredQueryOption
 
 [#capybaramodalmethodwithoutblock]
 == Capybara/ModalMethodWithoutBlock

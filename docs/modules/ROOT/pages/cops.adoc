@@ -3,10 +3,12 @@
 === Department xref:cops_capybara.adoc[Capybara]
 
 * xref:cops_capybara.adoc#capybaraabsolutexpathinelementscope[Capybara/AbsoluteXPathInElementScope]
+* xref:cops_capybara.adoc#capybaraalwaystruecountquery[Capybara/AlwaysTrueCountQuery]
 * xref:cops_capybara.adoc#capybaraambiguousclick[Capybara/AmbiguousClick]
 * xref:cops_capybara.adoc#capybaraassertstyle[Capybara/AssertStyle]
 * xref:cops_capybara.adoc#capybarachainedfind[Capybara/ChainedFind]
 * xref:cops_capybara.adoc#capybarafindallfirst[Capybara/FindAllFirst]
+* xref:cops_capybara.adoc#capybaraignoredqueryoption[Capybara/IgnoredQueryOption]
 * xref:cops_capybara.adoc#capybaramodalmethodwithoutblock[Capybara/ModalMethodWithoutBlock]
 * xref:cops_capybara.adoc#capybaranativeattribute[Capybara/NativeAttribute]
 * xref:cops_capybara.adoc#capybararedundantwithinfind[Capybara/RedundantWithinFind]
@@ -17,6 +19,7 @@
 === Department xref:cops_capybara_rspec.adoc[Capybara/RSpec]
 
 * xref:cops_capybara_rspec.adoc#capybararspeccurrentpathexpectation[Capybara/RSpec/CurrentPathExpectation]
+* xref:cops_capybara_rspec.adoc#capybararspeccurrenturlexpectation[Capybara/RSpec/CurrentUrlExpectation]
 * xref:cops_capybara_rspec.adoc#capybararspecfindelementvalueeq[Capybara/RSpec/FindElementValueEq]
 * xref:cops_capybara_rspec.adoc#capybararspechavecontent[Capybara/RSpec/HaveContent]
 * xref:cops_capybara_rspec.adoc#capybararspechaveselector[Capybara/RSpec/HaveSelector]
