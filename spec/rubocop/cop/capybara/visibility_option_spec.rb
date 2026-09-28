@@ -94,6 +94,53 @@ RSpec.describe RuboCop::Cop::Capybara::VisibilityOption do
     RUBY
   end
 
+  it 'does not infer receivers from shadowed block or method parameters' do
+    expect_no_offenses(<<~RUBY)
+      row = find('tr')
+      rows.each { |row| row.find('.b', visible: true) }
+      def check(row)
+        row.find('.c', visible: true)
+      end
+    RUBY
+  end
+
+  it 'does not infer receivers from a nested block inside a shadowing block' do
+    expect_no_offenses(<<~RUBY)
+      row = find('tr')
+      rows.each { |row| others.each { row.find('.b', visible: true) } }
+    RUBY
+  end
+
+  it 'does not infer receivers from shadowed block-local variables' do
+    expect_no_offenses(<<~RUBY)
+      row = find('tr')
+      rows.each { |; row| row.find('.b', visible: true) }
+    RUBY
+  end
+
+  it 'recognizes a captured outer local in a block' do
+    expect_offense(<<~RUBY)
+      row = find('tr')
+      rows.each { row.find('.b', visible: true) }
+      #{' ' * 27}^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      row = find('tr')
+      rows.each { row.find('.b', visible: :visible) }
+    RUBY
+  end
+
+  it 'uses the preceding assignment when a variable is reassigned' do
+    expect_offense(<<~RUBY)
+      el = find('.a')
+      el = el.find('.b', visible: false)
+      #{' ' * 19}^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+    RUBY
+
+    expect_no_corrections
+  end
+
   it 'does not register offenses for explicit visibility values' do
     expect_no_offenses(<<~RUBY)
       find('.menu', visible: :visible)
