@@ -6,6 +6,7 @@
 - Add new `Capybara/NativeAttribute` cop. ([@ydah])
 - Add new `Capybara/VisibilityOption` cop. ([@ydah])
 - Add new `Capybara/ChainedFind` cop. ([@ydah])
+- Avoid unsafe `find_field` autocorrections for input types and boolean attributes in `Capybara/SpecificFinders`. ([@ydah])
 - Speed up loading rubocop-capybara by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
 - Fix false positives and incorrect autocorrections for `Capybara/FindAllFirst` when `find` or `all` uses `match: :first`. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when `find_by_id` uses a dynamic id. ([@ydah])

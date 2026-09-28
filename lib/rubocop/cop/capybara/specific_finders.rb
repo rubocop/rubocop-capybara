@@ -9,6 +9,8 @@ module RuboCop
         MESSAGE = 'Prefer `%<good_finder>s` over `find`.'
         FIELD_OPTIONS = CapybaraHelp::SPECIFIC_OPTIONS['field']
         FIELD_SELECTOR_PATTERN = /\Ainput(?:\[.+\])+\z/.freeze
+        UNSAFE_FIELD_TYPES = %w[hidden image submit].freeze
+        FIELD_STATE_OPTIONS = %w[checked disabled multiple readonly].freeze
 
         module_function
 
@@ -16,6 +18,10 @@ module RuboCop
           return false unless FIELD_SELECTOR_PATTERN.match?(arg)
 
           attrs = CssSelector.attributes(arg)
+          type = attrs['type'].to_s.downcase
+          return false if UNSAFE_FIELD_TYPES.include?(type)
+          return false if (attrs.keys & FIELD_STATE_OPTIONS).any?
+
           CapybaraHelp.replaceable_attributes?(attrs) &&
             attrs.keys.all? { |attr| FIELD_OPTIONS.include?(attr) }
         end
