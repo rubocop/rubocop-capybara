@@ -169,7 +169,18 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::CurrentPathExpectation do
     RUBY
 
     expect_correction(<<~RUBY)
-      expect(page).to have_current_path(/regexp/i)
+      expect(page).to have_current_path(/regexp/i, ignore_query: true)
+    RUBY
+  end
+
+  it 'preserves queryless matching with an anchored regexp' do
+    expect_offense(<<~'RUBY')
+      expect(current_path).to match(%r{\A/users\z})
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      expect(page).to have_current_path(%r{\A/users\z}, ignore_query: true)
     RUBY
   end
 
@@ -180,7 +191,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::CurrentPathExpectation do
     RUBY
 
     expect_correction(<<~'RUBY')
-      expect(page).to have_current_path(/string\//)
+      expect(page).to have_current_path(/string\//, ignore_query: true)
     RUBY
   end
 
@@ -192,7 +203,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::CurrentPathExpectation do
     RUBY
 
     expect_correction(<<~'RUBY')
-      expect(page).to have_current_path(/string\/foo\//)
+      expect(page).to have_current_path(/string\/foo\//, ignore_query: true)
     RUBY
   end
 
@@ -203,7 +214,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::CurrentPathExpectation do
     RUBY
 
     expect_correction(<<~'RUBY')
-      expect(page).to have_current_path(/#{`pwd`}/)
+      expect(page).to have_current_path(/#{`pwd`}/, ignore_query: true)
     RUBY
   end
 
