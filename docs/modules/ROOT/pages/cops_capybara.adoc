@@ -430,7 +430,7 @@ within find_by_id('foo') do
 end
 
 # good
-within '#foo' do
+within :id, 'foo' do
   # ...
 end
 ----
