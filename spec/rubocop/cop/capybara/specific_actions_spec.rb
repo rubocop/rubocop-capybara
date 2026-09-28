@@ -225,6 +225,14 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificActions do
     RUBY
   end
 
+  it 'does not treat custom elements as buttons or links' do
+    expect_no_offenses(<<~RUBY)
+      find('button-group').click
+      find('div button-group.primary').click
+      find('a-link[href="/home"]').click
+    RUBY
+  end
+
   it 'does not register an offense for find and click actions when ' \
      'first argument is not an element' do
     expect_no_offenses(<<~RUBY)

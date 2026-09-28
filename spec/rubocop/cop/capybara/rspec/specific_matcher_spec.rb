@@ -10,6 +10,16 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::SpecificMatcher do
     RUBY
   end
 
+  it 'does not treat custom elements as built-in element types' do
+    expect_no_offenses(<<~RUBY)
+      expect(page).to have_css('button-group')
+      expect(page).to have_css('select-menu')
+      expect(page).to have_css('table-row.x')
+      expect(page).to have_css('input-widget')
+      expect(page).to have_css('a-link[href="/home"]')
+    RUBY
+  end
+
   it 'does not register an offense for abstract matcher when ' \
      'first argument is not an element' do
     expect_no_offenses(<<~RUBY)

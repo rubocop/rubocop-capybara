@@ -34,6 +34,15 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::PredicateMatcher, :config do
         RUBY
       end
 
+      it 'does not autocorrect a predicate with a filter block' do
+        expect_offense(<<~RUBY)
+          expect(page.matches_css?('a') { |n| n.visible? }).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `match_css` matcher over `matches_css?`.
+        RUBY
+
+        expect_no_corrections
+      end
+
       it 'does not register an offense when using non-predicate method' do
         expect_no_offenses(<<~RUBY)
           expect(foo).to match_css(bar: 'baz')
@@ -155,6 +164,34 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::PredicateMatcher, :config do
 
         expect_correction(<<~RUBY)
           expect('foo'.matches_css?(bar: 'baz')).to #{matcher_true}
+        RUBY
+      end
+
+      it 'does not autocorrect a matcher with a filter block' do
+        expect_offense(<<~RUBY)
+          expect(el).to match_css('b') { |n| n.visible? }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `matches_css?` over `match_css` matcher.
+        RUBY
+
+        expect_no_corrections
+      end
+
+      it 'does not wrap simple references during autocorrection' do
+        expect_offense(<<~RUBY)
+          el = page
+          expect(el).to match_css('b')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `matches_css?` over `match_css` matcher.
+          expect(@el).to match_css('b')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `matches_css?` over `match_css` matcher.
+          expect(Element).to match_css('b')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `matches_css?` over `match_css` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          el = page
+          expect(el.matches_css?('b')).to #{matcher_true}
+          expect(@el.matches_css?('b')).to #{matcher_true}
+          expect(Element.matches_css?('b')).to #{matcher_true}
         RUBY
       end
 

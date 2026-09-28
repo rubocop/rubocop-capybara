@@ -9,10 +9,13 @@ module RuboCop
     module Capybara
       extend LazyLoader
 
+      register_cop :AbsoluteXPathInElementScope, "#{__dir__}/capybara/absolute_x_path_in_element_scope"
+      register_cop :AlwaysTrueCountQuery, "#{__dir__}/capybara/always_true_count_query"
       register_cop :AmbiguousClick, "#{__dir__}/capybara/ambiguous_click"
       register_cop :AssertStyle, "#{__dir__}/capybara/assert_style"
       register_cop :ChainedFind, "#{__dir__}/capybara/chained_find"
       register_cop :FindAllFirst, "#{__dir__}/capybara/find_all_first"
+      register_cop :IgnoredQueryOption, "#{__dir__}/capybara/ignored_query_option"
       register_cop :ModalMethodWithoutBlock, "#{__dir__}/capybara/modal_method_without_block"
       register_cop :NativeAttribute, "#{__dir__}/capybara/native_attribute"
       register_cop :RedundantWithinFind, "#{__dir__}/capybara/redundant_within_find"

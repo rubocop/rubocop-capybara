@@ -79,8 +79,11 @@ module RuboCop
             end
 
             regexp_node_matcher(node.parent) do |to_sym, matcher_node, regexp|
+              regexp_expr = regexp_node_to_regexp_expr(regexp)
+              next unless regexp_expr
+
               rewrite_expectation(corrector, node, to_sym, matcher_node)
-              convert_regexp_node_to_literal(corrector, matcher_node, regexp)
+              corrector.replace(matcher_node.first_argument, regexp_expr)
             end
           end
 
@@ -94,14 +97,7 @@ module RuboCop
                              end
             corrector.replace(matcher_node.loc.selector, matcher_method)
             add_argument_parentheses(corrector, matcher_node.first_argument)
-            add_ignore_query_options(corrector, node, matcher_node)
-          end
-
-          def convert_regexp_node_to_literal(corrector, matcher_node,
-                                             regexp_node)
-            str_node = matcher_node.first_argument
-            regexp_expr = regexp_node_to_regexp_expr(regexp_node)
-            corrector.replace(str_node, regexp_expr)
+            add_ignore_query_options(corrector, node)
           end
 
           def regexp_node_to_regexp_expr(regexp_node)
@@ -110,6 +106,8 @@ module RuboCop
             else
               Regexp.new(regexp_node.value).inspect
             end
+          rescue RegexpError
+            nil
           end
 
           def add_argument_parentheses(corrector, arg_node)
@@ -129,11 +127,8 @@ module RuboCop
 
           # `have_current_path` with no options will include the querystring
           # while `page.current_path` does not.
-          # This ensures the option `ignore_query: true` is added
-          # except when `match` matcher.
-          def add_ignore_query_options(corrector, node, matcher_node)
-            return if matcher_node.method?(:match)
-
+          # This ensures the option `ignore_query: true` is added.
+          def add_ignore_query_options(corrector, node)
             expectation_node = node.parent.last_argument
             expectation_last_child = expectation_node.children.last
             corrector.insert_after(expectation_last_child,
