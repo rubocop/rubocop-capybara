@@ -39,6 +39,39 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
     RUBY
   end
 
+  it 'registers an offense when using `have_no_selector` with `:css`' do
+    expect_offense(<<~RUBY)
+      expect(foo).to have_no_selector(:css, 'bar', visible: :all)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `have_no_css` instead of `have_no_selector`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(foo).to have_no_css('bar', visible: :all)
+    RUBY
+  end
+
+  it 'registers an offense when using `have_no_selector` with `:xpath`' do
+    expect_offense(<<~RUBY)
+      expect(foo).to have_no_selector(:xpath, 'bar')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `have_no_xpath` instead of `have_no_selector`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(foo).to have_no_xpath('bar')
+    RUBY
+  end
+
+  it 'registers an offense when using `have_no_selector` without a type' do
+    expect_offense(<<~RUBY)
+      expect(foo).to have_no_selector('bar')
+                     ^^^^^^^^^^^^^^^^^^^^^^^ Use `have_no_css` instead of `have_no_selector`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(foo).to have_no_css('bar')
+    RUBY
+  end
+
   it 'does not register an offense when using `have_css`' do
     expect_no_offenses(<<~RUBY)
       expect(foo).to have_css('bar')
@@ -48,6 +81,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
   it 'does not register an offense when using `have_selector` with other sym' do
     expect_no_offenses(<<~RUBY)
       expect(foo).to have_selector(:foo, 'bar')
+      expect(foo).to have_no_selector(:foo, 'bar')
     RUBY
   end
 
@@ -78,6 +112,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
   it 'registers no offense when no arguments are passed' do
     expect_no_offenses(<<~RUBY)
       expect(foo).to have_selector
+      expect(foo).to have_no_selector
     RUBY
   end
 
@@ -85,6 +120,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
      'with only `:css`' do
     expect_no_offenses(<<~RUBY)
       expect(foo).to have_selector(:css)
+      expect(foo).to have_no_selector(:css)
     RUBY
   end
 
@@ -99,6 +135,17 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
 
       expect_correction(<<~RUBY)
         expect(foo).to have_xpath('bar')
+      RUBY
+    end
+
+    it 'registers an offense when using `have_no_selector`' do
+      expect_offense(<<~RUBY)
+        expect(foo).to have_no_selector('bar')
+                       ^^^^^^^^^^^^^^^^^^^^^^^ Use `have_no_xpath` instead of `have_no_selector`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(foo).to have_no_xpath('bar')
       RUBY
     end
 
@@ -131,6 +178,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
     it 'does not register an offense when using `have_selector`' do
       expect_no_offenses(<<~RUBY)
         expect(foo).to have_selector('bar')
+        expect(foo).to have_no_selector('bar')
       RUBY
     end
   end
