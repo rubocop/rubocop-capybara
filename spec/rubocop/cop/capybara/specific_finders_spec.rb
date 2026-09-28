@@ -246,6 +246,20 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'registers an offense for boolean-looking id attribute values' do
+    expect_offense(<<~RUBY)
+      find('[id=true]')
+      ^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+      find('[id=false]')
+      ^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('true')
+      find_by_id('false')
+    RUBY
+  end
+
   it 'registers an offense when using `find` ' \
      'with argument is kind and attribute specified id' do
     expect_offense(<<~RUBY)
