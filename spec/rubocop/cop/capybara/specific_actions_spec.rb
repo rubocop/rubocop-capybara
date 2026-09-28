@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Capybara::SpecificActions do
+  it 'does not register an offense for blank selectors' do
+    expect_no_offenses(<<~RUBY)
+      find('').click
+      find('   ').click
+    RUBY
+  end
+
   it 'does not register an offense for find and click action when ' \
      'first argument is link' do
     expect_no_offenses(<<~RUBY)

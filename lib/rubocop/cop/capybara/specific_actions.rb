@@ -73,7 +73,7 @@ module RuboCop
         end
 
         def last_selector(arg)
-          arg.split.last[/^\w+/, 0]
+          arg.split.last.to_s[/^\w+/, 0]
         end
 
         def offense_range(node, receiver)
