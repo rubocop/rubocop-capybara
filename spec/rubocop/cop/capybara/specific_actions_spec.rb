@@ -13,8 +13,10 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificActions do
     expect_offense(<<~RUBY)
       find('a', href: 'http://example.com').click
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
-      find("a[href='http://example.com']").click
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
+      find('a[href="/home"]').click
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
+      find('a[href="/home"]', exact_text: 'foo').click
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
     RUBY
   end
 

@@ -8,15 +8,15 @@ module RuboCop
       # @example
       #
       #   # bad
-      #   find('a').click
+      #   find('a[href="/home"]').click
       #   find('button.cls').click
-      #   find('a', exact_text: 'foo').click
+      #   find('a[href="/home"]', exact_text: 'foo').click
       #   find('div button').click
       #
       #   # good
-      #   click_link
+      #   click_link(href: '/home')
       #   click_button(class: 'cls')
-      #   click_link(exact_text: 'foo')
+      #   click_link(href: '/home', exact_text: 'foo')
       #   find('div').click_button
       #
       class SpecificActions < RuboCop::Cop::Base
