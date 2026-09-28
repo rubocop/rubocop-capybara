@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- Fix false positives for custom elements in `Capybara/SpecificActions` and `Capybara/RSpec/SpecificMatcher`. ([@ydah])
 - Add new `Capybara/AbsoluteXPathInElementScope` cop. ([@ydah])
 - Add new `Capybara/AlwaysTrueCountQuery` cop. ([@ydah])
 - Add new `Capybara/RSpec/CurrentUrlExpectation` cop. ([@ydah])

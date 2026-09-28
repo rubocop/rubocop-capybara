@@ -61,7 +61,7 @@ module RuboCop
           private
 
           def specific_matcher(arg)
-            splitted_arg = arg[/^\w+/, 0]
+            splitted_arg = arg[/^[\w-]+/, 0]
             SPECIFIC_MATCHER[splitted_arg]
           end
 
