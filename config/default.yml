@@ -189,8 +189,9 @@ Capybara/RSpec/SpecificMatcher:
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/SpecificMatcher
 
 Capybara/RSpec/VisibilityMatcher:
-  Description: Checks for boolean visibility in Capybara finders.
+  Description: Checks for boolean visibility in Capybara RSpec matchers.
   Enabled: true
+  DefaultSelector: css
   VersionAdded: '1.39'
-  VersionChanged: '3.0'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/VisibilityMatcher

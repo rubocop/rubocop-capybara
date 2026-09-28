@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- Autocorrect `visible: true` in `Capybara/RSpec/VisibilityMatcher` for known selectors. ([@ydah])
 - Add new `Capybara/UnorderedWindowAccess` cop. ([@ydah])
 - Fix false positives for custom elements in `Capybara/SpecificActions` and `Capybara/RSpec/SpecificMatcher`. ([@ydah])
 - Add new `Capybara/AbsoluteXPathInElementScope` cop. ([@ydah])
