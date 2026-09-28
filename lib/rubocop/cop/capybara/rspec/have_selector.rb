@@ -4,20 +4,24 @@ module RuboCop
   module Cop
     module Capybara
       module RSpec
-        # Use `have_css` or `have_xpath` instead of `have_selector`.
+        # Use CSS or XPath matchers instead of generic selector matchers.
         #
         # @example
         #   # bad
         #   expect(foo).to have_selector(:css, 'bar')
+        #   expect(foo).to have_no_selector(:css, 'bar')
         #
         #   # good
         #   expect(foo).to have_css('bar')
+        #   expect(foo).to have_no_css('bar')
         #
         #   # bad
         #   expect(foo).to have_selector(:xpath, 'bar')
+        #   expect(foo).to have_no_selector(:xpath, 'bar')
         #
         #   # good
         #   expect(foo).to have_xpath('bar')
+        #   expect(foo).to have_no_xpath('bar')
         #
         # @example DefaultSelector: css (default)
         #   # bad
@@ -37,8 +41,8 @@ module RuboCop
           extend AutoCorrector
           include RangeHelp
 
-          MSG = 'Use `%<good>s` instead of `have_selector`.'
-          RESTRICT_ON_SEND = %i[have_selector].freeze
+          MSG = 'Use `%<good>s` instead of `%<bad>s`.'
+          RESTRICT_ON_SEND = %i[have_selector have_no_selector].freeze
           SELECTORS = %i[css xpath].freeze
 
           def on_send(node)
@@ -54,14 +58,12 @@ module RuboCop
             return unless SELECTORS.include?(type.value)
             return unless (locator = node.arguments[1])
 
-            add_offense(node, message: message_typed(type)) do |corrector|
+            replacement = replacement(node, type.value)
+            add_offense(node,
+                        message: message(node, replacement)) do |corrector|
               corrector.remove(deletion_range(type, locator))
-              corrector.replace(node.loc.selector, "have_#{type.value}")
+              corrector.replace(node.loc.selector, replacement)
             end
-          end
-
-          def message_typed(type)
-            format(MSG, good: "have_#{type.value}")
           end
 
           def deletion_range(first_argument, second_argument)
@@ -72,13 +74,19 @@ module RuboCop
           def on_select_without_type(node)
             return unless (selector = default_selector)
 
-            add_offense(node, message: message_untyped(selector)) do |corrector|
-              corrector.replace(node.loc.selector, "have_#{selector}")
+            replacement = replacement(node, selector)
+            add_offense(node,
+                        message: message(node, replacement)) do |corrector|
+              corrector.replace(node.loc.selector, replacement)
             end
           end
 
-          def message_untyped(selector)
-            format(MSG, good: "have_#{selector}")
+          def replacement(node, selector)
+            node.method_name.to_s.sub('selector', selector.to_s)
+          end
+
+          def message(node, replacement)
+            format(MSG, good: replacement, bad: node.method_name)
           end
 
           def default_selector

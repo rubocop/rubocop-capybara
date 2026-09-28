@@ -136,7 +136,7 @@ Capybara/RSpec/HaveContent:
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/HaveContent
 
 Capybara/RSpec/HaveSelector:
-  Description: Use `have_css` or `have_xpath` instead of `have_selector`.
+  Description: Use CSS or XPath matchers instead of generic selector matchers.
   Enabled: true
   DefaultSelector: css
   VersionAdded: '2.19'
