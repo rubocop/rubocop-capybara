@@ -8,7 +8,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::NegationMatcher do
 
     %i[selector css xpath text title current_path link button
        field checked_field unchecked_field select table
-       sibling ancestor content].each do |matcher|
+       sibling ancestor content element].each do |matcher|
       it 'registers an offense when using ' \
          "`expect(...).not_to have_#{matcher}`" do
         expect_offense(<<~RUBY, matcher: matcher)
@@ -73,7 +73,7 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::NegationMatcher do
 
     %i[selector css xpath text title current_path link button
        field checked_field unchecked_field select table
-       sibling ancestor content].each do |matcher|
+       sibling ancestor content element].each do |matcher|
       it 'registers an offense when using ' \
          "`expect(...).to have_no_#{matcher}`" do
         expect_offense(<<~RUBY, matcher: matcher)
