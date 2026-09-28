@@ -37,6 +37,7 @@ module RuboCop
             'select' => 'select',
             'input' => 'field'
           }.freeze
+          EXCLUDED_FIELD_TYPES = %w[hidden image submit].freeze
 
           # @!method first_argument(node)
           def_node_matcher :first_argument, <<~PATTERN
@@ -66,6 +67,11 @@ module RuboCop
           end
 
           def replaceable?(node, arg, matcher)
+            if matcher == 'field'
+              type = CssSelector.attributes(arg)['type'].to_s.downcase
+              return false if EXCLUDED_FIELD_TYPES.include?(type)
+            end
+
             replaceable_attributes?(arg) &&
               !text_with_regexp?(node) &&
               CapybaraHelp.replaceable_option?(node, arg, matcher) &&
