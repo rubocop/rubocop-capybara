@@ -97,7 +97,7 @@ module RuboCop
                              end
             corrector.replace(matcher_node.loc.selector, matcher_method)
             add_argument_parentheses(corrector, matcher_node.first_argument)
-            add_ignore_query_options(corrector, node, matcher_node)
+            add_ignore_query_options(corrector, node)
           end
 
           def regexp_node_to_regexp_expr(regexp_node)
@@ -127,11 +127,8 @@ module RuboCop
 
           # `have_current_path` with no options will include the querystring
           # while `page.current_path` does not.
-          # This ensures the option `ignore_query: true` is added
-          # except when `match` matcher.
-          def add_ignore_query_options(corrector, node, matcher_node)
-            return if matcher_node.method?(:match)
-
+          # This ensures the option `ignore_query: true` is added.
+          def add_ignore_query_options(corrector, node)
             expectation_node = node.parent.last_argument
             expectation_last_child = expectation_node.children.last
             corrector.insert_after(expectation_last_child,

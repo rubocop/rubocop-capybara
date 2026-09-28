@@ -22,6 +22,7 @@
 - Add new `Capybara/RSpec/FindElementValueEq` cop. ([@ydah])
 - Fix a false negative for `Capybara/RSpec/NegationMatcherAfterVisit` when using `to_not`. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/RSpec/PredicateMatcher` when `EnforcedStyle: explicit` and `expect` actual is a complex expression. ([@ydah])
+- Fix `Capybara/RSpec/CurrentPathExpectation` autocorrection for `match` when the URL has a query string. ([@ydah])
 - Fix a false positive for `Capybara/SpecificActions` when `click` uses arguments or a block. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/SpecificFinders` when a selector class is used with nested `class:` options. ([@ydah])
 - Fix CSS attribute parsing when attribute values contain quotes. ([@ydah])
