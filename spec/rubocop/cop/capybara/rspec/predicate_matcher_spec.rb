@@ -84,6 +84,40 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::PredicateMatcher, :config do
           expect(foo).to match_style(bar: 'baz')
         RUBY
       end
+
+      it 'corrects to a positive matcher with eql and equal' do
+        expect_offense(<<~RUBY)
+          expect(el.matches_css?('a')).to eql(true)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `match_css` matcher over `matches_css?`.
+          expect(el.matches_css?('a')).to equal(true)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `match_css` matcher over `matches_css?`.
+          expect(el.matches_css?('a')).not_to equal(false)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `match_css` matcher over `matches_css?`.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(el).to match_css('a')
+          expect(el).to match_css('a')
+          expect(el).to match_css('a')
+        RUBY
+      end
+
+      it 'corrects to a negative matcher with eql and equal' do
+        expect_offense(<<~RUBY)
+          expect(el.matches_css?('a')).not_to eql(true)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `match_css` matcher over `matches_css?`.
+          expect(el.matches_css?('a')).to_not equal(true)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `match_css` matcher over `matches_css?`.
+          expect(el.matches_css?('a')).to eql(false)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `match_css` matcher over `matches_css?`.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(el).not_to match_css('a')
+          expect(el).not_to match_css('a')
+          expect(el).not_to match_css('a')
+        RUBY
+      end
     end
   end
 
