@@ -7,6 +7,8 @@ module RuboCop
       #
       # Combining selectors into a single `find` call is more efficient than
       # chaining multiple `find` calls, as it reduces the number of DOM queries.
+      # Only recognizable Capybara finder chains with literal string locators
+      # are checked.
       #
       # @example
       #   # bad
@@ -16,9 +18,11 @@ module RuboCop
       #   # good
       #   page.find('#foo .bar')
       #   page.find('#foo .bar .baz')
+      #   find('#form').find(:button, 'Save')
       #
       class ChainedFind < RuboCop::Cop::Base # rubocop:disable Metrics/ClassLength
         extend AutoCorrector
+        include CapybaraHelp
 
         MSG = 'Avoid chaining `find` methods. ' \
               'Combine the selectors into a single `find` call.'
@@ -36,6 +40,8 @@ module RuboCop
 
           find_receiver = find_receiver(node.receiver)
           return unless find_receiver
+          return unless literal_locators?(node, find_receiver)
+          return unless capybara_receiver?(find_receiver.receiver)
 
           register_offense(node, find_receiver)
         end
@@ -45,6 +51,10 @@ module RuboCop
 
         def chained_find?(node)
           node.method?(:find) && node.receiver
+        end
+
+        def literal_locators?(node, receiver)
+          node.first_argument&.str_type? && receiver.first_argument&.str_type?
         end
 
         def find_receiver(receiver)

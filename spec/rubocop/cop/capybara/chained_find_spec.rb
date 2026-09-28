@@ -25,12 +25,38 @@ RSpec.describe RuboCop::Cop::Capybara::ChainedFind, :config do
 
   it 'registers an offense when using chained find with element' do
     expect_offense(<<~RUBY)
+      element = find('#container')
       element.find('.parent').find('.child')
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `find('.parent .child')` instead of chaining `find` methods.
     RUBY
 
     expect_correction(<<~RUBY)
+      element = find('#container')
       element.find('.parent .child')
+    RUBY
+  end
+
+  it 'does not register an offense for chained Enumerable#find calls' do
+    expect_no_offenses(<<~RUBY)
+      items.find { |item| item.active? }.find { |item| item.ready? }
+    RUBY
+  end
+
+  it 'does not register an offense for a non-Capybara find chain' do
+    expect_no_offenses(<<~RUBY)
+      tree.find('parent').find('child')
+    RUBY
+  end
+
+  it 'does not register an offense for a typed second selector' do
+    expect_no_offenses(<<~RUBY)
+      find('#form').find(:button, 'Save')
+    RUBY
+  end
+
+  it 'does not register an offense when the first find uses a typed selector' do
+    expect_no_offenses(<<~RUBY)
+      find(:button, 'Save').find('.label')
     RUBY
   end
 
