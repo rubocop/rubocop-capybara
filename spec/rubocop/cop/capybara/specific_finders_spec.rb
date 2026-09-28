@@ -60,6 +60,23 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'treats a CSS-like `:id` locator as a literal id' do
+    expect_offense(<<~RUBY)
+      find(:id, '#top')
+      ^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+      find(:id, 'ns:foo')
+      ^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+      find(:id, 'ns\\\\foo')
+      ^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id('#top')
+      find_by_id('ns:foo')
+      find_by_id('ns\\\\foo')
+    RUBY
+  end
+
   it 'registers an offense when using `find` with `:id` ' \
      'and option' do
     expect_offense(<<~RUBY)
@@ -432,6 +449,20 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'treats a CSS-like or spaced `:link` locator as link text' do
+    expect_offense(<<~RUBY)
+      find(:link, '#top')
+      ^^^^^^^^^^^^^^^^^^^ Prefer `find_link` over `find`.
+      find(:link, 'Sign in')
+      ^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_link` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_link('#top')
+      find_link('Sign in')
+    RUBY
+  end
+
   it 'registers an offense when using `find` with `:field`' do
     expect_offense(<<~RUBY)
       find(:field, 'Name')
@@ -440,6 +471,17 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
 
     expect_correction(<<~RUBY)
       find_field('Name')
+    RUBY
+  end
+
+  it 'treats a spaced `:field` locator as field text' do
+    expect_offense(<<~RUBY)
+      find(:field, 'First name')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_field` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_field('First name')
     RUBY
   end
 

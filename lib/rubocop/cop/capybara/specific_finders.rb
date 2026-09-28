@@ -73,6 +73,8 @@ module RuboCop
 
         def on_send(node) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
           find_argument(node) do |sym, arg|
+            next on_sym_id(node, sym, arg) if id_symbol?(sym)
+            next on_sym_selector(node, sym) if selector_symbol?(sym)
             next if SpecificFindersHelp.unsupported_selector?(arg)
 
             handle_find(node, sym, arg)
@@ -117,10 +119,8 @@ module RuboCop
             return on_field(node, sym, arg)
           end
           return on_attr(node, sym, arg) if attribute?(arg)
-          return on_id(node, sym, arg) if CssSelector.id?(arg)
-          return on_sym_id(node, sym, arg) if id_symbol?(sym)
 
-          on_sym_selector(node, sym) if selector_symbol?(sym)
+          on_id(node, sym, arg) if CssSelector.id?(arg)
         end
 
         def on_attr(node, sym, arg)
@@ -140,7 +140,7 @@ module RuboCop
         end
 
         def on_sym_id(node, sym, id)
-          register_offense(node, sym, ruby_literal(id.delete('\\')))
+          register_offense(node, sym, ruby_literal(id))
         end
 
         def on_field(node, sym, arg)
