@@ -125,7 +125,7 @@ module RuboCop
 
         def on_attr(node, sym, arg)
           attrs = CssSelector.attributes(arg)
-          return unless (id = attrs['id'])
+          return unless (id = attrs['id']&.to_s)
           return if attrs['class']
 
           register_offense(node, sym, replaced_arguments(arg, id))

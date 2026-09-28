@@ -93,6 +93,13 @@ RSpec.describe RuboCop::Cop::Capybara::NativeAttribute do
     RUBY
   end
 
+  it 'ignores native calls without an element receiver' do
+    expect_no_offenses(<<~RUBY)
+      native.attribute(:id)
+      native&.attribute(:id)
+    RUBY
+  end
+
   it 'does not register an offense for a dynamic attribute' do
     expect_no_offenses(<<~RUBY)
       find('.item').native.attribute(attribute_name)

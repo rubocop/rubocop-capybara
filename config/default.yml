@@ -9,6 +9,18 @@ Capybara:
     - "**/*_steps.rb"
     - "**/features/step_definitions/**/*"
 
+Capybara/AbsoluteXPathInElementScope:
+  Description: Checks for absolute XPath searches on Capybara elements.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AbsoluteXPathInElementScope
+
+Capybara/AlwaysTrueCountQuery:
+  Description: Checks for positive queries that succeed when there are no matches.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AlwaysTrueCountQuery
+
 Capybara/AmbiguousClick:
   Description: Specify the exact target to click on.
   Enabled: false
@@ -35,6 +47,13 @@ Capybara/FindAllFirst:
   VersionAdded: '2.22'
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
+
+Capybara/IgnoredQueryOption:
+  Description: Checks for query options that have no effect in Capybara.
+  Enabled: pending
+  DefaultSelector: css
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/IgnoredQueryOption
 
 Capybara/ModalMethodWithoutBlock:
   Description: Checks that modal handling methods are called with a block.
@@ -87,6 +106,13 @@ Capybara/RSpec/CurrentPathExpectation:
   VersionAdded: '1.18'
   VersionChanged: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/CurrentPathExpectation
+
+Capybara/RSpec/CurrentUrlExpectation:
+  Description: Checks expectations on `current_url` that bypass Capybara's waiting.
+  Enabled: pending
+  SafeAutoCorrect: false
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/CurrentUrlExpectation
 
 Capybara/RSpec/FindElementValueEq:
   Description: Checks for expectations on the value of an element found by Capybara.
