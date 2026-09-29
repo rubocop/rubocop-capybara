@@ -4,6 +4,7 @@
 
 - Recognize `have_element` and `have_no_element` in the RSpec negation cops. ([@ydah])
 - Fix false positives in `Capybara/RSpec/SpecificMatcher` for input types excluded by `have_field`. ([@ydah])
+- Avoid interpolating literal `#{...}`, `#@...`, and `#$...` patterns in `Capybara/RSpec/CurrentPathExpectation` and `Capybara/RSpec/CurrentUrlExpectation` autocorrection. ([@ydah])
 - Add new `Capybara/UnorderedWindowAccess` cop. ([@ydah])
 - Fix false positives for custom elements in `Capybara/SpecificActions` and `Capybara/RSpec/SpecificMatcher`. ([@ydah])
 - Add new `Capybara/AbsoluteXPathInElementScope` cop. ([@ydah])

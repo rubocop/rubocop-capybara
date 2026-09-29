@@ -95,7 +95,10 @@ module RuboCop
           end
 
           def regexp_source(argument)
-            Regexp.new(argument.value).inspect if argument.str_type?
+            return unless argument.str_type?
+            return if argument.value.match?(/#[{@$]/)
+
+            Regexp.new(argument.value).inspect
           rescue RegexpError
             nil
           end

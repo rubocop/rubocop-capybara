@@ -46,6 +46,19 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::CurrentUrlExpectation do
     RUBY
   end
 
+  it 'does not interpolate literal Ruby interpolation markers' do
+    expect_offense(<<~'RUBY')
+      expect(current_url).to match('/tags/#{name}')
+      ^^^^^^ Use `have_current_path` on `page` to wait for the URL.
+      expect(current_url).to match('/tags/#@name')
+      ^^^^^^ Use `have_current_path` on `page` to wait for the URL.
+      expect(current_url).to match('/tags/#$name')
+      ^^^^^^ Use `have_current_path` on `page` to wait for the URL.
+    RUBY
+
+    expect_no_corrections
+  end
+
   it 'reports substring and prefix/suffix checks without correcting them' do
     expect_offense(<<~RUBY)
       expect(page.current_url).to include('/login')
