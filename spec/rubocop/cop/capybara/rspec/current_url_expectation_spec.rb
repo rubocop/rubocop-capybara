@@ -79,4 +79,31 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::CurrentUrlExpectation do
   it 'ignores a bare URL read' do
     expect_no_offenses('expect(current_url)')
   end
+
+  context 'with trailing comma correction enabled' do
+    let(:other_cops) do
+      style_config = RuboCop::ConfigLoader.default_configuration.for_cop(
+        'Style/TrailingCommaInArguments'
+      )
+      {
+        'Style/TrailingCommaInArguments' =>
+          style_config.merge('EnforcedStyleForMultiline' => 'comma')
+      }
+    end
+
+    it 'keeps the corrected URL expectation syntactically valid' do
+      source = "expect(current_url).to match(\n  'login'\n)\n"
+      team = RuboCop::Cop::Team.mobilize(
+        [RuboCop::Cop::Style::TrailingCommaInArguments, described_class],
+        config, autocorrect: true
+      )
+      team.defer_corrections = true
+      team.investigate(RuboCop::ProcessedSource.new(source, 3.3, 'spec.rb'))
+
+      corrected = RuboCop::ProcessedSource.new(
+        team.updated_source, 3.3, 'spec.rb'
+      )
+      expect(corrected).to be_valid_syntax
+    end
+  end
 end
