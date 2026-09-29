@@ -134,4 +134,14 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::HaveSelector, :config do
       RUBY
     end
   end
+
+  context 'when RuboCop removes a null DefaultSelector' do
+    let(:cur_cop_config) { super().reject { |key| key == 'DefaultSelector' } }
+
+    it 'does not infer CSS for an untyped matcher' do
+      expect_no_offenses(<<~RUBY)
+        expect(foo).to have_selector('bar')
+      RUBY
+    end
+  end
 end

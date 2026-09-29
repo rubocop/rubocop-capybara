@@ -142,8 +142,8 @@ RSpec.describe RuboCop::Cop::Capybara::ChainedFind, :config do
     end
   end
 
-  context 'when DefaultSelector is unknown' do
-    let(:cop_config) { { 'DefaultSelector' => nil } }
+  context 'when RuboCop removes a null DefaultSelector' do
+    let(:cur_cop_config) { super().reject { |key| key == 'DefaultSelector' } }
 
     it 'registers an offense without combining selectors' do
       expect_offense(<<~RUBY)
