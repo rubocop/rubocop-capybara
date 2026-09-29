@@ -8,6 +8,8 @@ module RuboCop
       module CssSelector
         module_function
 
+        ID_PATTERN = /\A#((?:[\w-]|\\[.>,+~])+)(?:\.|\z)/.freeze
+
         # @param selector [String]
         # @return [String]
         # @example
@@ -15,9 +17,7 @@ module RuboCop
         #   id('.some-cls') # => nil
         #   id('#some-id.cls') # => some-id
         def id(selector)
-          return unless id?(selector)
-
-          selector.delete('#').gsub(selector.scan(/[^\\]([>,+~.].*)/).join, '')
+          selector[ID_PATTERN, 1]
         end
 
         # @param selector [String]
@@ -26,7 +26,7 @@ module RuboCop
         #   id?('#some-id') # => true
         #   id?('.some-cls') # => false
         def id?(selector)
-          selector.start_with?('#')
+          !id(selector).nil?
         end
 
         # @param selector [String]
