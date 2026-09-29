@@ -7,6 +7,7 @@
 - Avoid interpolating literal `#{...}`, `#@...`, and `#$...` patterns in `Capybara/RSpec/CurrentPathExpectation` and `Capybara/RSpec/CurrentUrlExpectation` autocorrection. ([@ydah])
 - Fix false positives and negatives for `Capybara/SpecificActions` when CSS attribute values contain spaces. ([@ydah])
 - Detect `have_no_selector` in `Capybara/RSpec/HaveSelector`. ([@ydah])
+- Honor `DefaultSelector: null` in selector-dependent cops, including `Capybara/RSpec/HaveSelector`. ([@ydah])
 - Add new `Capybara/UnorderedWindowAccess` cop. ([@ydah])
 - Fix false positives for custom elements in `Capybara/SpecificActions` and `Capybara/RSpec/SpecificMatcher`. ([@ydah])
 - Add new `Capybara/AbsoluteXPathInElementScope` cop. ([@ydah])

@@ -90,7 +90,7 @@ module RuboCop
           end
 
           def default_selector
-            selector = cop_config.fetch('DefaultSelector', 'css').to_s.to_sym
+            selector = cop_config['DefaultSelector'].to_s.to_sym
             selector if SELECTORS.include?(selector)
           end
         end

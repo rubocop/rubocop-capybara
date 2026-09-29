@@ -204,7 +204,7 @@ module RuboCop
           end
           return if positional.length > 1
 
-          cop_config.fetch('DefaultSelector', 'css').to_s.to_sym
+          cop_config['DefaultSelector'].to_s.to_sym
         end
 
         def count_specified?(options)
