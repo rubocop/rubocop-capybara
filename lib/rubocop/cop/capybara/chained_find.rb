@@ -98,7 +98,7 @@ module RuboCop
         end
 
         def safe_to_autocorrect?(node, receiver)
-          cop_config.fetch('DefaultSelector', 'css').to_s == 'css' &&
+          cop_config['DefaultSelector'].to_s == 'css' &&
             single_string_argument?(node) &&
             single_string_argument?(receiver) &&
             node.type == receiver.type &&
