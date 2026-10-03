@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- Detect `have_no_selector` in `Capybara/RSpec/HaveSelector`. ([@ydah])
 - Add new `Capybara/UnorderedWindowAccess` cop. ([@ydah])
 - Fix false positives for custom elements in `Capybara/SpecificActions` and `Capybara/RSpec/SpecificMatcher`. ([@ydah])
 - Add new `Capybara/AbsoluteXPathInElementScope` cop. ([@ydah])
