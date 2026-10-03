@@ -53,6 +53,8 @@ module RuboCop
         ].flat_map do |element|
           [:"have_#{element}", :"have_no_#{element}"]
         end.freeze
+        VISIBILITY_FALSE_MESSAGE = 'Use `:all` or `:hidden` instead of `false`.'
+        VISIBILITY_TRUE_MESSAGE = 'Use `:visible` instead of `true`.'
 
         module_function
 
