@@ -213,6 +213,19 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::CurrentPathExpectation do
     expect_no_corrections
   end
 
+  it 'does not interpolate literal Ruby interpolation markers' do
+    expect_offense(<<~'RUBY')
+      expect(current_path).to match('/tags/#{name}')
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+      expect(current_path).to match('/tags/#@name')
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+      expect(current_path).to match('/tags/#$name')
+      ^^^^^^ Do not set an RSpec expectation on `current_path` in Capybara feature specs - instead, use the `have_current_path` matcher on `page`
+    RUBY
+
+    expect_no_corrections
+  end
+
   it 'registers an offense with `match` with a multi-line string argument' do
     expect_offense(<<~'RUBY')
       expect(page.current_path).to match("string/" \

@@ -104,6 +104,8 @@ module RuboCop
             if regexp_node.xstr_type?
               "/\#{`#{regexp_node.value.value}`}/"
             else
+              return if regexp_node.value.match?(/#[{@$]/)
+
               Regexp.new(regexp_node.value).inspect
             end
           rescue RegexpError
