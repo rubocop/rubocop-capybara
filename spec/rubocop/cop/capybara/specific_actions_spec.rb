@@ -68,6 +68,21 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificActions do
     RUBY
   end
 
+  it 'does not split whitespace inside attribute values' do
+    expect_no_offenses(<<~RUBY)
+      find('div[class="big button"]').click
+      find("div[class='big button']").click
+      find('div[class="big [button] button"]').click
+    RUBY
+  end
+
+  it 'recognizes a button with whitespace in an attribute value' do
+    expect_offense(<<~RUBY)
+      find('button[title="Save now"]').click
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
+    RUBY
+  end
+
   it 'does not register an offense for find and click actions when ' \
      'first argument is multiple selector `,`' do
     expect_no_offenses(<<~RUBY)
