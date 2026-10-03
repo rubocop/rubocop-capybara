@@ -183,6 +183,14 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::SpecificMatcher do
     RUBY
   end
 
+  it 'does not recommend have_field for input types excluded by :field' do
+    expect_no_offenses(<<~RUBY)
+      expect(page).to have_css('input[type=submit]')
+      expect(page).to have_no_css('input[type="image"]')
+      expect(page).to have_selector('input[type=hidden]')
+    RUBY
+  end
+
   it 'does not register an offense for input attribute modifiers' do
     expect_no_offenses(<<~RUBY)
       expect(page).to have_css('input[placeholder="foo" i]')
