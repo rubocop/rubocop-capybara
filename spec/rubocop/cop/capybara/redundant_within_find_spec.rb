@@ -40,6 +40,19 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
     RUBY
   end
 
+  it 'does not autocorrect a find call with a block argument' do
+    expect_offense(<<~RUBY)
+      within find('.x', &filter) do
+             ^^^^^^^^^^^^^^^^^^^ Redundant `within find(...)` call detected.
+      end
+      within find_by_id('x', &filter) do
+             ^^^^^^^^^^^^^^^^^^^^^^^^ Redundant `within find_by_id(...)` call detected.
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
   it 'registers an offense when using `within find_by_id(...)`' do
     expect_offense(<<~RUBY)
       within find_by_id('foo') do
