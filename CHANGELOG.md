@@ -2,6 +2,7 @@
 
 ## Edge (Unreleased)
 
+- Recognize `have_element` and `have_no_element` in the RSpec negation cops. ([@ydah])
 - Add new `Capybara/UnorderedWindowAccess` cop. ([@ydah])
 - Fix false positives for custom elements in `Capybara/SpecificActions` and `Capybara/RSpec/SpecificMatcher`. ([@ydah])
 - Add new `Capybara/AbsoluteXPathInElementScope` cop. ([@ydah])

@@ -20,6 +20,22 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::NegationMatcherAfterVisit,
     RUBY
   end
 
+  it 'registers an offense for `have_no_element` after `visit`' do
+    expect_offense(<<~RUBY)
+      visit foo_path
+      expect(page).to have_no_element('div')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not use negation matcher immediately after visit.
+    RUBY
+  end
+
+  it 'registers an offense for `not_to have_element` after `visit`' do
+    expect_offense(<<~RUBY)
+      visit foo_path
+      expect(page).not_to have_element('div')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not use negation matcher immediately after visit.
+    RUBY
+  end
+
   it 'registers an offense when using `to_not` with `have_*` after ' \
      'immediately `visit` method call' do
     expect_offense(<<~RUBY)
