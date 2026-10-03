@@ -79,6 +79,16 @@ RSpec.describe RuboCop::Cop::Capybara::NativeAttribute do
     RUBY
   end
 
+  it 'does not infer receivers from shadowed block or method parameters' do
+    expect_no_offenses(<<~RUBY)
+      element = find('.item')
+      items.each { |element| element.native.attribute(:id) }
+      def check(element)
+        element.native.attribute(:id)
+      end
+    RUBY
+  end
+
   it 'does not register an offense for an unrelated object' do
     expect_no_offenses(<<~RUBY)
       object.native.attribute(:id)

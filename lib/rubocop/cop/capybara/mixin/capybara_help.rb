@@ -82,8 +82,8 @@ module RuboCop
         end
         module_function :capybara_receiver?
 
-        # ponytail: Direct same-scope assignments only; use data-flow analysis
-        # if coverage grows.
+        # ponytail: Only preceding direct assignments in visible lexical scopes;
+        # use data-flow analysis if coverage grows.
         def local_variable_capybara_receiver?(node)
           value = local_variable_value(node)
           value && capybara_receiver_pattern?(value)
@@ -93,18 +93,39 @@ module RuboCop
         def local_variable_value(node)
           return unless node.lvar_type?
 
-          assignment = node.each_ancestor.filter_map do |scope|
+          name = node.children.first
+          scopes = node.each_ancestor.take_while do |scope|
+            outer_assignment_visible_through?(scope, name)
+          end
+          assignment = scopes.filter_map do |scope|
             local_variable_assignment(node, scope) if scope.begin_type?
           end.first
           assignment && assignment.children[1]
         end
         module_function :local_variable_value
 
+        def outer_assignment_visible_through?(scope, name)
+          return false if scope.type?(:any_def, :class, :module, :sclass)
+
+          !scope.block_type? ||
+            !shadowed_block_variable?(scope.arguments, name)
+        end
+        module_function :outer_assignment_visible_through?
+
+        def shadowed_block_variable?(arguments, name)
+          args = arguments.each_node(
+            :arg, :optarg, :restarg, :kwarg,
+            :kwoptarg, :kwrestarg, :blockarg, :shadowarg
+          )
+          args.any? { |arg| arg.children.first == name }
+        end
+        module_function :shadowed_block_variable?
+
         def local_variable_assignment(node, scope)
           scope.children.reverse.find do |child|
             child.lvasgn_type? &&
               child.children.first == node.children.first &&
-              child.source_range.begin_pos < node.source_range.begin_pos
+              child.source_range.end_pos <= node.source_range.begin_pos
           end
         end
         module_function :local_variable_assignment
