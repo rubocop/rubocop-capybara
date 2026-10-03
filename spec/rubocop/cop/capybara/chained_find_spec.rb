@@ -23,6 +23,17 @@ RSpec.describe RuboCop::Cop::Capybara::ChainedFind, :config do
     RUBY
   end
 
+  it 'reports interpolated string locators without autocorrecting' do
+    expect_offense(<<~'RUBY')
+      find("#row-#{id}").find('.cell')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid chaining `find` methods. Combine the selectors into a single `find` call.
+      find('.row').find(".cell-#{id}")
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid chaining `find` methods. Combine the selectors into a single `find` call.
+    RUBY
+
+    expect_no_corrections
+  end
+
   it 'registers an offense when using chained find with element' do
     expect_offense(<<~RUBY)
       element = find('#container')
