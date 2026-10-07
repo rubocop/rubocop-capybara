@@ -61,7 +61,7 @@ expect(current_path).to match(variable)
 | Pending
 | Yes
 | Always (Unsafe)
-| <<next>>
+| 3.1
 | -
 |===
 
@@ -105,7 +105,7 @@ expect(page).to have_current_path(/login/, url: true)
 | Pending
 | Yes
 | Always (Unsafe)
-| <<next>>
+| 3.1
 | -
 |===
 
