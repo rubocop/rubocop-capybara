@@ -12,13 +12,13 @@ Capybara:
 Capybara/AbsoluteXPathInElementScope:
   Description: Checks for absolute XPath searches on Capybara elements.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AbsoluteXPathInElementScope
 
 Capybara/AlwaysTrueCountQuery:
   Description: Checks for positive queries that succeed when there are no matches.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/AlwaysTrueCountQuery
 
 Capybara/AmbiguousClick:
@@ -38,7 +38,7 @@ Capybara/ChainedFind:
   Description: Avoid chaining `find` methods and combine selectors.
   Enabled: pending
   DefaultSelector: css
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ChainedFind
 
 Capybara/FindAllFirst:
@@ -53,20 +53,20 @@ Capybara/IgnoredQueryOption:
   Description: Checks for query options that have no effect in Capybara.
   Enabled: pending
   DefaultSelector: css
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/IgnoredQueryOption
 
 Capybara/ModalMethodWithoutBlock:
   Description: Checks that modal handling methods are called with a block.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/ModalMethodWithoutBlock
 
 Capybara/NativeAttribute:
   Description: Enforces use of `Element#[]` instead of `native.attribute`.
   Enabled: pending
   SafeAutoCorrect: false
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/NativeAttribute
 
 Capybara/RedundantWithinFind:
@@ -93,14 +93,14 @@ Capybara/SpecificFinders:
 Capybara/UnorderedWindowAccess:
   Description: Checks positional access to Capybara windows, whose order is undefined.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/UnorderedWindowAccess
 
 Capybara/VisibilityOption:
   Description: Checks for boolean values passed to Capybara's `visible` option.
   Enabled: pending
   DefaultSelector: css
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/VisibilityOption
 
 Capybara/RSpec:
@@ -118,14 +118,14 @@ Capybara/RSpec/CurrentUrlExpectation:
   Description: Checks expectations on `current_url` that bypass Capybara's waiting.
   Enabled: pending
   SafeAutoCorrect: false
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/CurrentUrlExpectation
 
 Capybara/RSpec/FindElementValueEq:
   Description: Checks for expectations on the value of an element found by Capybara.
   Enabled: pending
   SafeAutoCorrect: false
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/RSpec/FindElementValueEq
 
 Capybara/RSpec/HaveContent:
