@@ -109,6 +109,123 @@ RSpec.describe RuboCop::Cop::Capybara::FindAllFirst, :config do
     RUBY
   end
 
+  it 'registers an offense for keyword-only `all` with a Capybara ' \
+     'finder option' do
+    expect_offense(<<~RUBY)
+      all(text: 'Home').first
+      ^^^^^^^^^^^^^^^^^^^^^^^ Use `first(text: 'Home')`.
+      all(text: 'Home')[0]
+      ^^^^^^^^^^^^^^^^^^^^ Use `first(text: 'Home')`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      first(text: 'Home')
+      first(text: 'Home')
+    RUBY
+  end
+
+  it 'registers an offense for keyword-only `all` with a Capybara ' \
+     'finder option and receiver' do
+    expect_offense(<<~RUBY)
+      page.all(text: 'Home').first
+           ^^^^^^^^^^^^^^^^^^^^^^^ Use `first(text: 'Home')`.
+      page.all(text: 'Home')[0]
+           ^^^^^^^^^^^^^^^^^^^^ Use `first(text: 'Home')`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      page.first(text: 'Home')
+      page.first(text: 'Home')
+    RUBY
+  end
+
+  it 'registers an offense for keyword-only `all` with selector ' \
+     'configuration options' do
+    expect_offense(<<~RUBY)
+      page.all(text: 'Home', enable_aria_label: true).first
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first(text: 'Home', enable_aria_label: true)`.
+      page.all(allow_reload: true)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first(allow_reload: true)`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      page.first(text: 'Home', enable_aria_label: true)
+      page.first(allow_reload: true)
+    RUBY
+  end
+
+  it 'registers an offense for keyword-only `all` with `filter_set` ' \
+     'and its filters' do
+    expect_offense(<<~RUBY)
+      page.all(filter_set: :field, disabled: true).first
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first(filter_set: :field, disabled: true)`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      page.first(filter_set: :field, disabled: true)
+    RUBY
+  end
+
+  context 'when DefaultSelector is xpath' do
+    let(:cop_config) { { 'DefaultSelector' => 'xpath' } }
+
+    it 'does not register an offense when `all` receives non-Capybara ' \
+       'keyword arguments only' do
+      expect_no_offenses(<<~RUBY)
+        jobs.all(include_inactive: true).first
+      RUBY
+    end
+  end
+
+  context 'when DefaultSelector defines its own filters' do
+    let(:cop_config) { { 'DefaultSelector' => 'field' } }
+
+    it 'registers an offense for keyword-only `all` with selector filters' do
+      expect_offense(<<~RUBY)
+        page.all(disabled: true).first
+             ^^^^^^^^^^^^^^^^^^^^^^^^^ Use `first(disabled: true)`.
+        all(disabled: true)[0]
+        ^^^^^^^^^^^^^^^^^^^^^^ Use `first(disabled: true)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        page.first(disabled: true)
+        first(disabled: true)
+      RUBY
+    end
+  end
+
+  it 'does not register an offense when `all` receives non-Capybara ' \
+     'keyword arguments only' do
+    expect_no_offenses(<<~RUBY)
+      jobs.all(include_inactive: true).first
+      jobs.all(include_inactive: true)[0]
+    RUBY
+  end
+
+  it 'does not register an offense when `all` mixes Capybara and ' \
+     'non-Capybara keyword arguments' do
+    expect_no_offenses(<<~RUBY)
+      jobs.all(text: 'Home', include_inactive: true).first
+      jobs.all(text: 'Home', include_inactive: true)[0]
+    RUBY
+  end
+
+  it 'does not register an offense when `all` receives a hash with ' \
+     'non-symbol keys' do
+    expect_no_offenses(<<~RUBY)
+      jobs.all('text' => 'Home').first
+    RUBY
+  end
+
+  it 'does not register an offense when keyword-only `all` uses a ' \
+     'double splat' do
+    expect_no_offenses(<<~RUBY)
+      jobs.all(**options).first
+      jobs.all(**options)[0]
+    RUBY
+  end
+
   context 'when using logical operators' do
     it 'does not register an offense when using `all` with ' \
        '`[0]` and `||` operator' do

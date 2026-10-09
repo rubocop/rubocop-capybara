@@ -45,8 +45,9 @@ Capybara/FindAllFirst:
   Description: Enforces use of `first` instead of `all` with `first` or `[0]`.
   Enabled: true
   SafeAutoCorrect: false
+  DefaultSelector: css
   VersionAdded: '2.22'
-  VersionChanged: '3.0'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-capybara/RuboCop/Cop/Capybara/FindAllFirst
 
 Capybara/IgnoredQueryOption:

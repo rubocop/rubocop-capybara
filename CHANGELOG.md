@@ -23,6 +23,8 @@
 - Speed up loading rubocop-capybara by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
 - Add new `Capybara/IgnoredQueryOption` cop. ([@ydah])
 - Fix false positives and incorrect autocorrections for `Capybara/FindAllFirst` when `find` or `all` uses `match: :first`. ([@ydah])
+- Fix a false positive for `Capybara/FindAllFirst` when `all` is called with keyword arguments that are not Capybara finder options (e.g. a non-Capybara collection method like `all(include_inactive: true).first`), while still flagging valid keyword-only Capybara calls like `all(text: 'Home').first`. ([@professor])
+- Fix a false positive for `Capybara/FindAllFirst` when `all` is called with keyword arguments that are not Capybara finder options (e.g. a non-Capybara collection method like `all(include_inactive: true).first`), while still flagging valid keyword-only Capybara calls like `all(text: 'Home').first`. Add a `DefaultSelector` option so filters of a non-`css`/`xpath` default selector (e.g. `all(disabled: true).first` with `:field`) are still flagged. ([@professor])
 - Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when `find_by_id` uses a dynamic id. ([@ydah])
 - Fix an incorrect autocorrect for `Capybara/RedundantWithinFind` when a finder call has a block argument. ([@ydah])
 - Fix a false positive for `Capybara/RSpec/HaveSelector` when `DefaultSelector` is unsupported. ([@ydah])
@@ -152,6 +154,7 @@
 [@onumis]: https://github.com/onumis
 [@oskarsezerins]: https://github.com/OskarsEzerins
 [@pirj]: https://github.com/pirj
+[@professor]: https://github.com/professor
 [@rspeicher]: https://github.com/rspeicher
 [@timrogers]: https://github.com/timrogers
 [@twalpole]: https://github.com/twalpole
