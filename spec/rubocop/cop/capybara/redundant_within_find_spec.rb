@@ -61,7 +61,7 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
     RUBY
 
     expect_correction(<<~RUBY)
-      within '#foo' do
+      within :id, 'foo' do
       end
     RUBY
   end
@@ -74,7 +74,7 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
     RUBY
 
     expect_correction(<<~RUBY)
-      within('#foo') do
+      within(:id, 'foo') do
       end
     RUBY
   end
@@ -89,10 +89,41 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
       end
     RUBY
 
-    expect_correction(<<~'RUBY')
-      within '#foo\.bar' do
+    expect_correction(<<~RUBY)
+      within :id, 'foo.bar' do
       end
-      within "#foo\\.bar" do
+      within :id, "foo.bar" do
+      end
+    RUBY
+  end
+
+  it 'preserves ids that need CSS escaping' do
+    expect_offense(<<~RUBY)
+      within find_by_id('1st-row') do
+             ^^^^^^^^^^^^^^^^^^^^^ Redundant `within find_by_id(...)` call detected.
+      end
+      within find_by_id('user:name') do
+             ^^^^^^^^^^^^^^^^^^^^^^^ Redundant `within find_by_id(...)` call detected.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      within :id, '1st-row' do
+      end
+      within :id, 'user:name' do
+      end
+    RUBY
+  end
+
+  it 'preserves alternative string literal syntax' do
+    expect_offense(<<~RUBY)
+      within find_by_id(%q(foo.bar)) do
+             ^^^^^^^^^^^^^^^^^^^^^^^ Redundant `within find_by_id(...)` call detected.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      within :id, %q(foo.bar) do
       end
     RUBY
   end
@@ -106,7 +137,7 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
     RUBY
 
     expect_correction(<<~RUBY)
-      within '#foo', visible: false do
+      within :id, 'foo', visible: false do
       end
     RUBY
   end
@@ -118,7 +149,10 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
       end
     RUBY
 
-    expect_no_corrections
+    expect_correction(<<~RUBY)
+      within :id, id_variable do
+      end
+    RUBY
   end
 
   it 'registers an offense when using `within find_by_id(...)` with ' \
@@ -129,7 +163,10 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
       end
     RUBY
 
-    expect_no_corrections
+    expect_correction(<<~RUBY)
+      within :id, dom_id(user), visible: :all do
+      end
+    RUBY
   end
 
   it 'registers an offense when using `within find_by_id(...)` with ' \
@@ -140,7 +177,10 @@ RSpec.describe RuboCop::Cop::Capybara::RedundantWithinFind, :config do
       end
     RUBY
 
-    expect_no_corrections
+    expect_correction(<<~'RUBY')
+      within :id, "user_#{user.id}" do
+      end
+    RUBY
   end
 
   it 'does not register an offense when using `within` without `find`' do
