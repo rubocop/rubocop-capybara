@@ -174,6 +174,29 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
+  it 'reports a class array with dynamic entries without autocorrection' do
+    expect_offense(<<~RUBY)
+      var = candidate
+      find('#foo.bar', class: ['a', var])
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'reports a dynamic class value without autocorrection' do
+    expect_offense(<<~RUBY)
+      find('#foo.bar', class: var)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+      find('#foo.bar', class: :sym)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+      find('#foo.bar', class: "a\#{b}")
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by_id` over `find`.
+    RUBY
+
+    expect_no_corrections
+  end
+
   it 'registers an offense when using `find` with multiple classes ' \
      "and exact_text: 'foo', class: 'other-cls'" do
     expect_offense(<<~RUBY)

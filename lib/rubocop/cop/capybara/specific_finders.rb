@@ -168,6 +168,8 @@ module RuboCop
         def register_offense(node, sym, replacement, classes = [])
           message = format(MSG, replacement: 'find_by_id')
           add_offense(offense_range(node), message: message) do |corrector|
+            next unless autocorrectable_classes?(node, classes)
+
             corrector.replace(node.loc.selector, 'find_by_id')
             corrector.replace(node.first_argument, replacement)
             autocorrect_id_classes(corrector, node, classes)
@@ -175,8 +177,15 @@ module RuboCop
           end
         end
 
+        def autocorrectable_classes?(node, classes)
+          return true if classes.empty? || !(options = class_option(node))
+
+          options.str_type? ||
+            (options.array_type? && options.values.all?(&:str_type?))
+        end
+
         def autocorrect_id_classes(corrector, node, classes)
-          autocorrect_classes(corrector, node, classes) if classes.compact.any?
+          autocorrect_classes(corrector, node, classes) unless classes.empty?
         end
 
         def deletion_range(node)
