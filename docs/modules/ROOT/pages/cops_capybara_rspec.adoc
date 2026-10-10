@@ -189,7 +189,7 @@ expect(page).to have_no_text('bara')
 | 3.0
 |===
 
-Use `have_css` or `have_xpath` instead of `have_selector`.
+Use CSS or XPath matchers instead of generic selector matchers.
 
 [#examples-capybararspechaveselector]
 === Examples
@@ -198,15 +198,19 @@ Use `have_css` or `have_xpath` instead of `have_selector`.
 ----
 # bad
 expect(foo).to have_selector(:css, 'bar')
+expect(foo).to have_no_selector(:css, 'bar')
 
 # good
 expect(foo).to have_css('bar')
+expect(foo).to have_no_css('bar')
 
 # bad
 expect(foo).to have_selector(:xpath, 'bar')
+expect(foo).to have_no_selector(:xpath, 'bar')
 
 # good
 expect(foo).to have_xpath('bar')
+expect(foo).to have_no_xpath('bar')
 ----
 
 [#defaultselector_-css-_default_-capybararspechaveselector]
