@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-SimpleCov.start do
+SimpleCov.configure do
   enable_coverage :branch
   minimum_coverage line: 99.54, branch: 95.45
-  add_filter '/spec/'
-  add_filter '/vendor/bundle/'
+  skip ['/spec/', '/vendor/bundle/']
 end
