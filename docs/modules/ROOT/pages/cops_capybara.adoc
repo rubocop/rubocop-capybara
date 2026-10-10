@@ -15,7 +15,7 @@
 | Pending
 | Yes
 | No
-| <<next>>
+| 3.1
 | -
 |===
 
@@ -59,7 +59,7 @@ page.find(:xpath, '//button')
 | Pending
 | Yes
 | No
-| <<next>>
+| 3.1
 | -
 |===
 
@@ -163,7 +163,7 @@ page.find(:css, '#first').assert_matches_style(display: 'block')
 | Pending
 | Yes
 | Always
-| <<next>>
+| 3.1
 | -
 |===
 
@@ -257,7 +257,7 @@ first('a')
 | Pending
 | Yes
 | Always
-| <<next>>
+| 3.1
 | -
 |===
 
@@ -327,7 +327,7 @@ find('.item', text: /foo/, exact_text: true)
 | Pending
 | Yes
 | No
-| <<next>>
+| 3.1
 | -
 |===
 
@@ -361,7 +361,7 @@ page.accept_prompt(with: 'answer', &trigger_modal)
 | Pending
 | Yes
 | Always (Unsafe)
-| <<next>>
+| 3.1
 | -
 |===
 
@@ -530,7 +530,7 @@ find_field(type: 'checkbox')
 | Pending
 | Yes
 | No
-| <<next>>
+| 3.1
 | -
 |===
 
@@ -564,7 +564,7 @@ original = current_window
 | Pending
 | Yes
 | Always
-| <<next>>
+| 3.1
 | -
 |===
 
