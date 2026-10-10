@@ -109,6 +109,30 @@ RSpec.describe RuboCop::Cop::Capybara::FindAllFirst, :config do
     RUBY
   end
 
+  it 'does not register an offense when the result uses safe navigation' do
+    expect_no_offenses(<<~RUBY)
+      all('.x').first&.click
+      all('.x')[0]&.click
+    RUBY
+  end
+
+  it 'does not register an offense when the result is a condition' do
+    expect_no_offenses(<<~RUBY)
+      if all('.y').first
+        click_button('Continue')
+      end
+      unless all('.y')[0]
+        click_button('Continue')
+      end
+      while all('.y').first
+        click_button('Continue')
+      end
+      until all('.y')[0]
+        click_button('Continue')
+      end
+    RUBY
+  end
+
   context 'when using logical operators' do
     it 'does not register an offense when using `all` with ' \
        '`[0]` and `||` operator' do
