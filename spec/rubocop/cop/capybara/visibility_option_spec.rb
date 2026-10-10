@@ -261,8 +261,8 @@ RSpec.describe RuboCop::Cop::Capybara::VisibilityOption do
     end
   end
 
-  context 'with an unknown default selector' do
-    let(:cop_config) { { 'DefaultSelector' => nil } }
+  context 'when RuboCop removes a null DefaultSelector' do
+    let(:cur_cop_config) { super().reject { |key| key == 'DefaultSelector' } }
 
     it 'does not infer a selector from the locator' do
       expect_no_offenses(<<~RUBY)
