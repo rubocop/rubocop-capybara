@@ -34,8 +34,6 @@ module RuboCop
         extend AutoCorrector
         include CapybaraHelp
 
-        MSG_FALSE = 'Use `:all` or `:hidden` instead of `false`.'
-        MSG_TRUE = 'Use `:visible` instead of `true`.'
         RESTRICT_ON_SEND = QueryMethods.names(
           :finder, :collection, :selector, :match, :action, :grouped
         ).difference(CapybaraHelp::VISIBILITY_MATCHER_METHODS).freeze
@@ -86,9 +84,13 @@ module RuboCop
         end
 
         def check_visibility(pair)
-          return add_offense(pair, message: MSG_FALSE) if pair.value.false_type?
+          if pair.value.false_type?
+            return add_offense(pair, message: CapybaraHelp::VISIBILITY_FALSE_MESSAGE)
+          end
 
-          add_offense(pair, message: MSG_TRUE) do |corrector|
+          add_offense(
+            pair, message: CapybaraHelp::VISIBILITY_TRUE_MESSAGE
+          ) do |corrector|
             corrector.replace(pair.value, ':visible')
           end
         end

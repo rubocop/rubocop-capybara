@@ -6,6 +6,24 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::VisibilityMatcher do
       expect(page).to have_selector('.my_element', visible: true)
                                                    ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
     RUBY
+
+    expect_correction(<<~RUBY)
+      expect(page).to have_selector('.my_element', visible: :visible)
+    RUBY
+  end
+
+  it 'corrects negative matchers and explicitly typed selectors' do
+    expect_offense(<<~RUBY)
+      expect(page).to have_no_css('.profile', visible: true)
+                                              ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      expect(page).to have_selector(:css, '.my_element', visible: true)
+                                                         ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(page).to have_no_css('.profile', visible: :visible)
+      expect(page).to have_selector(:css, '.my_element', visible: :visible)
+    RUBY
   end
 
   it 'registers an offense when using `visible: false`' do
@@ -13,6 +31,56 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::VisibilityMatcher do
       expect(page).to have_selector('.my_element', visible: false)
                                                    ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
     RUBY
+
+    expect_no_corrections
+  end
+
+  it 'does not correct options with custom selectors or filters' do
+    expect_offense(<<~RUBY)
+      expect(page).to have_selector(:custom, '.x', visible: true)
+                                                   ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      expect(page).to have_css('.x', filter_set: :custom, visible: true)
+                                                          ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      expect(page).to have_selector(selector, '.x', visible: true)
+                                                    ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      expect(page).to have_css('.x', **options, visible: true)
+                                                ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      expect(page).to have_css('.x', { visible: true })
+                                       ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+    RUBY
+
+    expect_no_corrections
+  end
+
+  context 'with a custom default selector' do
+    let(:cop_config) { { 'DefaultSelector' => 'custom' } }
+
+    it 'corrects explicit built-in selectors only' do
+      expect_offense(<<~RUBY)
+        expect(page).to have_selector('.x', visible: true)
+                                            ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+        expect(page).to have_selector(:css, '.my_element', visible: true)
+                                                           ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(page).to have_selector('.x', visible: true)
+        expect(page).to have_selector(:css, '.my_element', visible: :visible)
+      RUBY
+    end
+  end
+
+  context 'when RuboCop removes a null DefaultSelector' do
+    let(:cur_cop_config) { super().reject { |key| key == 'DefaultSelector' } }
+
+    it 'registers an offense without inferring CSS for an untyped matcher' do
+      expect_offense(<<~RUBY)
+        expect(page).to have_selector('.x', visible: true)
+                                            ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      RUBY
+
+      expect_no_corrections
+    end
   end
 
   it 'recognizes multiple matchers' do
