@@ -26,6 +26,20 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::VisibilityMatcher do
     RUBY
   end
 
+  it 'corrects matchers without positional arguments' do
+    expect_offense(<<~RUBY)
+      expect(page).to have_selector(visible: true)
+                                    ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      expect(page).to have_no_selector(visible: true)
+                                       ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(page).to have_selector(visible: :visible)
+      expect(page).to have_no_selector(visible: :visible)
+    RUBY
+  end
+
   it 'registers an offense when using `visible: false`' do
     expect_offense(<<~RUBY)
       expect(page).to have_selector('.my_element', visible: false)
@@ -43,10 +57,31 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::VisibilityMatcher do
                                                           ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
       expect(page).to have_selector(selector, '.x', visible: true)
                                                     ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      expect(page).to have_selector(locator, visible: true)
+                                             ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
       expect(page).to have_css('.x', **options, visible: true)
                                                 ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      expect(page).to have_css('.x', key => :custom, visible: true)
+                                                     ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
       expect(page).to have_css('.x', { visible: true })
                                        ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'reports false visibility with custom selectors or filters' do
+    expect_offense(<<~RUBY)
+      expect(page).to have_selector(:custom, '.x', visible: false)
+                                                   ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_css('.x', filter_set: :custom, visible: false)
+                                                          ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_css('.x', **options, visible: false)
+                                                ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_css('.x', key => :custom, visible: false)
+                                                     ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_css('.x', { visible: false })
+                                       ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
     RUBY
 
     expect_no_corrections
@@ -59,12 +94,15 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::VisibilityMatcher do
       expect_offense(<<~RUBY)
         expect(page).to have_selector('.x', visible: true)
                                             ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+        expect(page).to have_selector(visible: true)
+                                      ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
         expect(page).to have_selector(:css, '.my_element', visible: true)
                                                            ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
       RUBY
 
       expect_correction(<<~RUBY)
         expect(page).to have_selector('.x', visible: true)
+        expect(page).to have_selector(visible: true)
         expect(page).to have_selector(:css, '.my_element', visible: :visible)
       RUBY
     end
@@ -77,6 +115,8 @@ RSpec.describe RuboCop::Cop::Capybara::RSpec::VisibilityMatcher do
       expect_offense(<<~RUBY)
         expect(page).to have_selector('.x', visible: true)
                                             ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+        expect(page).to have_selector(visible: true)
+                                      ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
       RUBY
 
       expect_no_corrections

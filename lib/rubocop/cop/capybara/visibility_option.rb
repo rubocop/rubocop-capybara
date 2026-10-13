@@ -33,6 +33,7 @@ module RuboCop
       class VisibilityOption < RuboCop::Cop::Base
         extend AutoCorrector
         include CapybaraHelp
+        include Visibility
 
         RESTRICT_ON_SEND = QueryMethods.names(
           :finder, :collection, :selector, :match, :action, :grouped
@@ -43,11 +44,6 @@ module RuboCop
           (call #capybara_receiver? _ <$(hash ...) ...>)
         PATTERN
 
-        # @!method custom_filters?(node)
-        def_node_matcher :custom_filters?, <<~PATTERN
-          (hash <{(pair (sym :filter_set) _) (pair !sym _) kwsplat} ...>)
-        PATTERN
-
         # @!method boolean_visibility?(node)
         def_node_matcher :boolean_visibility?, <<~PATTERN
           (pair (sym :visible) boolean)
@@ -55,45 +51,13 @@ module RuboCop
 
         def on_send(node)
           return unless (options = visibility_options(node))
-          return if options.braces?
-          return if custom_filters?(options) || custom_selector?(node)
+          return unless supported_visibility_query?(node, options)
 
           options.pairs.each do |pair|
             check_visibility(pair) if boolean_visibility?(pair)
           end
         end
         alias on_csend on_send
-
-        private
-
-        def custom_selector?(node)
-          QueryMethods.selector(node.method_name) == :selector &&
-            !QueryMethods.built_in_selector?(query_selector(node))
-        end
-
-        def query_selector(node)
-          selector = node.first_argument
-          return selector.value if selector&.sym_type?
-
-          positional = node.arguments.reject do |arg|
-            arg.type?(:hash, :block_pass)
-          end
-          return if positional.length > 1 && !selector.str_type?
-
-          cop_config['DefaultSelector'].to_s.to_sym
-        end
-
-        def check_visibility(pair)
-          if pair.value.false_type?
-            return add_offense(pair, message: CapybaraHelp::VISIBILITY_FALSE_MESSAGE)
-          end
-
-          add_offense(
-            pair, message: CapybaraHelp::VISIBILITY_TRUE_MESSAGE
-          ) do |corrector|
-            corrector.replace(pair.value, ':visible')
-          end
-        end
       end
     end
   end
