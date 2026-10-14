@@ -21,6 +21,20 @@ RSpec.describe RuboCop::Cop::Capybara::VisibilityOption do
     expect_no_corrections
   end
 
+  it 'uses the default selector without a literal locator' do
+    expect_offense(<<~RUBY)
+      find(visible: true)
+           ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+      find(locator, visible: true)
+                    ^^^^^^^^^^^^^ Use `:visible` instead of `true`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find(visible: :visible)
+      find(locator, visible: :visible)
+    RUBY
+  end
+
   it 'registers offenses for actions, predicates, and assertions' do
     expect_offense(<<~RUBY)
       click_button('Save', visible: false)

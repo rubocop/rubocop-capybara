@@ -34,6 +34,7 @@ module RuboCop
         #
         class VisibilityMatcher < RuboCop::Cop::Base
           extend AutoCorrector
+          include Visibility
 
           RESTRICT_ON_SEND = CapybaraHelp::VISIBILITY_MATCHER_METHODS
 
@@ -47,21 +48,10 @@ module RuboCop
             (send nil? #capybara_matcher? ... (hash <$(pair (sym :visible) false) ...>))
           PATTERN
 
-          # @!method custom_filters?(node)
-          def_node_matcher :custom_filters?, <<~PATTERN
-            (hash <{(pair (sym :filter_set) _) (pair !sym _) kwsplat} ...>)
-          PATTERN
-
           def on_send(node)
-            false_msg = CapybaraHelp::VISIBILITY_FALSE_MESSAGE
-            true_msg = CapybaraHelp::VISIBILITY_TRUE_MESSAGE
-            visible_false?(node) { |arg| add_offense(arg, message: false_msg) }
+            visible_false?(node) { |arg| check_visibility(arg) }
             visible_true?(node) do |arg|
-              add_offense(arg, message: true_msg) do |corrector|
-                next unless autocorrectable?(node, arg)
-
-                corrector.replace(arg.value, ':visible')
-              end
+              check_visibility(arg) { autocorrectable?(node, arg) }
             end
           end
 
@@ -72,18 +62,13 @@ module RuboCop
           end
 
           def autocorrectable?(node, pair)
-            options = pair.parent
-            return false if options.braces? || custom_filters?(options)
-            return true if QueryMethods.selector(node.method_name) != :selector
-
-            selector = node.first_argument
-            if selector&.sym_type?
-              return QueryMethods.built_in_selector?(selector.value)
+            if QueryMethods.selector(node.method_name) == :selector
+              selector = node.first_argument
+              # An unknown argument may be a custom selector name.
+              return false unless selector.type?(:hash, :sym, :str, :dstr)
             end
-            return false unless selector&.type?(:str, :dstr)
 
-            default = cop_config['DefaultSelector'].to_s.to_sym
-            QueryMethods.built_in_selector?(default)
+            supported_visibility_query?(node, pair.parent)
           end
         end
       end
