@@ -171,8 +171,9 @@ Avoid chaining `find` methods and combine selectors.
 
 Combining selectors into a single `find` call is more efficient than
 chaining multiple `find` calls, as it reduces the number of DOM queries.
-Only recognizable Capybara finder chains with string locators are
-checked.
+Only recognizable Capybara finder chains with string locators and no
+options or filter blocks are checked. These filters apply to individual
+elements in the chain and cannot simply be moved to the combined call.
 Set `DefaultSelector` to match `Capybara.default_selector`, or to
 `null` if it varies at runtime. Autocorrection requires `css` and
 literal strings.
@@ -190,6 +191,8 @@ page.find('#foo').find('.bar').find('.baz')
 page.find('#foo .bar')
 page.find('#foo .bar .baz')
 find('#form').find(:button, 'Save')
+find('.a', exact_text: 'foo').find('.b')
+find('.a') { |el| el.text == 'foo' }.find('.b')
 ----
 
 [#configurable-attributes-capybarachainedfind]

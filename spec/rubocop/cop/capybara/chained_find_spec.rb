@@ -83,43 +83,63 @@ RSpec.describe RuboCop::Cop::Capybara::ChainedFind, :config do
     RUBY
   end
 
-  it 'registers an offense but does not autocorrect when first ' \
-     'find has options' do
-    expect_offense(<<~RUBY)
+  it 'does not register an offense when the first find has options' do
+    expect_no_offenses(<<~RUBY)
+      find('.a', exact_text: 'foo').find('.b')
       page.find('#foo', text: 'baz').find('.bar')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid chaining `find` methods. Combine the selectors into a single `find` call.
+      page&.find('.a', exact_text: 'foo')&.find('.b')
     RUBY
-
-    expect_no_corrections
   end
 
-  it 'registers an offense but does not autocorrect when second ' \
-     'find has options' do
-    expect_offense(<<~RUBY)
+  it 'does not register an offense when the second find has options' do
+    expect_no_offenses(<<~RUBY)
       page.find('#foo').find('.bar', visible: true)
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid chaining `find` methods. Combine the selectors into a single `find` call.
     RUBY
-
-    expect_no_corrections
   end
 
-  it 'registers an offense but does not autocorrect when both ' \
-     'finds have options' do
-    expect_offense(<<~RUBY)
+  it 'does not register an offense when both finds have options' do
+    expect_no_offenses(<<~RUBY)
       page.find('#foo', text: 'baz').find('.bar', match: :first)
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid chaining `find` methods. Combine the selectors into a single `find` call.
     RUBY
-
-    expect_no_corrections
   end
 
-  it 'registers an offense but does not autocorrect when find has a block' do
-    expect_offense(<<~RUBY)
+  it 'does not register an offense when the first find has a block' do
+    expect_no_offenses(<<~RUBY)
       page.find('#foo') { |el| el.text }.find('.bar')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid chaining `find` methods. Combine the selectors into a single `find` call.
     RUBY
+  end
 
-    expect_no_corrections
+  it 'does not register an offense when the second find has a block' do
+    expect_no_offenses(<<~RUBY)
+      page.find('#foo').find('.bar') { |el| el.text }
+    RUBY
+  end
+
+  it 'does not register an offense with a passed filter block' do
+    expect_no_offenses(<<~RUBY)
+      page.find('#foo', &filter).find('.bar')
+      page.find('#foo').find('.bar', &filter)
+    RUBY
+  end
+
+  it 'does not register an offense with keyword splats' do
+    expect_no_offenses(<<~RUBY)
+      page.find('#foo', **options).find('.bar')
+      page.find('#foo').find('.bar', **options)
+    RUBY
+  end
+
+  it 'does not register an offense for longer chains with options' do
+    expect_no_offenses(<<~RUBY)
+      find('.a', exact_text: 'foo').find('.b').find('.c')
+      find('.a').find('.b', exact_text: 'foo').find('.c')
+    RUBY
+  end
+
+  it 'does not register an offense for longer chains with a filter block' do
+    expect_no_offenses(<<~RUBY)
+      find('.a') { |el| el.text == 'foo' }.find('.b').find('.c')
+    RUBY
   end
 
   it 'does not autocorrect comma selectors' do
