@@ -493,6 +493,9 @@ find('div').click_button
 
 Checks if there is a more specific finder offered by Capybara.
 
+CSS input selectors are not replaced with `find_field` because they may
+match different elements from Capybara's `:field` selector.
+
 [#examples-capybaraspecificfinders]
 === Examples
 
@@ -505,15 +508,13 @@ find(:css, '#some-id')
 find(:id, 'some-id')
 find(:link, 'Home')
 find(:field, 'Name')
-find('input[placeholder="Email"]')
-find(:css, 'input[type="checkbox"]')
 
 # good
 find_by_id('some-id')
 find_link('Home')
 find_field('Name')
-find_field(placeholder: 'Email')
-find_field(type: 'checkbox')
+find('input[placeholder="Email"]')
+find(:css, 'input[type="checkbox"]')
 ----
 
 [#references-capybaraspecificfinders]
