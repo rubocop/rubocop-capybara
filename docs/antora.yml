@@ -1,5 +1,6 @@
 name: rubocop-capybara
 title: RuboCop Capybara
-version: ~
+# No version here: docs.rubocop.org derives it from the release tag
+# (v3.2.0 becomes 3.2), so patch versions don't appear in the docs.
 nav:
   - modules/ROOT/nav.adoc
