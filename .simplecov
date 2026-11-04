@@ -2,6 +2,7 @@
 
 SimpleCov.configure do
   enable_coverage :branch
-  minimum_coverage line: 99.54, branch: 95.45
+  coverage :line, minimum: 99.85
+  coverage :branch, minimum: 97.84, ignore: :implicit_else
   skip ['/spec/', '/vendor/bundle/']
 end

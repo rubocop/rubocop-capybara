@@ -224,10 +224,6 @@ module RuboCop
               'be_truthy'
             when [false, false]
               'be_falsey'
-            else
-              # :nocov:
-              :noop
-              # :nocov:
             end
           end
           # rubocop:enable Metrics/MethodLength
@@ -290,10 +286,6 @@ module RuboCop
               check_inflected(node)
             elsif style == :explicit
               check_explicit(node)
-            else
-              # :nocov:
-              :noop
-              # :nocov:
             end
           end
 
