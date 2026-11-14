@@ -8,7 +8,7 @@ module RuboCop
   module Capybara
     # A plugin that integrates RuboCop Capybara with RuboCop's plugin system.
     class Plugin < LintRoller::Plugin
-      # :nocov:
+      # simplecov:disable
       def about
         LintRoller::About.new(
           name: 'rubocop-capybara',
@@ -17,7 +17,7 @@ module RuboCop
           description: 'Code style checking for Capybara test files.'
         )
       end
-      # :nocov:
+      # simplecov:enable
 
       def supported?(context)
         context.engine == :rubocop
