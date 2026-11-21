@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Fix false positives for `Capybara/SpecificFinders` with CSS input selectors. ([@ydah])
+
 ## 3.1.0 (2026-10-16)
 
 - Add new `Capybara/UnorderedWindowAccess` cop. ([@ydah])

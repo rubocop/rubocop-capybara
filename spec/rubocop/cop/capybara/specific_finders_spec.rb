@@ -35,17 +35,33 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
     RUBY
   end
 
-  it 'registers an offense when using `find` with input field attributes' do
-    expect_offense(<<~RUBY)
+  it 'does not replace CSS input selectors with a broader field selector' do
+    expect_no_offenses(<<~RUBY)
       find('input[placeholder="City"]')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_field` over `find`.
-      find(:css, 'input[type="checkbox"]')
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_field` over `find`.
+      find(:css, 'input[name="q"]')
+      find('input[id="q"]')
     RUBY
+  end
 
-    expect_correction(<<~RUBY)
-      find_field(placeholder: 'City')
-      find_field(type: 'checkbox')
+  it 'does not replace case-insensitive CSS input type selectors' do
+    expect_no_offenses(<<~RUBY)
+      find('input[type="search"]').set('us')
+      page.find(:css, 'input[type="search"]', visible: :all)
+      find(:css, 'input[type="checkbox"]')
+      find('input[type="SEARCH"]')
+    RUBY
+  end
+
+  it 'does not replace an exact CSS class attribute with a class filter' do
+    expect_no_offenses(<<~RUBY)
+      find('input[type="search"][class="query"]')
+    RUBY
+  end
+
+  it 'does not replace input types interpreted as other field elements' do
+    expect_no_offenses(<<~RUBY)
+      find('input[type="select"]')
+      find('input[type="textarea"]')
     RUBY
   end
 
@@ -572,6 +588,21 @@ RSpec.describe RuboCop::Cop::Capybara::SpecificFinders do
 
     expect_correction(<<~RUBY)
       find_field('Email', visible: false)
+    RUBY
+  end
+
+  it 'preserves receiver, options and block for an explicit field selector' do
+    expect_offense(<<~RUBY)
+      page.find(:field, 'q', disabled: :all) do |node|
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_field` over `find`.
+        node.disabled?
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      page.find_field('q', disabled: :all) do |node|
+        node.disabled?
+      end
     RUBY
   end
 

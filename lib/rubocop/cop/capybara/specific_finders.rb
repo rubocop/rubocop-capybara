@@ -6,41 +6,18 @@ module RuboCop
       # Help methods for SpecificFinders.
       # @api private
       module SpecificFindersHelp
-        MESSAGE = 'Prefer `%<good_finder>s` over `find`.'
-        FIELD_OPTIONS = CapybaraHelp::SPECIFIC_OPTIONS['field']
-        FIELD_SELECTOR_PATTERN = /\Ainput(?:\[.+\])+\z/.freeze
-        UNSAFE_FIELD_TYPES = %w[hidden image submit].freeze
-        FIELD_STATE_OPTIONS = %w[checked disabled multiple readonly].freeze
-
         module_function
-
-        def field_selector?(arg)
-          return false unless FIELD_SELECTOR_PATTERN.match?(arg)
-
-          attrs = CssSelector.attributes(arg)
-          type = attrs['type'].to_s.downcase
-          return false if UNSAFE_FIELD_TYPES.include?(type)
-          return false if (attrs.keys & FIELD_STATE_OPTIONS).any?
-
-          CapybaraHelp.replaceable_attributes?(attrs) &&
-            attrs.keys.all? { |attr| FIELD_OPTIONS.include?(attr) }
-        end
-
-        def options(attrs)
-          attrs.filter_map { |key, value| "#{key}: #{yield(value)}" }.join(', ')
-        end
 
         def unsupported_selector?(arg)
           CssSelector.pseudo_classes(arg).any? ||
             CssSelector.multiple_selectors?(arg)
         end
-
-        def message(finder)
-          format(MESSAGE, good_finder: finder)
-        end
       end
 
       # Checks if there is a more specific finder offered by Capybara.
+      #
+      # CSS input selectors are not replaced with `find_field` because they may
+      # match different elements from Capybara's `:field` selector.
       #
       # @example
       #   # bad
@@ -50,15 +27,13 @@ module RuboCop
       #   find(:id, 'some-id')
       #   find(:link, 'Home')
       #   find(:field, 'Name')
-      #   find('input[placeholder="Email"]')
-      #   find(:css, 'input[type="checkbox"]')
       #
       #   # good
       #   find_by_id('some-id')
       #   find_link('Home')
       #   find_field('Name')
-      #   find_field(placeholder: 'Email')
-      #   find_field(type: 'checkbox')
+      #   find('input[placeholder="Email"]')
+      #   find(:css, 'input[type="checkbox"]')
       #
       class SpecificFinders < RuboCop::Cop::Base # rubocop:disable Metrics/ClassLength
         extend AutoCorrector
@@ -120,10 +95,6 @@ module RuboCop
           return on_sym_id(node, sym, arg) if id_symbol?(sym)
           return on_sym_selector(node, sym) if selector_symbol?(sym)
           return if SpecificFindersHelp.unsupported_selector?(arg)
-
-          if SpecificFindersHelp.field_selector?(arg)
-            return on_field(node, sym, arg)
-          end
           return on_attr(node, sym, arg) if attribute?(arg)
 
           on_id(node, sym, arg) if CssSelector.id?(arg)
@@ -147,23 +118,6 @@ module RuboCop
 
         def on_sym_id(node, sym, id)
           register_offense(node, sym, ruby_literal(id))
-        end
-
-        def on_field(node, sym, arg)
-          add_offense(
-            offense_range(node),
-            message: SpecificFindersHelp.message('find_field')
-          ) do |corrector|
-            corrector.replace(node.loc.selector, 'find_field')
-            corrector.replace(node.first_argument, field_options(arg))
-            corrector.remove(deletion_range(node)) unless sym.empty?
-          end
-        end
-
-        def field_options(arg)
-          SpecificFindersHelp.options(CssSelector.attributes(arg)) do |value|
-            ruby_literal(value)
-          end
         end
 
         def attribute?(arg)
