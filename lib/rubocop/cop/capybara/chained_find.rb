@@ -7,8 +7,9 @@ module RuboCop
       #
       # Combining selectors into a single `find` call is more efficient than
       # chaining multiple `find` calls, as it reduces the number of DOM queries.
-      # Only recognizable Capybara finder chains with string locators are
-      # checked.
+      # Only recognizable Capybara finder chains with string locators and no
+      # options or filter blocks are checked. These filters apply to individual
+      # elements in the chain and cannot simply be moved to the combined call.
       # Set `DefaultSelector` to match `Capybara.default_selector`, or to
       # `null` if it varies at runtime. Autocorrection requires `css` and
       # literal strings.
@@ -22,6 +23,8 @@ module RuboCop
       #   page.find('#foo .bar')
       #   page.find('#foo .bar .baz')
       #   find('#form').find(:button, 'Save')
+      #   find('.a', exact_text: 'foo').find('.b')
+      #   find('.a') { |el| el.text == 'foo' }.find('.b')
       #
       class ChainedFind < RuboCop::Cop::Base # rubocop:disable Metrics/ClassLength
         extend AutoCorrector
@@ -45,6 +48,7 @@ module RuboCop
           return unless find_receiver
           return unless string_locators?(node, find_receiver)
           return unless capybara_receiver?(find_receiver.receiver)
+          return unless unfiltered_find_chain?(node)
 
           register_offense(node, find_receiver)
         end
@@ -70,6 +74,16 @@ module RuboCop
         def unwrapped_receiver(block_node)
           send_node = block_node.send_node
           send_node if send_node.method?(:find)
+        end
+
+        def unfiltered_find_chain?(node)
+          while node
+            return false unless node.arguments.one? && !node.block_node
+
+            node = node.receiver && find_receiver(node.receiver)
+          end
+
+          true
         end
 
         def register_offense(node, find_receiver)
