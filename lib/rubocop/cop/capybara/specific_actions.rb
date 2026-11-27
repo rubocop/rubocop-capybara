@@ -26,6 +26,7 @@ module RuboCop
           'button' => 'button',
           'a' => 'link'
         }.freeze
+        ATTRIBUTE_PATTERN = /\[(?:'[^']*'|"[^"]*"|[^\]'"])*\]/.freeze
 
         # @!method click_on_selector(node)
         def_node_matcher :click_on_selector, <<~PATTERN
@@ -73,7 +74,7 @@ module RuboCop
         end
 
         def last_selector(arg)
-          without_attributes = arg.gsub(/\[(?:'[^']*'|"[^"]*"|[^\]])*\]/) do |m|
+          without_attributes = arg.gsub(ATTRIBUTE_PATTERN) do |m|
             m.gsub(/\s/, '')
           end
           without_attributes.split.last&.[](/^[\w-]+/, 0)

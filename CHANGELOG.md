@@ -2,6 +2,8 @@
 
 ## Edge (Unreleased)
 
+- Fix exponential regexp backtracking in `Capybara/SpecificActions` and `Capybara/SpecificFinders` on Ruby < 3.2. ([@bquorning])
+
 ## 3.1.0 (2026-10-16)
 
 - Add new `Capybara/UnorderedWindowAccess` cop. ([@ydah])
