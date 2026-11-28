@@ -1,6 +1,8 @@
 name: Mdformat
 on:
   pull_request:
+permissions:
+  contents: read
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
@@ -10,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Mdformat
         uses: ydah/mdformat-action@f15b43346e95022e0728b75ac90142f5db3c4016 # v1.0.1
         with:
