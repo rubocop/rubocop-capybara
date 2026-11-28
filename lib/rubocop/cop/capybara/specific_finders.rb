@@ -8,7 +8,7 @@ module RuboCop
       module SpecificFindersHelp
         MESSAGE = 'Prefer `%<good_finder>s` over `find`.'
         FIELD_OPTIONS = CapybaraHelp::SPECIFIC_OPTIONS['field']
-        FIELD_SELECTOR_PATTERN = /\Ainput(?:\[.+\])+\z/.freeze
+        FIELD_SELECTOR_PATTERN = /\Ainput(?:\[[^\]]+\])+\z/.freeze
         UNSAFE_FIELD_TYPES = %w[hidden image submit].freeze
         FIELD_STATE_OPTIONS = %w[checked disabled multiple readonly].freeze
 
